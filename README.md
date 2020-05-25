@@ -1,5 +1,6 @@
 # CS50 Final Project
 ## Sudoke Puzzle Creator and Solver
+This is the repository for the final project for Computer Science 50-- a sudoku puzzle creator and solver.
 
 ### Contributors (Github username)
 * Ethan Trepka (et22)
@@ -10,5 +11,3 @@
 To build, run `make`.
 
 To clean up, run `make clean`.
-
-This is the repository for the final project for Computer Science 50-- a sudoku puzzle creator and solver.
