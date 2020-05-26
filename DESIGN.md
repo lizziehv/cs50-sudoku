@@ -53,7 +53,7 @@ We anticipate the following modules or functions:
  3. *check_valid(sudoku)*, checks if the given puzzle is valid
 
 #### Common library
- 1. *sudoku_print(sudoku, file)*, which prints a given sudoku puzzle to the command line with 0s for empty squares
+ 1. *sudoku_print(sudoku)*, which prints a given sudoku puzzle to the command line with 0s for empty squares
  2. *parse_sudoku(file)*, which reads a puzzle from a file and creates a data structure for the 9x9 grid
  3. *check_entry(sudoku, row, column, entry)* checks to see if a given entry is added in that specific row or column is valid (row, column, and square)
 
