@@ -55,6 +55,7 @@ We anticipate the following modules or functions:
 #### Common library
  1. *sudoku_print(sudoku, file)*, which prints a given sudoku puzzle to the command line with 0s for empty squares
  2. *parse_sudoku(file)*, which reads a puzzle from a file and creates a data structure for the 9x9 grid
+ 3. *check_entry(sudoku, row, column, entry)* checks to see if a given entry is added in that specific row or column is valid (row, column, and square)
 
 And some helper modules that provide data structures:
  1. *set* maps from a sudoku squares specified by (i,j) pairs to possible numbers that could go in those squares
