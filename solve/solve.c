@@ -1,24 +1,25 @@
 /* 
  * solve.c 
- * see IMPLEMENTATION.md and DESIGN.md for more information.
+ * see solve.h for details
  *
  * Maria Paula Mora, Lizzie Hernandez, Ethan Trepka, and Kshitij Jain 
  * May 2020
- * Purpose: solve a given sudoku
+ * Purpose: Write code to solve a given sudoku puzzle
  */
 
-#include <stdio.h>
-#include <stdlib.h>
 #include <stdbool.h>
+#include "solve.h"
 
-/**************** Global functions ****************/
+/**************** Local functions ****************/
+/************ (Not visible outside) **************/
+bool solve_recursively(int sudoku[9][9], int row, int column);
 
-/* solves a given sudoku
-* if there is no solution, returns NULL */
+/*** solve, which calls a recursive function ***/
 bool solve(int sudoku[9][9]) {
     return solve_recursively(sudoku, 0, 0);
 }
 
+/*** recursive function to solve part of a sudoku ***/
 bool solve_recursively(int sudoku[9][9], int row, int column){
     /* check if all entries have been visited */
     if(row == 9 && column == 0){
