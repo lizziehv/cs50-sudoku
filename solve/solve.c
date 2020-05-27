@@ -18,3 +18,9 @@
 int** solve(int** sudoku) {
 
 }
+
+bool checkValid(int** sudoku){
+    // Check for every number if it occurs only once in a row
+    // Check for every number if it occurs only once in a column
+    // Check if every number is in the square box only once
+}

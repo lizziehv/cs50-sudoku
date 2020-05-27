@@ -30,3 +30,9 @@ bool check_entry(int** Sudoku, int row, int column, int entry) {
     // NEEDS TO BE FILLED
     return true;
 }
+
+// Parse the sudoku from the command line
+int ** parseSudoku(){
+    int ** sudoku;
+    return sudoku;
+}
