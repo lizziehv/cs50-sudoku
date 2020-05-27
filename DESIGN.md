@@ -42,18 +42,16 @@ A board is defined as:
 We anticipate the following modules or functions:
 
 #### Create module
- 1. *main*, which parses arguments and initializes other modules, initialize data structure sudoku
- 3. *sudoku_build(sudoku)* builds a sudoku with the specifications mentioned above
- 4. *create_puzzle(sudoku)* edits the sudoku by adding the zeros in to create a puzzle, calls *check_unique_solution(sudoku)* to see if the zeros added are correct
- 5. *check_unique_solution(sudoku)* checks to see if the sudoku that was build has a unique solution
+ 1. *sudoku_build(sudoku)* builds a sudoku with the specifications mentioned above
+ 2. *create_puzzle(sudoku)* edits the sudoku by adding the zeros in to create a puzzle, calls *check_unique_solution(sudoku)* to see if the zeros added are correct
+ 3. *check_unique_solution(sudoku)* checks to see if the sudoku that was build has a unique solution
 
 #### Solve module
- 1. *main*, calls the necessary functions to solve and prints the solved puzzle
- 2. *solve(sudoku)*, given a struct with the loaded puzzle, it solves and returns the solved struct
- 3. *check_valid(sudoku)*, checks if the given puzzle is valid
+ 1. *solve(sudoku)*, given a struct with the loaded puzzle, it solves and returns the solved struct
+ 2. *check_valid(sudoku)*, checks if the given puzzle is valid
 
 #### Common library
- 1. *sudoku_print(sudoku, file)*, which prints a given sudoku puzzle to the command line with 0s for empty squares
+ 1. *sudoku_print(sudoku)*, which prints a given sudoku puzzle to the command line with 0s for empty squares
  2. *parse_sudoku(file)*, which reads a puzzle from a file and creates a data structure for the 9x9 grid
  3. *check_entry(sudoku, row, column, entry)* checks to see if a given entry is added in that specific row or column is valid (row, column, and square)
 
