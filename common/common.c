@@ -14,6 +14,7 @@
 
 // prints the sudoku grid
 void print_sudoku(int Sudoku[9][9]) {
+    
     // for every row
     for (int i = 0; i < 9; i++) {
         // for every column

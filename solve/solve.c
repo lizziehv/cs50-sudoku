@@ -15,16 +15,6 @@
 
 /* solves a given sudoku
 * if there is no solution, returns NULL */
-int** solve(int** sudoku) {
-
-}
-
-bool checkValid(int** sudoku){
-    // Check for every number if it occurs only once in a row
-    // Check for every number if it occurs only once in a column
-    // Check if every number is in the square box only once
-
-}
 bool solve(int sudoku[9][9], int solution[9][9]) {
     return false; 
 }
