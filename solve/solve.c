@@ -15,6 +15,6 @@
 
 /* solves a given sudoku
 * if there is no solution, returns NULL */
-int** solve(int** sudoku) {
-
+bool solve(int sudoku[9][9], int solution[9][9]) {
+    return false; 
 }

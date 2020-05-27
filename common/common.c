@@ -13,7 +13,7 @@
 #include <stdbool.h>
 
 // prints the sudoku grid
-void print_sudoku(int** Sudoku) {
+void print_sudoku(int Sudoku[9][9]) {
     
     // for every row
     for (int i = 0; i < 9; i++) {
@@ -26,7 +26,13 @@ void print_sudoku(int** Sudoku) {
 }
 
 // checks to see if you can add a specific entry and still have a valid grid
-bool check_entry(int** Sudoku, int row, int column, int entry) {
+bool check_entry(int Sudoku[9][9], int row, int column, int entry) {
     // NEEDS TO BE FILLED
     return true;
+}
+
+// reads a sudoku from a file (could be stdout)
+bool parse_sudoku(char* filename, int sudoku[9][9]) {
+    // NEEDS TO BE FILLED
+    return false; 
 }

@@ -13,33 +13,32 @@
 #include "../solve/solve.c"
 #include "../common/common.c"
 
+// checks to see if there is a solution to the given sudoku
+bool check_unique_solution(int sudoku[9][9]);
+
 /**************** Global functions ****************/
 
 /* fills in the grid with random numbers from 1-9 
 * follows the guidelines necessary for a Sudoku grid */
-void sudoku_build(int** sudoku) {
+void sudoku_build(int sudoku[9][9]) {
     int random_num; 
 
-    for (int diag = 0; diag < 9; diag++) {
-
-        // fill 3x3 boxes
-        for (int i = 0; i < 3; i++) {   // rows
-            for (int j = 0; j < 3; j++) {   // columns 
-                do { 
-                    random_num = (rand() % 9) + 1; //from (1-9)
-                } 
-                // while you can't add that value in, change the number
-                while (!check_entry(sudoku, diag+i, diag+j, random_num));
-
-                // add the value to the grid
-                sudoku[diag+i][diag+j] = random_num;
+    for (int i = 0; i < 9; i++) {   // rows
+        for (int j = 0; j < 9; j++) {   // columns 
+            do { 
+                random_num = (rand() % 9) + 1; //from (1-9)
             } 
+            // while you can't add that value in, change the number
+            while (!check_entry(sudoku, i, j, random_num));
+
+            // add the value to the grid
+            sudoku[i][j] = random_num;
         } 
-    }
+    } 
 }
 
 // creates the puzzle by erasing some of the values added above
-void create_puzzle(int** sudoku){
+void create_puzzle(int sudoku[9][9]){
     // delete 40 numbers
     for (int i = 0; i < 40; i++) {
         bool isUnique = true; // is there a unique solution if that number is deleted
@@ -89,9 +88,11 @@ void create_puzzle(int** sudoku){
 }
 
 // checks to see if there is a solution to the given sudoku
-bool check_unique_solution(int** sudoku) {
+bool check_unique_solution(int sudoku[9][9]) {
+    int solution[9][9];
+
     //The solver returns false when there's no solution
-    if (!solve(sudoku)) {
+    if (!solve(sudoku, solution)) {
         return false;
     }
     return true;
