@@ -76,8 +76,8 @@ void create_puzzle(int** sudoku){
                     if (!isUnique) {
                         // return the value to where it was
                         sudoku[delete_i][delete_j] = deleted_value;
+                        break;
                     } 
-                    break;
                 }
             }
         }
