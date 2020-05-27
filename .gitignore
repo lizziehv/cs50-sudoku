@@ -1,0 +1,4 @@
+# Any executable binary programs your Makefile produces
+
+sudoku.o
+sudoku
