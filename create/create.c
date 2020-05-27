@@ -35,7 +35,7 @@ void sudoku_build(int **sudoku)
                         random_num = (rand() % 9) + 1; //from (1-9)
                     }
                     // while you can't add that value in, change the number
-                    while (!check_entry(sudoku, diag + i, diag + j, random_num));
+                    while (!check_entry(sudoku, diag*3 + i, diag1*3 + j, random_num));
 
                     // add the value to the grid
                     sudoku[diag * 3 + i][diag1 * 3 + j] = random_num;
