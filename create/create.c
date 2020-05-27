@@ -93,19 +93,11 @@ void create_puzzle(int sudoku[9][9]){
 }
 
 // checks to see if there is a solution to the given sudoku
-<<<<<<< HEAD
 bool check_unique_solution(int sudoku[9][9]) {
     int solution[9][9];
 
     //The solver returns false when there's no solution
     if (!solve(sudoku, solution)) {
-=======
-bool check_unique_solution(int **sudoku)
-{
-    //The solver returns false when there's no solution
-    if (!solve(sudoku))
-    {
->>>>>>> 36bc3c301c4f22cafe383f449b48cc5fd0607aa9
         return false;
     }
     return true;
