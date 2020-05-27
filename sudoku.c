@@ -10,7 +10,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "./create/create.c"
+#include "create.h"
+#include "solve.h"
+#include "common.h"
 
 /**************** Main function ****************/
 int main(int argc, char *argv[]) {
@@ -31,13 +33,14 @@ int main(int argc, char *argv[]) {
     }
 
     else if (strcmp(argv[1], "solve") == 0 ) {
-        int solution[9][9];
+        /* Parse Sudoku */
+        parse_sudoku(stdin, sudoku);
 
-        if (!solve(sudoku, solution)) {
+        if (!solve(sudoku)) {
             printf("Sudoku given has no solution.\n");
         }
         else {
-            print_sudoku(solution);
+            print_sudoku(sudoku);
         }
     }
     
