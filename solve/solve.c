@@ -9,6 +9,7 @@
 
 #include <stdbool.h>
 #include "solve.h"
+#include "../common/common.h"
 
 /**************** Local functions ****************/
 /************ (Not visible outside) **************/
