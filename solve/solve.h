@@ -11,8 +11,9 @@
 #ifndef __SOLVE_H
 #define __SOLVE_H
 
-/* @param sudoku - an array of arrays(rows), where empty entries
- *                 are set to 0
+/******  solve()  ******/
+/* 
+ * @param sudoku - an array of arrays(rows), where empty entries are set to 0
  * @param solution - an empty array to copy solution onto
  * 
  * Given a sudoku with empty entries, complete Sudoku puzzle, following conventions 
@@ -26,7 +27,9 @@
  */
 bool solve(int sudoku[9][9], int solution[9][9]);
 
-/* @param sudoku - a sudoku matrix to complete entries onto
+/******  solve_recursively()  ******/
+/* 
+ * @param sudoku - a sudoku matrix to complete entries onto
  * @param row - row to start solving from (0 for the entire matrix)
  * @param column - column to start solving from (0 for the entire matrix)
  * 
