@@ -44,7 +44,7 @@ int main(int argc, char *argv[]) {
             }
         }
         else {
-            fprintf(stderr, "Sudoku given has incorrect format\n"); 
+            fprintf(stderr, "Sudoku given has incorrect format.\n"); 
             return 1; 
         }
     }

@@ -72,24 +72,22 @@ bool parse_sudoku(FILE* file, int sudoku[9][9]) {
 
     /* loop through entries */
     for(int i = 0; i<9; i++){
-        for(int j = 0; i<9; j++){
-            int entry;
-            fscanf(file, "%d", &entry);
-            sudoku[i][j] = entry;
+        for(int j = 0; j<9; j++){
+            
+            fscanf(file, "%d", &sudoku[i][j]);
         }
         /* Check valid format (9x9 matrix) */
         char c;
         fscanf(file, "%c", &c);
         if(c != '\n'){
-            fprintf(stderr, "Error: Invalid Sudoku format.");
             return false;
         }
     }
 
-     if(!check_valid(sudoku))
+    if(!check_valid(sudoku))
         return false;
 
-     return true; 
+    return true; 
 }
 
 /****************** Local functions ******************/
@@ -106,7 +104,7 @@ bool check_valid(int sudoku[9][9]){
         return false;
 
      for(int i = 0; i<9; i++){
-        for(int j = 0; i<9; j++){
+        for(int j = 0; j<9; j++){
             int entry = sudoku[i][j];
             if(entry != 0 && !check_entry(sudoku, i, j, entry)){
                 return false;
