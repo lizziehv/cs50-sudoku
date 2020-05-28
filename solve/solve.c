@@ -26,9 +26,15 @@ bool solve_recursively(int sudoku[9][9], int row, int column){
     if(row == 9 && column == 0){
         return true;
     }
-    /* Visit squares that have not yet been visited */
+    /* Visit squares that have not yet been visited, from left to right */
     for(int i=row; i<9; i++){
-        for(int j=column; j<9; j++){
+        int j;
+        if(i == row)
+            j = column;
+        else
+            j = 0;
+        
+        for( ; j<9; j++){
 
             /* check if entry is empty */
             if(sudoku[i][j] == 0){
