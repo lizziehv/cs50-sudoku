@@ -53,7 +53,8 @@ bool sudoku_build(int sudoku[9][9]) {
     }
     /* fill the rest, starting at row 0 and column 3
     * since the diagonal has already been filled */
-    if (!solve(sudoku)) {
+
+    if (!solve_recursively(sudoku, 0, 0)) {
         return false;
     }
     return true;
@@ -116,9 +117,9 @@ void create_puzzle(int sudoku[9][9]){
 
 // checks to see if there is a solution to the given sudoku
 static bool check_unique_solution(int sudoku[9][9]) {
-    
+    int solution[9][9];
     //The solver returns false when there's no solution
-    if (!solve(sudoku)) {
+    if (!solve(sudoku, solution)) {
         return false;
     }
     return true;
