@@ -13,7 +13,7 @@
 
 /**************** Local functions ****************/
 /************ (Not visible outside) **************/
-bool solve_recursively(int sudoku[9][9], int row, int column);
+static bool solve_recursively(int sudoku[9][9], int row, int column);
 
 /*** solve, which calls a recursive function ***/
 bool solve(int sudoku[9][9]) {
@@ -21,7 +21,7 @@ bool solve(int sudoku[9][9]) {
 }
 
 /*** recursive function to solve part of a sudoku ***/
-bool solve_recursively(int sudoku[9][9], int row, int column){
+static bool solve_recursively(int sudoku[9][9], int row, int column){
     /* check if all entries have been visited */
     if(row == 9 && column == 0){
         return true;

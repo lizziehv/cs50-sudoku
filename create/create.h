@@ -12,20 +12,11 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-/******  check_unique_solution()  ******/
-/* 
-* Checks if the given sudoku has a unique solution
-* RETURN: true if sudoku has unique solution
-*         false otherwise
-*/
-bool check_unique_solution(int sudoku[9][9]);
-
-
 /******  sudoku_build()  ******/
 /* 
 * Build a sudoku ny using random numbers
 */
-void sudoku_build(int sudoku[9][9]);
+bool sudoku_build(int sudoku[9][9]);
 
 
 /******  create_puzzle()  ******/
