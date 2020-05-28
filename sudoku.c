@@ -34,7 +34,7 @@ int main(int argc, char *argv[]) {
         }
         else {
             fprintf(stderr, "Error: Problem filling in sudoku.\n"); 
-            return 1; 
+            return 2; 
         }
     }
 
@@ -47,12 +47,13 @@ int main(int argc, char *argv[]) {
                 printf("Sudoku given has no solution.\n");
             }
             else {
+                printf("Solution:\n");
                 print_sudoku(solution);
             }
         }
         else {
             fprintf(stderr, "Error: Sudoku given has incorrect format.\n"); 
-            return 1; 
+            return 3; 
         }
     }
     
