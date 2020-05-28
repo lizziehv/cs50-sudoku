@@ -24,9 +24,10 @@ void print_sudoku(int sudoku[9][9]) {
     /* for every row */
     for (int i = 0; i < 9; i++) {
         /* for every column */
-        for (int j = 0; j < 9; j++) {
+        for (int j = 0; j < 8; j++) {
             printf("%d ", sudoku[i][j]);
         }
+        printf("%d", sudoku[i][8]);
         printf("\n");
     }
 }
