@@ -42,12 +42,13 @@ int main(int argc, char *argv[]) {
     else if (strcmp(argv[1], "solve") == 0 ) {
         /* Parse Sudoku */
         if (parse_sudoku(stdin, sudoku)) {
-
-            if (!solve(sudoku)) {
+            
+            int solution[9][9];
+            if (!solve(sudoku, solution)) {
                 printf("Sudoku given has no solution.\n");
             }
             else {
-                print_sudoku(sudoku);
+                print_sudoku(solution);
             }
         }
         else {

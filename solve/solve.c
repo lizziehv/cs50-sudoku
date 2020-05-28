@@ -13,15 +13,23 @@
 
 /**************** Local functions ****************/
 /************ (Not visible outside) **************/
-static bool solve_recursively(int sudoku[9][9], int row, int column);
+bool solve_recursively(int sudoku[9][9], int row, int column);
 
 /*** solve, which calls a recursive function ***/
-bool solve(int sudoku[9][9]) {
-    return solve_recursively(sudoku, 0, 0);
+bool solve(int sudoku[9][9], int solution[9][9]) {
+
+    /* Copy grid into a solution matrix */
+    for(int i = 0; i<9; i++){
+        for(int j = 0; j<9; j++){
+            solution[i][j] = sudoku[i][j];
+        }
+    }
+    
+    return solve_recursively(solution, 0, 0);
 }
 
 /*** recursive function to solve part of a sudoku ***/
-static bool solve_recursively(int sudoku[9][9], int row, int column){
+bool solve_recursively(int sudoku[9][9], int row, int column){
     /* check if all entries have been visited */
     if(row == 9 && column == 0){
         return true;
