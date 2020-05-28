@@ -92,6 +92,14 @@ bool parse_sudoku(FILE* file, int sudoku[9][9]) {
             
             fscanf(file, "%d", &sudoku[i][j]);
         }
+        
+        /* Check valid format (9x9 matrix) */
+        char c;
+        fscanf(file, "%c", &c);
+        if (c != '\n' && i != 8){
+            fprintf(stderr, "Error: Invalid Sudoku format.");
+            return false;
+        }
     }
 
     if(!check_valid(sudoku))
