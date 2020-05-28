@@ -86,12 +86,8 @@ bool sudoku_build(int sudoku[9][9]);
 void create_puzzle(int sudoku[9][9]);
 ```
 
-##### Output:
-- If the stdin is empty or an incorrect puzzle is given, it will print "Error: Sudoku given has incorrect format."
-- Otherwise, it will print the solved sudoku into stdout
-
 ##### Standard Input 
-Sudoku create prompts the user for a puzzle to solve which has certain specifications 
+Sudoku solve prompts the user for a puzzle to solve which has certain specifications 
 - No repeated numbers in every row
 - No repeated numbers in every column
 - No repeated numbers in every 3x3 squared region
@@ -111,6 +107,10 @@ A correct input would look like the following :
 ```
 
 After you have finished writting the puzzle and want to solve it, use Control + D. 
+
+##### Output:
+- If the stdin is empty or an incorrect puzzle is given, it will print "Error: Sudoku given has incorrect format."
+- Otherwise, it will print the solved sudoku into stdout
 
 #### Common description
 The documents `common.h` and `common.c` defines the following helper functions
