@@ -24,9 +24,10 @@ void print_sudoku(int sudoku[9][9]) {
     /* for every row */
     for (int i = 0; i < 9; i++) {
         /* for every column */
-        for (int j = 0; j < 9; j++) {
+        for (int j = 0; j < 8; j++) {
             printf("%d ", sudoku[i][j]);
         }
+        printf("%d", sudoku[i][8]);
         printf("\n");
     }
 }
@@ -35,15 +36,15 @@ void print_sudoku(int sudoku[9][9]) {
 /******  See common.h for details  ******/
 bool check_entry(int sudoku[9][9], int row, int column, int entry) {
     /* Loop through the rows to check column */
-    for (int r = 0; r < 9; r++){
-        if (sudoku[r][column]==entry && r!=row){
+    for (int r = 0; r < 9; r++) {
+        if (sudoku[r][column] == entry && r != row) {
             return false;
         } 
     }
 
     /* Loop through the columns to check row */
     for (int c = 0; c < 9; c++){
-        if (sudoku[row][c]==entry && c!=column){
+        if (sudoku[row][c] == entry && c != column) {
             return false;
         }
     }
@@ -51,9 +52,9 @@ bool check_entry(int sudoku[9][9], int row, int column, int entry) {
     /* Check box */
     int rbox = row/3;
     int cbox = column/3;
-    for (int i = rbox*3; i < (rbox*3)+3; i++){
-        for (int j = cbox*3; j < (cbox*3)+3; j++){
-            if (sudoku[i][j]==entry && i!=row && j!= column){
+    for (int i = rbox*3; i < (rbox*3)+3; i++) {
+        for (int j = cbox*3; j < (cbox*3)+3; j++) {
+            if (sudoku[i][j] == entry && i != row && j != column) {
                 return false;
             }
         }
@@ -67,7 +68,7 @@ bool check_box(int sudoku[9][9], int diag, int row, int column, int entry) {
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j<3; j++) {
             // if the entry is already in the 3x3 box 
-            if (sudoku[diag+i][diag+j]==entry) {
+            if (sudoku[diag+i][diag+j] == entry) {
                 return false;
             }
         } 
@@ -80,28 +81,40 @@ bool check_box(int sudoku[9][9], int diag, int row, int column, int entry) {
 /******  See common.h for details  ******/
 bool parse_sudoku(FILE* file, int sudoku[9][9]) {
     /* Ssome checks */
-    if(file == NULL) 
+    if (file == NULL) {
         return false;
-    if(sudoku == NULL) 
+    }
+    if (sudoku == NULL) {
         return false;
+    }
 
     /* loop through entries */
-    for(int i = 0; i<9; i++){
-        for(int j = 0; j<9; j++){
+    for (int i = 0; i<9; i++) {
+        for (int j = 0; j<9; j++) {
             
             fscanf(file, "%d", &sudoku[i][j]);
         }
+        
+        /* Check valid format (9x9 matrix) */
+        char c;
+        fscanf(file, "%c", &c);
+        if (c != '\n' && i != 8) {
+            fprintf(stderr, "Error: Invalid Sudoku format.");
+            return false;
+        }
     }
 
-    if(!check_valid(sudoku))
+    if (!check_valid(sudoku)) {
         return false;
+    }
 
     return true; 
 }
 
 /****************** Local functions ******************/
 
-/* @param sudoku - an array of arrays which are the rows
+/* 
+ * @param sudoku - an array of arrays which are the rows
  * 
  * Check if parsing produces a valid sudoku puzzle
  * 
@@ -109,13 +122,13 @@ bool parse_sudoku(FILE* file, int sudoku[9][9]) {
  *         false otherwise
  */
 bool check_valid(int sudoku[9][9]){
-    if(sudoku == NULL)
+    if (sudoku == NULL)
         return false;
 
-     for(int i = 0; i<9; i++){
-        for(int j = 0; j<9; j++){
+    for (int i = 0; i<9; i++) {
+        for (int j = 0; j<9; j++) {
             int entry = sudoku[i][j];
-            if(entry != 0 && !check_entry(sudoku, i, j, entry)){
+            if (entry != 0 && !check_entry(sudoku, i, j, entry)) {
                 return false;
             }
         }
