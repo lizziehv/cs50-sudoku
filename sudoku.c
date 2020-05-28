@@ -28,7 +28,6 @@ int main(int argc, char *argv[]) {
 
     // check what the parameters given are
     if (strcmp(argv[1], "create") == 0 ) {
-        printf("Called.\n");
         if (sudoku_build(sudoku)) {
             create_puzzle(sudoku);
             print_sudoku(sudoku);

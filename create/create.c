@@ -64,7 +64,6 @@ bool sudoku_build(int sudoku[9][9]) {
 // creates the puzzle by erasing some of the values added above
 void create_puzzle(int sudoku[9][9]){
     srand (time(NULL));
-    printf("Create puzzle.\n");
 
     // delete 40 numbers
     for (int i = 0; i < 40; i++) {
