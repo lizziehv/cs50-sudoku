@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include "common.h"
 
 /****************** Local functions ******************/
 bool check_valid(int sudoku[9][9]);

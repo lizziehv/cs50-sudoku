@@ -1,4 +1,6 @@
 # Any executable binary programs your Makefile produces
-
+common/common.o
+create/create.o
+solve/solve.o
 sudoku.o
 sudoku
