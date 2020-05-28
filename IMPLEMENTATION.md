@@ -28,6 +28,7 @@ bool solve(int sudoku[9][9], int solution[9][9]);
  */
 bool solve_recursively(int sudoku[9][9], int row, int column);
 ```
+
 #### Sudoku creator
 ```c
 /*
@@ -45,22 +46,42 @@ void create_puzzle(int sudoku[9][9], int num_removed);
 
 ```
 
-### Pseudocode for each component
+### Pseudocode for each object/components/functions
 
 #### Sudoku
 The sudoku runs as follows:
 - Execute from a command line and validate parameters
 - Initialize data structure to hold sudoku
 - If sudoku solver was called
-    - Parse sudoku from stdin
+    - Call `parse_sudoku` reading from stdin
     - Initialize a solution sudoku (initially empty)
-    - Call solver on sudoku and solution
-    - If solver is false
+    - Call `solve` on sudoku and solution
+    - If solve is false
         - Output "No solution"
-    - Otherwise, output solved sudoku
+    - Otherwise, call `print_sudoku` on solved sudoku
 - Else if sudoku create was called
-    - Call sudoku creator
-    - Output sudoku
+    - Call `sudoku_build` and `sudoku_ouzzle` on sudoku
+    - call `print_sudoku` on sudoku
+
+Some functions that are important for the solve and create function are found in `common.h` These are:
+
+#### print_sudoku
+- Loop through every row and column
+    - Print the digit in that space of the grid, followed by a space
+    - If it's the last column, don't add the space
+    - Instead add an end of line
+
+#### check_entry
+
+#### check_box
+- Loop through every row and column in the given diagonal (0-3)
+    - if the number in (diag + the loop, diag + the loop) is equal to the entry
+        - return false; this means that it would not be valid to add a number here
+- return true; it would be valid to add a number here
+
+#### parse_sudoku
+
+However, the two most important functions are found in `solve.h` and `create.h`. These are:
 
 #### Sudoku solver
 The solver runs as follows:
@@ -86,7 +107,34 @@ The recursive solver runs as follows:
 
 
 #### Sudoku creator
+- Fill the entire grid given with zeroes (to avoid any confusion)
+- Fill the diagonal 3x3 squares since they are independent of each other, this is more efficient since we only call `check_box` rather than `check_entry`
+    - To do this, loop through the beginning of the three diagonals 0,3,6
+        - In each diagonal, loop over the 3 rows and 3 columns
+            - Do:
+                - Find a random number 
+            - Do, while `check_box` of that number if false
+            - Once it's true input the random number into the sudoky
+- Fill in the rest of the sudoku
+    - Call `solve_recursively` which fills in the rest of the sudoku in a valid matter 
 
+- After the sudoku has been filled, loop through 40 times (to delete 40 numbers)
+    - Do:
+        - randomly select a location (row and column) to delete
+        - while this location has already been deleted
+            - randomly select another a location (row and column) to delete
+        - store the value that will be deleted
+        - loop through 1-9 
+            - if it's not the stored value and this integer could be placed into the sudoku validly
+                - insert the index into the sudoky
+                - attempt to solve the sudoku to see if there would be a valid solution with a different integer
+                - If it was not unique
+                    - Return the original deleted value
+                    - Finish the for loop and return to select another location to delete
+        - If none of these values ever found another solution, then it is unique
+    - Do, while the answer is not unique
+    - now that the answer is clearly unique, make the location zero
+       
 ### Memory allocation in C and modules used
 No memory has been allocated or freed in the heap.
 
