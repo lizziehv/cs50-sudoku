@@ -28,14 +28,13 @@ int main(int argc, char *argv[]) {
 
     // check what the parameters given are
     if (strcmp(argv[1], "create") == 0 ) {
-        printf("Called.\n");
         if (sudoku_build(sudoku)) {
             create_puzzle(sudoku, 40);
             print_sudoku(sudoku);
         }
         else {
             fprintf(stderr, "Error: Problem filling in sudoku.\n"); 
-            return 1; 
+            return 2; 
         }
     }
 
@@ -48,12 +47,13 @@ int main(int argc, char *argv[]) {
                 printf("Sudoku given has no solution.\n");
             }
             else {
+                printf("Solution:\n");
                 print_sudoku(solution);
             }
         }
         else {
             fprintf(stderr, "Error: Sudoku given has incorrect format.\n"); 
-            return 1; 
+            return 3; 
         }
     }
     
