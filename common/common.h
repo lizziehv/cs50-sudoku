@@ -37,6 +37,18 @@ void print_sudoku(int sudoku[9][9]);
  */
 bool check_entry(int sudoku[9][9], int row, int column, int entry);
 
+/* 
+ * @param sudoku - an array of arrays (9*9 matrix)
+ * @param row - number of row of an entry
+ * @param column - number of column of an entry
+ * @param entry - number in range 1-9 to check
+ * 
+ * Checks if the entry can be put into a given 3 by 3 square box 
+ * 
+ * @return true if the entry is valid
+ *         false otherwise
+ */
+bool check_box(int sudoku[9][9], int diag, int row, int column, int entry); 
 
 /* @param file - File from which to read sudoku puzzle
  * @param sudoku - an array of arrays which are the rows

@@ -35,14 +35,14 @@ void print_sudoku(int sudoku[9][9]) {
 /******  See common.h for details  ******/
 bool check_entry(int sudoku[9][9], int row, int column, int entry) {
     /* Loop through the rows to check column */
-    for (int r = 0; r <9; r++){
+    for (int r = 0; r < 9; r++){
         if (sudoku[r][column]==entry && r!=row){
             return false;
         } 
     }
 
     /* Loop through the columns to check row */
-    for (int c = 0; c<9; c++){
+    for (int c = 0; c < 9; c++){
         if (sudoku[row][c]==entry && c!=column){
             return false;
         }
@@ -59,6 +59,21 @@ bool check_entry(int sudoku[9][9], int row, int column, int entry) {
         }
     }
     return true;
+}
+
+/***********  check_box()  ************/
+/******  See common.h for details  ******/
+bool check_box(int sudoku[9][9], int diag, int row, int column, int entry) {
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j<3; j++) {
+            // if the entry is already in the 3x3 box 
+            if (sudoku[diag+i][diag+j]==entry) {
+                return false;
+            }
+        } 
+    }
+    // if it was not in the box
+    return true; 
 }
 
 /***********  parse_sudoku()  ***********/
