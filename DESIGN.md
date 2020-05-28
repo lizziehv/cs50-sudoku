@@ -60,6 +60,7 @@ And some helper modules that provide data structures:
 
 ### Pseudocode for logic/algorithmic flow
 #### create pseudocode
+```
 1. Create a 9x9 sudoku board with random (unique in row, column, subgrid) numbers and store it in a 2D array
 2. For 40 iterations
 	3. Do the following
@@ -73,8 +74,10 @@ And some helper modules that provide data structures:
 		11. else
 			12. put zero into our current square 
 	13. while (boolean from line 7 is true)
+```
 
 #### solve pseudocode 
+```
 1. If all squares have been visited, return true
 2. Else, for every square in the puzzle that has not been visited yet
 	3. If the square has not been filled
@@ -83,6 +86,8 @@ And some helper modules that provide data structures:
 				6. return value = recurse with a new sudoku (skipping squares that have already been checked) with the value at this square
 				7. if return value is true, return true
 		8. return false
+```
+
 
 ### Dataflow through modules
 create.c
