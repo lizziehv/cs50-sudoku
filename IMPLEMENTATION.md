@@ -63,7 +63,7 @@ The sudoku runs as follows:
     - Call `sudoku_build` and `sudoku_ouzzle` on sudoku
     - call `print_sudoku` on sudoku
 
-Some functions that are important for the solve and create function are found in `common.h` These are:
+Some functions that are important for the solve and create function are found in `common.h` These are detailed below with corresponding pseudocode for each function.
 
 #### print_sudoku
 - Loop through every row and column
@@ -72,6 +72,14 @@ Some functions that are important for the solve and create function are found in
     - Instead add an end of line
 
 #### check_entry
+- For every entry in the same row
+    - If one of them is the same as the entry provided, return false.
+- For every entry in the same column
+    - If one of them is the same as the entry provided, return false.
+- Calculate the number of box the entry is in by dividing its column and row by 3
+    - For every entry in the box
+        - If it is the same as the given entry, return false
+- Return true
 
 #### check_box
 - Loop through every row and column in the given diagonal (0-3)
@@ -80,8 +88,13 @@ Some functions that are important for the solve and create function are found in
 - return true; it would be valid to add a number here
 
 #### parse_sudoku
+- For i in range [0, 8]
+    - For j in range [0, 8]
+        - Read a digit from the file
+        - Set the entry at the i, j th poition to the digit read
+    - Read a new line character
 
-However, the two most important functions are found in `solve.h` and `create.h`. These are:
+The two most important functions are found in `solve.h` and `create.h`. These are:
 
 #### Sudoku solver
 The solver runs as follows:
