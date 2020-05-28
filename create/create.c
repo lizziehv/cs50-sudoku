@@ -10,8 +10,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include "../solve/solve.c"
-#include "../common/common.c"
+#include "create.h"
+#include "../solve/solve.h"
+#include "../common/common.h"
 
 // checks to see if there is a solution to the given sudoku
 bool check_unique_solution(int sudoku[9][9]);
@@ -94,10 +95,8 @@ void create_puzzle(int sudoku[9][9]){
 
 // checks to see if there is a solution to the given sudoku
 bool check_unique_solution(int sudoku[9][9]) {
-    int solution[9][9];
-
     //The solver returns false when there's no solution
-    if (!solve(sudoku, solution)) {
+    if (!solve(sudoku)) {
         return false;
     }
     return true;

@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include "common.h"
 
 /****************** Local functions ******************/
 bool check_valid(int sudoku[9][9]);
@@ -78,14 +79,14 @@ bool parse_sudoku(FILE* file, int sudoku[9][9]) {
         }
         /* Check valid format (9x9 matrix) */
         char c;
-        int ret = fscanf(file, "%c", &c);
+        fscanf(file, "%c", &c);
         if(c != '\n'){
             fprintf(stderr, "Error: Invalid Sudoku format.");
             return false;
         }
     }
 
-     if(!check_valid(sudoku[9][9]))
+     if(!check_valid(sudoku))
         return false;
 
      return true; 
