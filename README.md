@@ -37,10 +37,11 @@ The functionalities we implemented in this program are the following:
 - `solve.c` solves any sudoku given through stdin.
 - `common.c` has helper methods which help print the sudoku, find if entry can be inserted into the sudoku and more. 
 
-#### "Sudoku Create' description
+#### 'Sudoku Create' description
 The documents `create.h` and `create.c` are called by `sudoku.c` when the following command line is asked to execute:
 ``` bash
 ./sudoku create
+```
 ```
 This command line, calls the program `create.c` which will:
 1. Create a 2D array and fill it with the correct specifications (unique in row, column, subgrid)
@@ -53,6 +54,7 @@ This command line, calls the program `create.c` which will:
         9. Else, put back the original number
 10. Print the final puzzle to stdout
 11. Exit with zero status
+```
 
 This is done with two main functions:
 ```c
@@ -74,6 +76,7 @@ The documents `solve.h` and `solve.c` are called by `sudoku.c` when the followin
 ./sudoku solve
 ```
 This command line, calls the program `solve()` in `solve.c` which will:
+```
 1. Take a parsed sudoku matrix and an initially empty solution matrix
 2. Copy all entries from sudoku onto solution
 3. Call a recursive sudoku solver on solution to complete the grid, where current square is set to the first one
@@ -88,6 +91,7 @@ This command line, calls the program `solve()` in `solve.c` which will:
             12. Else 
                 13. Set current entry to empty again
     14. Since no number could complete the sudoku, return false.
+```
 
 This is done with two main functions:
 ```c
