@@ -60,26 +60,21 @@ And some helper modules that provide data structures:
 
 ### Pseudocode for logic/algorithmic flow
 #### create pseudocode
-```
 1. Create a 9x9 sudoku board with random (unique in row, column, subgrid) numbers and store it in a 2D array
 2. For 40 iterations
 	3. Do the following
 		4. On each iteration, randomly choose one value to delete from the board 
-		5. Create a set to hold the number of possible elements that could go in that
- square that is not the value we deleted
+		5. Create a set to hold the number of possible elements that could go in that square that is not the value we deleted
 		6. For each element in the set 
 			7. Put the element in the sudoku board at our current square
-			8. Solve the sudoku board and set a boolean to true if there is a 
-solution
+			8. Solve the sudoku board and set a boolean to true if there is a solution
 		9. if boolean from line 7 is true 
 			10. put the original number back into our current square
 		11. else
 			12. put zero into our current square 
 	13. while (boolean from line 7 is true)
-```
 
 #### solve pseudocode 
-```
 1. If all squares have been visited, return true
 2. Else, for every square in the puzzle that has not been visited yet
 	3. If the square has not been filled
@@ -88,8 +83,6 @@ solution
 				6. return value = recurse with a new sudoku (skipping squares that have already been checked) with the value at this square
 				7. if return value is true, return true
 		8. return false
-```
-
 
 ### Dataflow through modules
 create.c
