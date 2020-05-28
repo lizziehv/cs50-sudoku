@@ -30,7 +30,7 @@ int main(int argc, char *argv[]) {
     if (strcmp(argv[1], "create") == 0 ) {
         printf("Called.\n");
         if (sudoku_build(sudoku)) {
-            create_puzzle(sudoku);
+            create_puzzle(sudoku, 40);
             print_sudoku(sudoku);
         }
         else {

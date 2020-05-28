@@ -28,7 +28,9 @@ bool solve(int sudoku[9][9], int solution[9][9]) {
     return solve_recursively(solution, 0, 0);
 }
 
-/*** recursive function to solve part of a sudoku ***/
+/* 
+ * recursive function to solve part of a sudoku 
+ */
 bool solve_recursively(int sudoku[9][9], int row, int column){
     /* check if all entries have been visited */
     if(row == 9 && column == 0){
