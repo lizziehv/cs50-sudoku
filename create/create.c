@@ -62,14 +62,14 @@ bool sudoku_build(int sudoku[9][9]) {
 
 
 // creates the puzzle by erasing some of the values added above
-void create_puzzle(int sudoku[9][9]){
+void create_puzzle(int sudoku[9][9], int num_removed){
     srand (time(NULL));
 
     // delete 40 numbers
-    for (int i = 0; i < 40; i++) {
-        bool isUnique = true;   // is there a unique solution if that number is deleted
-        int delete_i;           // row where deleted number will be
-        int delete_j;           // column where deleted number will be
+    for (int i = 0; i < num_removed; i++) {
+        bool isUnique = true; // is there a unique solution if that number is deleted
+        int delete_i;         // row where deleted number will be
+        int delete_j;         // column where deleted number will be
 
         do {
             // choose a random number to delete (from 0-8)

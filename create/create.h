@@ -12,7 +12,6 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-/******  sudoku_build()  ******/
 /* 
  * @param sudoku - an array of arrays(rows), where empty entries
  *                 are set to 0
@@ -26,16 +25,14 @@
 bool sudoku_build(int sudoku[9][9]);
 
 
-/******  create_puzzle()  ******/
-/* 
- * @param sudoku - an array of arrays(rows), where empty entries
- *                 are set to 0
+/* @param sudoku - populated grid 
+ * @param num_removed - number of entries to remove from grid
  * 
- * Given a full sudoku, makes a puzzle by removing 40 numbers
+ * Takes a completed sudoku and makes a puzzle by removing 40 numbers
  * It deletes random numbers and makes sure that the sudoku has a unique solution
  * 
  * @return - nothing
- * */
-void create_puzzle(int sudoku[9][9]);
+ */
+void create_puzzle(int sudoku[9][9], int num_removed);
 
 #endif
