@@ -21,9 +21,9 @@ bool check_valid(int sudoku[9][9]);
 /***********  print_sudoku()  ***********/
 /******  See common.h for details  ******/
 void print_sudoku(FILE *fp_out, int sudoku[9][9]) {  
-    /* for every row */
+    // for every row
     for (int i = 0; i < 9; i++) {
-        /* for every column */
+        // for every column
         for (int j = 0; j < 8; j++) {
             fprintf(fp_out, "%d ", sudoku[i][j]);
         }
@@ -35,21 +35,21 @@ void print_sudoku(FILE *fp_out, int sudoku[9][9]) {
 /***********  check_entry()  ************/
 /******  See common.h for details  ******/
 bool check_entry(int sudoku[9][9], int row, int column, int entry) {
-    /* Loop through the rows to check column */
+    // Loop through the rows to check column
     for (int r = 0; r < 9; r++) {
         if (sudoku[r][column] == entry && r != row) {
             return false;
         } 
     }
 
-    /* Loop through the columns to check row */
+    // Loop through the columns to check row 
     for (int c = 0; c < 9; c++){
         if (sudoku[row][c] == entry && c != column) {
             return false;
         }
     }
 
-    /* Check box */
+    // Check box
     int rbox = row/3;
     int cbox = column/3;
     for (int i = rbox*3; i < (rbox*3)+3; i++) {
@@ -80,7 +80,7 @@ bool check_box(int sudoku[9][9], int diag, int row, int column, int entry) {
 /***********  parse_sudoku()  ***********/
 /******  See common.h for details  ******/
 bool parse_sudoku(FILE* file, int sudoku[9][9]) {
-    /* Ssome checks */
+    // Some checks
     if (file == NULL) {
         return false;
     }
@@ -88,14 +88,14 @@ bool parse_sudoku(FILE* file, int sudoku[9][9]) {
         return false;
     }
 
-    /* loop through entries */
+    // loop through entries
     for (int i = 0; i<9; i++) {
         for (int j = 0; j<9; j++) {
             
             fscanf(file, "%d", &sudoku[i][j]);
         }
         
-        /* Check valid format (9x9 matrix) */
+        // Check valid format (9x9 matrix)
         char c;
         fscanf(file, "%c", &c);
         if (c != '\n' && i != 8) {

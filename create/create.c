@@ -51,7 +51,8 @@ bool sudoku_build(int sudoku[9][9]) {
     }
 
     /* fill the rest, starting at row 0 and column 3
-    * since the diagonal has already been filled */
+     * since the diagonal has already been filled 
+     */
     if (!solve(sudoku)) {
         return false;
     }

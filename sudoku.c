@@ -39,7 +39,7 @@ int main(int argc, char *argv[]) {
     }
 
     else if (strcmp(argv[1], "solve") == 0 ) {
-        /* Parse Sudoku */
+        // Parse Sudoku
         if (parse_sudoku(stdin, sudoku)) {
 
             if (!solve(sudoku)) {
