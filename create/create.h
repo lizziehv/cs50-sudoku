@@ -29,7 +29,7 @@ bool sudoku_build(int sudoku[9][9]);
 /* @param sudoku - populated grid 
  * @param num_removed - number of entries to remove from grid
  * 
- * Takes a completed sudoku and makes a puzzle by removing 40 numbers
+ * Takes a completed sudoku and makes a puzzle by removing num_removed numbers
  * It deletes random numbers and makes sure that the sudoku has a unique solution
  * 
  * @return - nothing

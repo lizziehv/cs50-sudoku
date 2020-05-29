@@ -30,7 +30,7 @@ int main(int argc, char *argv[]) {
     if (strcmp(argv[1], "create") == 0 ) {
         if (sudoku_build(sudoku)) {
             create_puzzle(sudoku, 40);
-            print_sudoku(sudoku);
+            print_sudoku(stdout, sudoku);
         }
         else {
             fprintf(stderr, "Error: Problem filling in sudoku.\n"); 
@@ -39,16 +39,15 @@ int main(int argc, char *argv[]) {
     }
 
     else if (strcmp(argv[1], "solve") == 0 ) {
-        /* Parse Sudoku */
+        // Parse Sudoku
         if (parse_sudoku(stdin, sudoku)) {
-            
-            int solution[9][9];
-            if (!solve(sudoku, solution)) {
+
+            if (!solve(sudoku)) {
                 printf("Sudoku given has no solution.\n");
             }
             else {
                 printf("Solution:\n");
-                print_sudoku(solution);
+                print_sudoku(stdout, sudoku);
             }
         }
         else {

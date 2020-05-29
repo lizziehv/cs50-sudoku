@@ -14,16 +14,14 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-
-/******  print_sudoku()  ******/
 /* 
  * @param sudoku - an array of arrays (9*9 matrix)
+ * @param fp_out - a file to write the output in 
  * 
  * Prints out the sudoku in a 9 by 9 grid format
  */
-void print_sudoku(int sudoku[9][9]);
+void print_sudoku(FILE *fp_out, int sudoku[9][9]);
 
-/******  check_entry()  ******/
 /* 
  * @param sudoku - an array of arrays (9*9 matrix)
  * @param row - number of row of an entry

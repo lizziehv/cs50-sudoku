@@ -16,13 +16,12 @@
 #include <time.h>
 
 /**************** Local functions ****************/
-// checks to see if there is a solution to the given sudoku
-static bool check_unique_solution(int sudoku[9][9]);
+
 
 /**************** Global functions ****************/
 
-/* fills in the grid with random numbers from 1-9 
-* follows the guidelines necessary for a Sudoku grid */
+/************  sudoku_build()  ************/
+/*******  See create.h for details  *******/
 bool sudoku_build(int sudoku[9][9]) {
     srand (time(NULL));
     int random_num; 
@@ -52,15 +51,17 @@ bool sudoku_build(int sudoku[9][9]) {
     }
 
     /* fill the rest, starting at row 0 and column 3
-    * since the diagonal has already been filled */
-    if (!solve_recursively(sudoku, 0, 0)) {
+     * since the diagonal has already been filled 
+     */
+    if (!solve(sudoku)) {
         return false;
     }
     return true;
 }
 
 
-// creates the puzzle by erasing some of the values added above
+/***********  create_puzzle()  ************/
+/*******  See create.h for details  *******/
 void create_puzzle(int sudoku[9][9], int num_removed){
     srand (time(NULL));
 
@@ -71,61 +72,30 @@ void create_puzzle(int sudoku[9][9], int num_removed){
         int delete_j;         // column where deleted number will be
 
         do {
-            // choose a random number to delete (from 0-8)
-            delete_i = rand() % 9;
-            delete_j = rand() % 9;
-
-            // while the number that will be deleted has not been deleted before
-            while (sudoku[delete_i][delete_j] == 0) {
+            // choose a random number to delete (from 0-8) that had not been deleted
+            do {
                 delete_i = rand() % 9;
                 delete_j = rand() % 9;
-            }
+            } while (sudoku[delete_i][delete_j] == 0);
 
             // store the value that will be deleted
             int deleted_value = sudoku[delete_i][delete_j];
 
-            /* check to see if any other value could be placed ther
-            * if it can be placed, then it means the grid has more than 
-            * one solution */
-           // for (int j = 1; j <= 9; j++) {
-
-                /* if the value we are checking is not the same as the one we had before
-                * and if the value can validly be put in */
-             /*   if (j != deleted_value && check_entry(sudoku, delete_i, delete_j, j)) {
-
-                    sudoku[delete_i][delete_j] = j;
-                    isUnique = check_unique_solution(sudoku);
-
-                    // if it was not a unique solution
-                    if (!isUnique){
-
-                        // return the value to where it was
-                        sudoku[delete_i][delete_j] = deleted_value;
-                        break;
-                    }
-                }
-            }
-            
-            // if it went through the entire for loop, it was unique*/
+            /* 
+             * delete value and check to see if the new sudoku would have a unique
+             * solution
+             */
             sudoku[delete_i][delete_j] = 0;
-            isUnique = check_unique_solution(sudoku);
-            if(!isUnique)
+
+            isUnique = sudoku_solutions(sudoku) == 1;
+
+            if(!isUnique){
                 sudoku[delete_i][delete_j] = deleted_value;
-            
-        } while (!isUnique); 
+            }
+            else{
+                isUnique = true;
+            }
 
-        // once you have found a value that gives you a unique solution, make it 0
-        
+        } while (!isUnique);
     }
-}
-
-// checks to see if there is a solution to the given sudoku
-static bool check_unique_solution(int sudoku[9][9]) {
-    int solution[9][9];
-
-    //T he solver returns false when there's no solution
-    if (solve(sudoku, solution)!=1) {
-        return false;
-    }
-    return true;
 }
