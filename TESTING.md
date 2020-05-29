@@ -71,7 +71,8 @@ A more in depth description is found in
 
 4. Fuzzgenerator to test the solver on several random sudokus
     - Will generate any given number of sudokus and solve them 
-    - (Since the solver provides if there are multiple solutions and the grid is valid, then this automatically tests our create function)
+	- Before solving each sudoku, the fuzzgenerator will check if the sudoku created has a unique solution (making sure `create` works correctly)
+	- After solving each sudoku, the fuzz generatory will check if the solver changed any of the original values (making sure the solution was valid)
 
 ### Test run
 To test, write `make all` (not make because `fuzzgenerator` is needed to be able to run the test). After the sudoku and fuzzgenerator executable files are made, then you can run the test options. 
