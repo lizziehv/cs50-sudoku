@@ -99,5 +99,19 @@ echo
 echo "#####################################"
 echo "Fuzzgenerator:"
 echo "Testing create function: if any solution is incorrect, then the create is incorrect"
-echo "Check  files fuzz and fuzz_solved"
+echo "(Check files fuzz and fuzz_solved)"
+
 ./testing/fuzzgenerator $dir/fuzz 20
+
+# check if the creator and solver where correct
+if [ $? -eq 4 ] || [ $? -eq 5 ]
+    then 
+        if [ $? -eq 4 ]
+            then
+                echo "ERROR: a sudoku has multiple solutions"
+        elif [ $? -eq 5 ]
+            then
+                echo "ERROR: solver changes original grid"
+        fi
+    else echo "CORRECT: no sudoku has multiple solutions and solver doesn't change original grid"
+fi
