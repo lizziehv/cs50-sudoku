@@ -122,5 +122,5 @@ echo "Comparing output to known solution..."
 diff $dir/example-sol-1.txt $dir/example-output-1.txt
 
 if [ $? -eq 0 ]; then
-    echo "Solution is correct..."
+    echo "Solution is correct."
 fi
