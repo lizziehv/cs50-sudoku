@@ -47,3 +47,4 @@ clean:
 	rm -f stocks
 	rm -f $(PROG) $(PROG1)
 	rm -f $(COMMON_DIR)common.o  $(SOLVE_DIR)solve.o $(CREATE_DIR)create.o 
+	rm -f $(TESTING_DIR)/testdir/fuzz $(TESTING_DIR)/testdir/fuzz_solved 
