@@ -99,7 +99,7 @@ bool parse_sudoku(FILE* file, int sudoku[9][9]) {
             }
 
             if(entry <= 9 && entry >= 0){
-                sudoku[i][j];
+                sudoku[i][j] = entry;
             }
             else{
                 return false;
