@@ -65,12 +65,10 @@ And some helper modules that provide data structures:
 2. For 40 iterations
 	3. Do the following
 		4. On each iteration, randomly choose one value to delete from the board 
-		5. Create a set to hold the number of possible elements that could go in that
- square that is not the value we deleted
+		5. Create a set to hold the number of possible elements that could go in that square that is not the value we deleted
 		6. For each element in the set 
 			7. Put the element in the sudoku board at our current square
-			8. Solve the sudoku board and set a boolean to true if there is a 
-solution
+			8. Solve the sudoku board and set a boolean to true if there is a solution
 		9. if boolean from line 7 is true 
 			10. put the original number back into our current square
 		11. else
