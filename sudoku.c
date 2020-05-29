@@ -30,7 +30,7 @@ int main(int argc, char *argv[]) {
     if (strcmp(argv[1], "create") == 0 ) {
         if (sudoku_build(sudoku)) {
             create_puzzle(sudoku, 40);
-            print_sudoku(sudoku);
+            print_sudoku(stdout, sudoku);
         }
         else {
             fprintf(stderr, "Error: Problem filling in sudoku.\n"); 
@@ -47,7 +47,7 @@ int main(int argc, char *argv[]) {
             }
             else {
                 printf("Solution:\n");
-                print_sudoku(sudoku);
+                print_sudoku(stdout, sudoku);
             }
         }
         else {

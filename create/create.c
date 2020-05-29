@@ -26,10 +26,9 @@ bool sudoku_build(int sudoku[9][9]) {
     srand (time(NULL));
     int random_num; 
 
-    // fill the grid with zeroes
     for (int i = 0; i < 9; i++) {       // rows
         for (int j = 0; j < 9; j++) {   // columns 
-        sudoku[i][j] = 0;
+            sudoku[i][j] = 0;
         } 
     } 
  
