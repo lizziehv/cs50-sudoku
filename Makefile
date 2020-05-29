@@ -6,14 +6,15 @@
 SOLVE_DIR = ./solve/
 CREATE_DIR = ./create/
 COMMON_DIR = ./common/
+TESTING_DIR = ./testing/
 
 PROG = sudoku
 OBJS = $(COMMON_DIR)common.o $(CREATE_DIR)create.o $(SOLVE_DIR)solve.o sudoku.o
 
-PROG1 = fuzzgenerator
-OBJS1 = $(COMMON_DIR)common.o $(CREATE_DIR)create.o $(SOLVE_DIR)solve.o fuzzgenerator.o
+PROG1 = $(TESTING_DIR)fuzzgenerator
+OBJS1 = $(COMMON_DIR)common.o $(CREATE_DIR)create.o $(SOLVE_DIR)solve.o $(TESTING_DIR)fuzzgenerator.o
 
-SCRIPT = testing.sh
+SCRIPT = $(TESTING_DIR)testing.sh
 FLAGS =
 CFLAGS = -Wall -pedantic -std=c11 -ggdb $(FLAGS) -I $(COMMON_DIR) -I $(SOLVE_DIR) -I $(CREATE_DIR)
 CC = gcc
@@ -34,7 +35,7 @@ create.o: $(CREATE_DIR)create.h
 .PHONY:  clean test all test
 
 test: $(PROG)
-	bash -v $(SCRIPT)
+	bash $(SCRIPT)
 
 all:
 	$(MAKE) $(PROG)
@@ -44,5 +45,5 @@ clean:
 	rm -f core
 	rm -f *~ *.o
 	rm -f stocks
-	rm -f $(PROG)
+	rm -f $(PROG) $(PROG1)
 	rm -f $(COMMON_DIR)common.o  $(SOLVE_DIR)solve.o $(CREATE_DIR)create.o 
