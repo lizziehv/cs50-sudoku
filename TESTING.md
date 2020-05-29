@@ -44,16 +44,8 @@ After making an executable, this function can be run by moving into the testing 
 ./fuzzgenerator filename numSudoku
 ```
 
-Parameters:
-- `filename` where the the sudokus will be saved (if the file already exists, it will be overwritten)
-- `numSUdoku` how many random sudokus you want generated
-
 This function will print out several random puzzles to `filename` and then will solve all of these puzzles and print them into a file called`filename_solve`. 
 
-Exit values:
-- 0 Executed the function succesfully
-- 1 Incorrect number of parameters given
-- 2 Incorrect numSudoku given 
 
 ### Test file explanation
 `testing.sh` was written to be able to see the progress of `sudoku.c`. In order to cover all basis, we split this test in four parts:
