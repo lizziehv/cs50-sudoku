@@ -46,6 +46,7 @@ After making an executable, this function can be run by moving into the testing 
 
 This function will print out several random puzzles to `filename` and then will solve all of these puzzles and print them into a file called`filename_solve`. 
 
+A more in depth description is found in 
 
 ### Test file explanation
 `testing.sh` was written to be able to see the progress of `sudoku.c`. In order to cover all basis, we split this test in four parts:
