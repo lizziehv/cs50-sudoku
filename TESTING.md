@@ -3,6 +3,7 @@
 ## CS50 Spring 2020
 
 ### Testing 'sudoku'
+All necessary testing files are inside a directory called testing 
 To test our *sudoku* module, we need to test both `create.c` and `solve.c`
 
 ### Testing the create function
