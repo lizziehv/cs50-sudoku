@@ -55,6 +55,10 @@ int main(int argc, char *argv[]) {
             return 3; 
         }
     }
+    else {
+        fprintf(stderr, "Error: Incorrect argument given.\n"); 
+        return 1; 
+    }
     
     return 0; 
 }

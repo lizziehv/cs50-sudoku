@@ -178,9 +178,12 @@ The functions use a 2D array, `sudoku[9][9]` where the first index is the row, a
 
 ### Compilation
 
-To begin the compilation, write `make`.
+To begin the compilation, write `make`. 
 
 ### Testing
+One of the test, is a fuzzgenerator, which generates several random sudoku and tests them on solve. For this reason, before running the test, make sure to call `make all`. 
+    - The function `fuzzgenerator` and its usage is explained in more depth in [TESTING](TESTING.md).
+
 To test, simply `make test`.
 For this testing method, the file `testing.sh` is required since it provides the bash script that requires what will be run. 
 

@@ -2,5 +2,9 @@
 common/common.o
 create/create.o
 solve/solve.o
+
 sudoku.o
 sudoku
+
+fuzzgenerator.o
+fuzzgenerator

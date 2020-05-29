@@ -10,6 +10,9 @@ COMMON_DIR = ./common/
 PROG = sudoku
 OBJS = $(COMMON_DIR)common.o $(CREATE_DIR)create.o $(SOLVE_DIR)solve.o sudoku.o
 
+PROG1 = fuzzgenerator
+OBJS1 = $(COMMON_DIR)common.o $(CREATE_DIR)create.o $(SOLVE_DIR)solve.o fuzzgenerator.o
+
 SCRIPT = testing.sh
 FLAGS =
 CFLAGS = -Wall -pedantic -std=c11 -ggdb $(FLAGS) -I $(COMMON_DIR) -I $(SOLVE_DIR) -I $(CREATE_DIR)
@@ -17,6 +20,9 @@ CC = gcc
 MAKE = make
 
 $(PROG): $(OBJS)
+	$(CC) $(CFLAGS) $^ -o $@
+
+$(PROG1): $(OBJS1)
 	$(CC) $(CFLAGS) $^ -o $@
 
 # Dependencies: object files depend on header files
@@ -32,10 +38,11 @@ test: $(PROG)
 
 all:
 	$(MAKE) $(PROG)
+	$(MAKE) $(PROG1)
 
 clean:
 	rm -f core
 	rm -f *~ *.o
 	rm -f stocks
 	rm -f $(PROG)
-	rm -f $(COMMON_DIR)common.o  $(SOLVE_DIR)solve.o $(CREATE_DIR)create.o
+	rm -f $(COMMON_DIR)common.o  $(SOLVE_DIR)solve.o $(CREATE_DIR)create.o 
