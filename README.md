@@ -167,6 +167,8 @@ Parameters:
 - `numSudoku` how many random sudokus you want generated
 
 This function will iterate over the number of times given (`numSudoku`) and create random sudokus, then afterwards, it will loop over this file and solve all of the sudokus saved.
+- Before solving each sudoku, the fuzzgenerator will check if the sudoku created has a unique solution (making sure `create` works correctly)
+- After solving each sudoku, the fuzz generatory will check if the solver changed any of the original values (making sure the solution was valid)
 
 Output:
 - print out several random puzzles to `filename` and then will solve all of these puzzles and print them into a file called`filename_solve`. 
@@ -175,6 +177,9 @@ Exit values:
 - 0 Executed the function succesfully
 - 1 Incorrect number of parameters given
 - 2 Incorrect numSudoku given 
+- 3 Error opening files
+- 4 Sudoku created by `create()` does not have a unique solution
+- 5 Solver changes an item from the original grid
 
 ### Output
 All errors are logged into standard error.
@@ -184,7 +189,6 @@ All errors are logged into standard error.
 1: Wrong arguments/parameters given <br/>
 2: Error - building the sudoku <br/>
 3: Error - sudoku given has incorrect format  <br/>
-
 
 ### Implementation
 

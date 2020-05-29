@@ -11,10 +11,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <netdb.h>
+#include <stdbool.h>
+#include <unistd.h>
+
 #include "../create/create.h"
 #include "../solve/solve.h"
 #include "../common/common.h"
-#include <netdb.h>
 
 /* The random() and srandom() functions are provided by stdlib,
  * but for some reason not declared by stdlib.h, so declare here.
@@ -82,18 +85,36 @@ int main(const int argc, char *argv[]) {
       return 3;
     }
 
+    // loop through the sudokus again
     for (int i = 0; i < numSudoku; i++) {
-        int sudoku[9][9];
+      int solution[9][9];
+      int sudoku[9][9]; // will not be changed by solver
 
-        if (parse_sudoku(puzzles, sudoku)) {
-            if (!solve(sudoku)) {
-                fprintf(solutions, "Sudoku given has no solution.\n");
-            }
-            else {
-                fprintf(solutions, "Solution #%d:\n", i+1);
-                print_sudoku(solutions, sudoku);
-            }
+      // parse them into the structure (need both to check if any item in the grid is changed)
+      if (parse_sudoku(puzzles, solution) && parse_sudoku(puzzles, sudoku)) {
+        
+        // if it has a unique solution
+        if (sudoku_solutions(solution) == 1) { 
+          
+          // solve it
+          if (!solve(solution)) {
+              fprintf(solutions, "Sudoku given has no solution.\n");
+          }
+          else if (check_solver(sudoku, solution)) {
+              fprintf(solutions, "Solution #%d:\n", i+1);
+              print_sudoku(solutions, solution);
+          }
+          else {
+            fprintf(stderr, "Solver changes original grid\n");
+            return 5;
+          }
         }
+        // there is no unique solution
+        else {
+          fprintf(stderr, "Sudoku does not have a unique solution.\n");
+          return 4;
+        }
+      }
     }
     fclose(read_puzzles);
     fclose(solutions);
@@ -123,4 +144,18 @@ static void parse_args(const int argc, char *argv[], char** filename, int *numSu
     fprintf(stderr, "usage: %s: invalid numSudoku '%s'\n", program, argv[2]);
     exit (2);
   }
+}
+
+/**************** parse_args ****************/
+// Checks if solver does not change already filled cells in the grids
+bool check_solver(int sudoku[9][9], int solution[9][9]) {
+  for (int i = 0; i < 9; i++) {       // rows
+    for (int j = 0; j < 9; j++) {     // columns
+      // if the entry there is not 0 and the entries are not equal
+      if (sudoku[i][j] != 0 && sudoku[i][j] != solution[i][j]) {
+        return false;
+      }
+    }
+  }
+  return true; 
 }
