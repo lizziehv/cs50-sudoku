@@ -10,6 +10,7 @@ COMMON_DIR = ./common/
 PROG = sudoku
 OBJS = $(COMMON_DIR)common.o $(CREATE_DIR)create.o $(SOLVE_DIR)solve.o sudoku.o
 
+SCRIPT = testing.sh
 FLAGS =
 CFLAGS = -Wall -pedantic -std=c11 -ggdb $(FLAGS) -I $(COMMON_DIR) -I $(SOLVE_DIR) -I $(CREATE_DIR)
 CC = gcc
@@ -24,7 +25,10 @@ solve.o: $(SOLVE_DIR)solve.h
 create.o: $(CREATE_DIR)create.h 
 
 
-.PHONY:  clean test all
+.PHONY:  clean test all test
+
+test: $(PROG)
+	bash -v $(SCRIPT)
 
 all:
 	$(MAKE) $(PROG)
