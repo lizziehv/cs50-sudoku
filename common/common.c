@@ -20,15 +20,15 @@ bool check_valid(int sudoku[9][9]);
 
 /***********  print_sudoku()  ***********/
 /******  See common.h for details  ******/
-void print_sudoku(int sudoku[9][9]) {  
+void print_sudoku(FILE *fp_out, int sudoku[9][9]) {  
     /* for every row */
     for (int i = 0; i < 9; i++) {
         /* for every column */
         for (int j = 0; j < 8; j++) {
-            printf("%d ", sudoku[i][j]);
+            fprintf(fp_out, "%d ", sudoku[i][j]);
         }
-        printf("%d", sudoku[i][8]);
-        printf("\n");
+        fprintf(fp_out, "%d", sudoku[i][8]);
+        fprintf(fp_out, "\n");
     }
 }
 
