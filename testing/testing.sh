@@ -99,5 +99,5 @@ echo
 echo "#####################################"
 echo "Fuzzgenerator:"
 echo "Testing create function: if any solution is incorrect, then the create is incorrect"
-echo "check fuzz and fuzz_solved"
+echo "Check  files fuzz and fuzz_solved"
 ./testing/fuzzgenerator $dir/fuzz 20
