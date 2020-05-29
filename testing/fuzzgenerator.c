@@ -11,9 +11,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "create/create.h"
-#include "solve/solve.h"
-#include "common/common.h"
+#include "../create/create.h"
+#include "../solve/solve.h"
+#include "../common/common.h"
+
+/* The random() and srandom() functions are provided by stdlib,
+ * but for some reason not declared by stdlib.h, so declare here.
+ */
+long int random(void);
+void srandom(unsigned int seed);
 
 /**************** file-local global variables ****************/
 static char *program;
@@ -47,6 +53,7 @@ int main(const int argc, char *argv[]) {
         
         // start the sudoku grid
         int sudoku[9][9];
+        srandom(5);
 
         // dont' print anything if there was a proble building the sudoku
         if (sudoku_build(sudoku)) {
