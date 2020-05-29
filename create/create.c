@@ -27,15 +27,25 @@ bool sudoku_build(int sudoku[9][9]) {
     srand (time(NULL));
     int random_num; 
 
+    for (int i = 0; i < 9; i++) {       // rows
+        for (int j = 0; j < 9; j++) {   // columns 
+            sudoku[i][j] = 0;
+        } 
+    } 
+
     // fill the grid with zeroes
     for (int i = 0; i < 9; i++) {       // rows
         for (int j = 0; j < 9; j++) {   // columns 
-        sudoku[i][j] = 0;
+        do {
+            random_num = (rand() % 9) + 1; //from (1-9)
+        }
+        while(!check_entry(sudoku, i,j,random_num));
+        sudoku[i][j] = random_num;
         } 
     } 
  
     // the diagonal 3x3 boxes are independent of each other, fill them first
-    for (int diag = 0; diag < 9; diag += 3) {
+    /*for (int diag = 0; diag < 9; diag += 3) {
     
         for (int i = 0; i < 3; i++) {       // rows
             for (int j = 0; j < 3; j++) {   // columns 
@@ -54,9 +64,9 @@ bool sudoku_build(int sudoku[9][9]) {
 
     /* fill the rest, starting at row 0 and column 3
     * since the diagonal has already been filled */
-    if (!solve_recursively(sudoku, 0, 0)) {
+   /* if (!solve_recursively(sudoku, 0, 0)) {
         return false;
-    }
+    }*/
     return true;
 }
 
@@ -88,11 +98,11 @@ void create_puzzle(int sudoku[9][9], int num_removed){
             /* check to see if any other value could be placed ther
             * if it can be placed, then it means the grid has more than 
             * one solution */
-            for (int j = 1; j <= 9; j++) {
+           // for (int j = 1; j <= 9; j++) {
 
                 /* if the value we are checking is not the same as the one we had before
                 * and if the value can validly be put in */
-                if (j != deleted_value && check_entry(sudoku, delete_i, delete_j, j)) {
+             /*   if (j != deleted_value && check_entry(sudoku, delete_i, delete_j, j)) {
 
                     sudoku[delete_i][delete_j] = j;
                     isUnique = check_unique_solution(sudoku);
@@ -107,13 +117,15 @@ void create_puzzle(int sudoku[9][9], int num_removed){
                 }
             }
             
-            // if it went through the entire for loop, it was unique
-            isUnique = true;
-
-        } while (!isUnique);
+            // if it went through the entire for loop, it was unique*/
+            sudoku[delete_i][delete_j] = 0;
+            isUnique = check_unique_solution(sudoku);
+            if(!isUnique)
+                sudoku[delete_i][delete_j] = deleted_value;
+        } while (!isUnique); 
 
         // once you have found a value that gives you a unique solution, make it 0
-        sudoku[delete_i][delete_j] = 0;
+        
     }
 }
 
@@ -122,7 +134,7 @@ static bool check_unique_solution(int sudoku[9][9]) {
     int solution[9][9];
 
     //T he solver returns false when there's no solution
-    if (!solve(sudoku, solution)) {
+    if (solve(sudoku, solution)!=1) {
         return false;
     }
     return true;
