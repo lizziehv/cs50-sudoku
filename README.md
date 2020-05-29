@@ -153,6 +153,29 @@ bool parse_sudoku(FILE* fp, int sudoku[9][9]);
 
 These are used by both `create.c` and `solve.c` to perform all sudoku functions.
 
+### Fuzzgenerator
+This function is automatically run by the `make test` in `testing.sh`. However, we thought it would be important to define how it works 
+
+After making an executable, this function can be run by moving into the testing directory and using the following command line:
+
+```bash
+./fuzzgenerator filename numSudoku
+```
+
+Parameters:
+- `filename` where the the sudokus will be saved (if the file already exists, it will be overwritten)
+- `numSudoku` how many random sudokus you want generated
+
+This function will iterate over the number of times given (`numSudoku`) and create random sudokus, then afterwards, it will loop over this file and solve all of the sudokus saved.
+
+Output:
+- print out several random puzzles to `filename` and then will solve all of these puzzles and print them into a file called`filename_solve`. 
+
+Exit values:
+- 0 Executed the function succesfully
+- 1 Incorrect number of parameters given
+- 2 Incorrect numSudoku given 
+
 ### Output
 All errors are logged into standard error.
 
@@ -161,6 +184,7 @@ All errors are logged into standard error.
 1: Wrong arguments/parameters given <br/>
 2: Error - building the sudoku <br/>
 3: Error - sudoku given has incorrect format  <br/>
+
 
 ### Implementation
 
