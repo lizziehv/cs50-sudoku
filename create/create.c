@@ -20,8 +20,8 @@
 
 /**************** Global functions ****************/
 
-/* fills in the grid with random numbers from 1-9 
-* follows the guidelines necessary for a Sudoku grid */
+/************  sudoku_build()  ************/
+/*******  See create.h for details  *******/
 bool sudoku_build(int sudoku[9][9]) {
     srand (time(NULL));
     int random_num; 
@@ -59,7 +59,8 @@ bool sudoku_build(int sudoku[9][9]) {
 }
 
 
-// creates the puzzle by erasing some of the values added above
+/***********  create_puzzle()  ************/
+/*******  See create.h for details  *******/
 void create_puzzle(int sudoku[9][9], int num_removed){
     srand (time(NULL));
 
