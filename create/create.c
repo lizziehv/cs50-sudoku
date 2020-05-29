@@ -32,20 +32,9 @@ bool sudoku_build(int sudoku[9][9]) {
             sudoku[i][j] = 0;
         } 
     } 
-
-    // fill the grid with zeroes
-    for (int i = 0; i < 9; i++) {       // rows
-        for (int j = 0; j < 9; j++) {   // columns 
-        do {
-            random_num = (rand() % 9) + 1; //from (1-9)
-        }
-        while(!check_entry(sudoku, i,j,random_num));
-        sudoku[i][j] = random_num;
-        } 
-    } 
  
     // the diagonal 3x3 boxes are independent of each other, fill them first
-    /*for (int diag = 0; diag < 9; diag += 3) {
+    for (int diag = 0; diag < 9; diag += 3) {
     
         for (int i = 0; i < 3; i++) {       // rows
             for (int j = 0; j < 3; j++) {   // columns 
@@ -64,9 +53,9 @@ bool sudoku_build(int sudoku[9][9]) {
 
     /* fill the rest, starting at row 0 and column 3
     * since the diagonal has already been filled */
-   /* if (!solve_recursively(sudoku, 0, 0)) {
+    if (!solve_recursively(sudoku, 0, 0)) {
         return false;
-    }*/
+    }
     return true;
 }
 
@@ -122,6 +111,7 @@ void create_puzzle(int sudoku[9][9], int num_removed){
             isUnique = check_unique_solution(sudoku);
             if(!isUnique)
                 sudoku[delete_i][delete_j] = deleted_value;
+            
         } while (!isUnique); 
 
         // once you have found a value that gives you a unique solution, make it 0
