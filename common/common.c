@@ -94,7 +94,8 @@ bool parse_sudoku(FILE* file, int sudoku[9][9]) {
             int entry;
 
             int ret = fscanf(file, "%d", &entry);
-            if(ret == 0){
+            printf("%d ", ret);
+            if(ret != 0){
                 return false;
             }
 
