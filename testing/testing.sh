@@ -45,17 +45,14 @@ echo
 echo "Non-unique vertical rows"
 cat $dir/vertical.txt | ./sudoku solve
 
-
 #Test the solver with a grid with non-unique subsections 
 echo
 echo "Non-unique subsections (3x3 grids)"
 cat $dir/section.txt | ./sudoku solve
 
-
-### These tests for solve should succeed ###
 echo
 echo "#####################################"
-echo "Testing solve on valid puzzles (should succeed)"
+echo "Testing solve on valid puzzles (should pass)"
 
 #Test the solver with an empty grid
 echo 
@@ -114,4 +111,16 @@ if [ $? -eq 4 ] || [ $? -eq 5 ]
                 echo "ERROR: solver changes original grid"
         fi
     else echo "CORRECT: no sudoku has multiple solutions and solver doesn't change original grid"
+fi
+
+
+echo 
+echo "#####################################"
+echo "Testing for known solutions:"
+cat $dir/example1.txt | ./sudoku solve > $dir/example-output-1.txt
+echo "Comparing output to known solution..."
+diff $dir/example-sol-1.txt $dir/example-output-1.txt
+
+if [ $? -eq 0 ]; then
+    echo "Solution is correct..."
 fi
