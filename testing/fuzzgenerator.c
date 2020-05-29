@@ -14,6 +14,7 @@
 #include "../create/create.h"
 #include "../solve/solve.h"
 #include "../common/common.h"
+#include <netdb.h>
 
 /* The random() and srandom() functions are provided by stdlib,
  * but for some reason not declared by stdlib.h, so declare here.
@@ -61,6 +62,7 @@ int main(const int argc, char *argv[]) {
             print_sudoku(puzzles, sudoku);
             fprintf(puzzles, "\n");  
         }
+        sleep(1); 
     }
 
     // close the files
