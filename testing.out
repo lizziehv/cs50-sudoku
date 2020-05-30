@@ -1,0 +1,123 @@
+bash ./testing/testing.sh
+#####################################
+Testing incorrect parameters
+Error: Incorrect number of parameters given.
+Error: Incorrect number of parameters given.
+Error: Incorrect argument given.
+
+#####################################
+Testing solve on invalid puzzles (should fail)
+
+Too few rows
+Error: Sudoku given has incorrect format.
+
+Too few columns
+Error: Sudoku given has incorrect format.
+
+Non-unique horizontal rows
+Error: Sudoku given has incorrect format.
+
+Non-unique vertical rows
+Error: Sudoku given has incorrect format.
+
+Non-unique subsections (3x3 grids)
+Error: Sudoku given has incorrect format.
+
+#####################################
+Testing solve on valid puzzles (should pass)
+
+Empty grid
+Solution:
+1 2 3 4 5 6 7 8 9
+4 5 6 7 8 9 1 2 3
+7 8 9 1 2 3 4 5 6
+2 1 4 3 6 5 8 9 7
+3 6 5 8 9 7 2 1 4
+8 9 7 2 1 4 3 6 5
+5 3 1 6 4 2 9 7 8
+6 4 2 9 7 8 5 3 1
+9 7 8 5 3 1 6 4 2
+
+Full grid
+Solution:
+4 3 5 2 6 9 7 8 1
+6 8 2 5 7 1 4 9 3
+1 9 7 8 3 4 5 6 2
+8 2 6 1 9 5 3 4 7
+3 7 4 6 8 2 9 1 5
+9 5 1 7 4 3 6 2 8
+5 1 9 3 2 6 8 7 4
+2 4 8 9 5 7 1 3 6
+7 6 3 4 1 8 2 5 9
+
+Less than 40 missing numbers
+Solution:
+4 3 5 2 6 9 7 8 1
+6 8 2 5 7 1 4 9 3
+1 9 7 8 3 4 5 6 2
+8 2 6 1 9 5 3 4 7
+3 7 4 6 8 2 9 1 5
+9 5 1 7 4 3 6 2 8
+5 1 9 3 2 6 8 7 4
+2 4 8 9 5 7 1 3 6
+7 6 3 4 1 8 2 5 9
+
+40 missing numbers
+Solution:
+5 9 8 1 2 3 4 7 6
+4 3 1 6 5 7 8 2 9
+6 2 7 4 8 9 1 5 3
+2 7 3 5 4 1 9 6 8
+8 5 6 9 3 2 7 1 4
+1 4 9 8 7 6 5 3 2
+9 1 2 7 6 8 3 4 5
+7 6 4 3 9 5 2 8 1
+3 8 5 2 1 4 6 9 7
+
+More than 40 missing numbers
+Solution:
+1 2 3 6 7 8 9 4 5
+5 8 4 2 3 9 7 6 1
+9 6 7 1 4 5 3 2 8
+3 7 2 4 6 1 5 8 9
+6 9 1 5 8 3 2 7 4
+4 5 8 7 9 2 6 1 3
+8 3 6 9 2 4 1 5 7
+2 1 9 8 5 7 4 3 6
+7 4 5 3 1 6 8 9 2
+
+Unique solution
+Solution:
+4 3 5 2 6 9 7 8 1
+6 8 2 5 7 1 4 9 3
+1 9 7 8 3 4 5 6 2
+8 2 6 1 9 5 3 4 7
+3 7 4 6 8 2 9 1 5
+9 5 1 7 4 3 6 2 8
+5 1 9 3 2 6 8 7 4
+2 4 8 9 5 7 1 3 6
+7 6 3 4 1 8 2 5 9
+
+Multiple solutions
+Solution:
+4 3 5 2 6 9 7 1 8
+6 8 2 5 7 1 4 3 9
+1 9 7 8 3 4 5 2 6
+8 2 6 1 9 5 3 4 7
+3 7 4 6 8 2 9 5 1
+9 5 1 7 4 3 6 8 2
+5 1 9 3 2 6 8 7 4
+2 4 8 9 5 7 1 6 3
+7 6 3 4 1 8 2 9 5
+
+#####################################
+Fuzzgenerator:
+Testing create function: if any solution is incorrect, then the create is incorrect
+(Check files fuzz and fuzz_solved)
+Solver changes original grid
+CORRECT: no sudoku has multiple solutions and solver doesn't change original grid
+
+#####################################
+Testing for known solutions:
+Comparing output to known solution...
+Solution is correct.
