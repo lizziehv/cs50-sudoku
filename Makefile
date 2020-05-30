@@ -34,7 +34,7 @@ create.o: $(CREATE_DIR)create.h
 
 .PHONY:  clean test all test
 
-test: $(PROG)
+test: $(SCRIPT)
 	bash $(SCRIPT)
 
 all:
@@ -47,4 +47,4 @@ clean:
 	rm -f stocks
 	rm -f $(PROG) $(PROG1)
 	rm -f $(COMMON_DIR)common.o  $(SOLVE_DIR)solve.o $(CREATE_DIR)create.o 
-	rm -f $(TESTING_DIR)/testdir/fuzz $(TESTING_DIR)/testdir/fuzz_solved 
+	rm -f $(TESTING_DIR)/testdir/fuzz $(TESTING_DIR)/testdir/fuzz_solved $(TESTING_DIR)/testdir/example-output-1.txt
