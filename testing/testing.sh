@@ -28,10 +28,12 @@ echo "#####################################"
 echo "Testing solve on invalid puzzles (should fail)"
 
 #Testing solver with grid with too few rows
+echo
 echo "Too few rows"
 cat $dir/few_rows.txt | ./sudoku solve 
 
 #Testing solver with grid with too few col
+echo
 echo "Too few columns"
 cat $dir/few_col.txt | ./sudoku solve 
 
