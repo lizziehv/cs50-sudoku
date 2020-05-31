@@ -22,7 +22,7 @@
 
 /************  sudoku_build()  ************/
 /*******  See create.h for details  *******/
-bool sudoku_build(int sudoku[9][9]) {
+bool sudoku_build(int sudoku[9][9], int level) {
     srand (time(NULL));
     int random_num; 
 
@@ -42,7 +42,7 @@ bool sudoku_build(int sudoku[9][9]) {
                     random_num = (rand() % 9) + 1; //from (1-9)
                 } 
                 // while you can't add that value in, change the number
-                while (!check_box(sudoku, diag, diag + i, diag + j, random_num));
+                while (!check_box(sudoku, diag, diag + i, diag + j, random_num, level));
 
                 // add the value to the grid
                 sudoku[diag + i][diag + j] = random_num;
