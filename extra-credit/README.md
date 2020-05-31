@@ -11,9 +11,9 @@
 ### Setup
 
 #### Prerequisites
-- [Homebrew](https://brew.sh/) - package manager for macOS
+- [Homebrew]() - package manager for macOS
 
-#### Installation
+#### Installationhttps://brew.sh/
 The program is dependent on two libraries, which are `SDL2` and `SDL2_ttf` and can be compiled as follows.
 
 

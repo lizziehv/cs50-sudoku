@@ -20,7 +20,7 @@ static bool check_valid(int sudoku[9][9], int level);
 
 /***********  print_sudoku()  ***********/
 /******  See common.h for details  ******/
-void print_sudoku(FILE *fp_out, int sudoku[9][9], int level) {  
+void print_sudoku(FILE *fp_out, int sudoku[9][9]) {  
     // for every row
     for (int i = 0; i < 9; i++) {
         // for every column
@@ -31,6 +31,13 @@ void print_sudoku(FILE *fp_out, int sudoku[9][9], int level) {
         fprintf(fp_out, "\n");
     }
 }
+
+/***********  print_samurai()  ***********/
+/******  See common.h for details  ******/
+void print_samurai(FILE *fp_out, int sudoku[5][9][9]) {  
+    return false;
+}
+
 
 /***********  check_entry()  ************/
 /******  See common.h for details  ******/
@@ -87,6 +94,11 @@ bool check_entry(int sudoku[9][9], int row, int column, int entry, int level) {
 /***********  check_box()  ************/
 /******  See common.h for details  ******/
 bool check_box(int sudoku[9][9], int diag, int row, int column, int entry, int level) {
+    // check if that box is not already filled
+    if (sudoku[row][column] != 0) {
+        return false; 
+    }
+
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j<3; j++) {
             // if the entry is already in the 3x3 box 
@@ -155,6 +167,13 @@ bool parse_sudoku(FILE* file, int sudoku[9][9], int level) {
 
     return true; 
 }
+
+/***********  parse_samurai()  ***********/
+/******  See common.h for details  ******/
+bool parse_samurai(FILE* file, int sudoku[5][9][9]) {
+    return true; 
+}
+
 
 /****************** Local functions ******************/
 

@@ -17,11 +17,18 @@
 /* 
  * @param sudoku - an array of arrays (9*9 matrix)
  * @param fp_out - a file to write the output in 
- * @param level - the level that the sudoku will be in 
  * 
  * Prints out the sudoku in a 9 by 9 grid format
  */
-void print_sudoku(FILE *fp_out, int sudoku[9][9], int level);
+void print_sudoku(FILE *fp_out, int sudoku[9][9]);
+
+/* 
+ * @param sudoku - an array of arrays (9*9 matrix)
+ * @param fp_out - a file to write the output in 
+ * 
+ * Prints out a samurai sudoku in a 9 by 9 grid format
+ */
+void print_samurai(FILE *fp_out, int sudoku[5][9][9]);
 
 /* 
  * @param sudoku - an array of arrays (9*9 matrix)
@@ -65,5 +72,17 @@ bool check_box(int sudoku[9][9], int diag, int row, int column, int entry, int l
  *         true - otherwise
  */ 
 bool parse_sudoku(FILE* fp, int sudoku[9][9], int level);
+
+/******  parse_sudoku()  ******/
+/* 
+ * @param file - File from which to read sudoku puzzle
+ * @param sudoku - a 3d array (first is the sudoku puzzle, second is the rows, third is the columns) 
+ * 
+ * Read a samurai sudoku from a file and add the entries to sudoku matrix
+ * 
+ * @return false - on any argument or format errors
+ *         true - otherwise
+ */ 
+bool parse_samurai(FILE* fp, int sudoku[5][9][9]);
 
 #endif
