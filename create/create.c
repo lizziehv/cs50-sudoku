@@ -53,7 +53,7 @@ bool sudoku_build(int sudoku[9][9], int level) {
     /* fill the rest, starting at row 0 and column 3
      * since the diagonal has already been filled 
      */
-    if (!solve(sudoku)) {
+    if (!solve(sudoku, level)) {
         return false;
     }
     return true;
@@ -62,7 +62,7 @@ bool sudoku_build(int sudoku[9][9], int level) {
 
 /***********  create_puzzle()  ************/
 /*******  See create.h for details  *******/
-void create_puzzle(int sudoku[9][9], int num_removed){
+void create_puzzle(int sudoku[9][9], int num_removed, int level){
     srand (time(NULL));
 
     // delete 40 numbers
@@ -87,7 +87,7 @@ void create_puzzle(int sudoku[9][9], int num_removed){
              */
             sudoku[delete_i][delete_j] = 0;
 
-            isUnique = sudoku_solutions(sudoku) == 1;
+            isUnique = (sudoku_solutions(sudoku, level) == 1);
 
             if(!isUnique){
                 sudoku[delete_i][delete_j] = deleted_value;

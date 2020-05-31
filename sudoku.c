@@ -55,7 +55,7 @@ int main(int argc, char *argv[]) {
     if (strcmp(argv[1], "create") == 0 ) {
         // We are creating sudoku here
         if (sudoku_build(sudoku, level)) {
-            create_puzzle(sudoku, 40);
+            create_puzzle(sudoku, 40, level);
             print_sudoku(stdout, sudoku, level);
         }
         else {
