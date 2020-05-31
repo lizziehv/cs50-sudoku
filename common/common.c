@@ -218,6 +218,24 @@ bool check_box(int sudoku[9][9], int diag, int row, int column, int entry, int l
     return true; 
 }
 
+/***********  check_box_samurai()  ************/
+/******  See common.h for details  ******/
+bool check_box_samurai(int sudoku[9][9], int diag, int row, int column, int entry, int level) {
+    // check if that box is not already filled
+    if (sudoku[row][column] != 0) {
+        return false; 
+    }
+
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j<3; j++) {
+            // if the entry is already in the 3x3 box 
+            if (sudoku[diag+i][diag+j] == entry) {
+                return false;
+            }
+        } 
+    }
+}
+
 /***********  parse_sudoku()  ***********/
 /******  See common.h for details  ******/
 bool parse_sudoku(FILE* file, int sudoku[9][9], int level) {
