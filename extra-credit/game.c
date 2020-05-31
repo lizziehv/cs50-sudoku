@@ -52,8 +52,8 @@ int main (int argc, char **argv){
 
   /* Start and draw a sudoku */
   int sudoku[9][9];
-  if (sudoku_build(sudoku)) {
-    create_puzzle(sudoku, 40);
+  if (sudoku_build(sudoku, 1)) {
+    create_puzzle(sudoku, 40, 1);
   }
   else {
     fprintf(stderr, "Error: Problem filling in sudoku.\n"); 
