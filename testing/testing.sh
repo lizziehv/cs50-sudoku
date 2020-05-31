@@ -28,10 +28,12 @@ echo "#####################################"
 echo "Testing solve on invalid puzzles (should fail)"
 
 #Testing solver with grid with too few rows
+echo
 echo "Too few rows"
 cat $dir/few_rows.txt | ./sudoku solve 
 
 #Testing solver with grid with too few col
+echo
 echo "Too few columns"
 cat $dir/few_col.txt | ./sudoku solve 
 
@@ -45,17 +47,14 @@ echo
 echo "Non-unique vertical rows"
 cat $dir/vertical.txt | ./sudoku solve
 
-
 #Test the solver with a grid with non-unique subsections 
 echo
 echo "Non-unique subsections (3x3 grids)"
 cat $dir/section.txt | ./sudoku solve
 
-
-### These tests for solve should succeed ###
 echo
 echo "#####################################"
-echo "Testing solve on valid puzzles (should succeed)"
+echo "Testing solve on valid puzzles (should pass)"
 
 #Test the solver with an empty grid
 echo 
@@ -91,6 +90,19 @@ cat $dir/uq_sol.txt | ./sudoku solve
 echo 
 echo "Multiple solutions"
 cat $dir/multi_sol.txt | ./sudoku solve 
+
+# Testing known solutions
+echo 
+echo "#####################################"
+echo "Testing for known solutions:"
+cat $dir/example1.txt | ./sudoku solve > $dir/example-output-1.txt
+echo "Comparing output to known solution..."
+diff $dir/example-sol-1.txt $dir/example-output-1.txt
+
+if [ $? -eq 0 ]; then
+    echo "Solution is correct."
+fi
+
 
 ### These tests for create should succeed ###
 ### These fuzztests for solve should succeed

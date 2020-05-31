@@ -30,6 +30,8 @@ static char *program;
 
 /**************** local functions ****************/
 static void parse_args(const int argc, char *argv[], char** filename, int *numSudoku);
+bool check_solver(int sudoku[9][9], int solution[9][9]);
+
 /**************** main ****************/
 int main(const int argc, char *argv[]) {
     char* filename;

@@ -169,6 +169,7 @@ Parameters:
 This function will iterate over the number of times given (`numSudoku`) and create random sudokus, then afterwards, it will loop over this file and solve all of the sudokus saved.
 - Before solving each sudoku, the fuzzgenerator will check if the sudoku created has a unique solution (making sure `create` works correctly)
 - After solving each sudoku, the fuzz generatory will check if the solver changed any of the original values (making sure the solution was valid)
+- Since we want all of the puzzles to be random, we needed it to sleep for each solution to be different (because of the rand function), causing it to take a little long to run since it sleeps for a second for every iteration
 
 Output:
 - print out several random puzzles to `filename` and then will solve all of these puzzles and print them into a file called`filename_solve`. 
