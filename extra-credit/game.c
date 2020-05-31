@@ -27,6 +27,7 @@ int SUDOKU_X = WIDTH;
 int SUDOKU_Y = HEIGHT;
 int SQUARE_SIZE = 40;
 int BOARD_BORDER = 3;
+int sudoku[9][9];
 
 /* For text rendering */
 TTF_Font* font;
@@ -42,6 +43,9 @@ void draw_sudoku();
 void game_clean();
 SDL_Texture* SurfaceToTexture( SDL_Surface* surf );
 
+
+int sudoku[9][9];
+
 int main (int argc, char **argv){
   /* Begin window and renderer */
   if(game_init() != 0)
@@ -51,7 +55,7 @@ int main (int argc, char **argv){
   setup_game();
 
   /* Start and draw a sudoku */
-  int sudoku[9][9];
+  
   if (sudoku_build(sudoku, 1)) {
     create_puzzle(sudoku, 40, 1);
   }
@@ -114,7 +118,8 @@ void handle_events(){
         quit = true;
     }
     if (e.type == SDL_KEYDOWN){
-        quit = true;
+        solve(sudoku);
+        draw_sudoku(sudoku);
     }
   }
 }
@@ -122,9 +127,7 @@ void handle_events(){
 void setup_game(){
   /* Clear background */
   SDL_SetRenderDrawColor(renderer, 217, 197, 199, 255);
-  SDL_RenderClear(renderer);
-
-  
+  SDL_RenderClear(renderer);  
 }
 
 void draw_sudoku(int sudoku[9][9]){

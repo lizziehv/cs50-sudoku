@@ -34,8 +34,103 @@ void print_sudoku(FILE *fp_out, int sudoku[9][9]) {
 
 /***********  print_samurai()  ***********/
 /******  See common.h for details  ******/
-void print_samurai(FILE *fp_out, int sudoku[5][9][9]) {  
-    return false;
+void print_samurai(FILE *fp_out, int sudoku[5][9][9]) {
+    // Print the first 6 rows
+    for (int r = 0; r < 6; r++) {
+        // Print the row of the first sudoku
+        for (int j = 0; j < 8; j++) {
+            fprintf(fp_out, "%d ", sudoku[0][r][j]);
+        }
+        // Print spaces betweent he first and second sudoku
+        for (int j = 0; j < 3; j++) {
+            fprintf(fp_out, "  ");
+        }
+        // Print the row of the second sudoku
+        for (int j = 0; j < 8; j++) {
+            fprintf(fp_out, "%d ", sudoku[1][r][j]);
+        }
+    }
+
+
+    // Print the first 6 rows
+    for (int r = 0; r < 6; r++) {
+        // Print the row of the first sudoku
+        for (int j = 0; j < 8; j++) {
+            fprintf(fp_out, "%d ", sudoku[0][r][j]);
+        }
+        // Print spaces betweent he first and second sudoku
+        for (int j = 0; j < 3; j++) {
+            fprintf(fp_out, "  ");
+        }
+        // Print the row of the second sudoku
+        for (int j = 0; j < 8; j++) {
+            fprintf(fp_out, "%d ", sudoku[1][r][j]);
+        }
+    }
+
+    // Print the next 3 lines. All 3 sudokus printed
+    // Printing lines 7, 8 and 9
+    for (int r = 6; r < 9; r++) {
+        // Print the row of the first sudoku
+        for (int j = 0; j < 8; j++) {
+            fprintf(fp_out, "%d ", sudoku[0][r][j]);
+        }
+        // Print spaces betweent he first and second sudoku
+        for (int j = 3; j < 6; j++) {
+            fprintf(fp_out, "%d ", sudoku[2][r-6][j]);
+        }
+        // Print the row of the second sudoku
+        for (int j = 0; j < 8; j++) {
+            fprintf(fp_out, "%d ", sudoku[1][r][j]);
+        }
+    }
+
+    // Print the next 3 lines. Only middle sudoku printed
+    for (int r = 9; r < 12; r++) {
+        for (int j = 0; j < 3; j++) {
+            fprintf(fp_out, "  ");
+        }
+        // Print the middle sudoku
+        for (int j = 0; j < 9; j++) {
+            fprintf(fp_out, "%d ", sudoku[2][r-6][j]);
+        }
+        for (int j = 0; j < 3; j++) {
+            fprintf(fp_out, "  ");
+        }
+    }
+
+    // Print the next 3 lines. All 3 sudokus printed
+    // Printing lines 13, 14 and 15
+    for (int r = 12; r < 15; r++) {
+        // Print the row of the first sudoku
+        for (int j = 0; j < 8; j++) {
+            fprintf(fp_out, "%d ", sudoku[3][r-12][j]);
+        }
+        // Print spaces betweent he first and second sudoku
+        for (int j = 3; j < 6; j++) {
+            fprintf(fp_out, "%d ", sudoku[2][r-6][j]);
+        }
+        // Print the row of the second sudoku
+        for (int j = 0; j < 8; j++) {
+            fprintf(fp_out, "%d ", sudoku[4][r-12][j]);
+        }
+    }
+
+    // Print the last 6 rows
+    for (int r = 15; r < 21; r++) {
+        // Print the row of the first sudoku
+        for (int j = 0; j < 8; j++) {
+            fprintf(fp_out, "%d ", sudoku[3][r-12][j]);
+        }
+        // Print spaces betweent he first and second sudoku
+        for (int j = 0; j < 3; j++) {
+            fprintf(fp_out, "  ");
+        }
+        // Print the row of the second sudoku
+        for (int j = 0; j < 8; j++) {
+            fprintf(fp_out, "%d ", sudoku[4][r-12][j]);
+        }
+    }
 }
 
 
