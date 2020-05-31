@@ -55,6 +55,7 @@ int main(int argc, char *argv[]) {
 
             // We are creating sudoku here
             if (sudoku_build(sudoku, level)) {
+                
                 create_puzzle(sudoku, 40, level);
                 print_sudoku(stdout, sudoku);
             }

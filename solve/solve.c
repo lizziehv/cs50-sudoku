@@ -55,27 +55,35 @@ static bool solve_recursively(int sudoku[9][9], int row, int column, int level){
         for ( ; j<9; j++) {
             // check if entry is empty
             if (sudoku[i][j] == 0) {
-
+                
                 // Try every valid number for this entry
-                for (int entry=1; entry<=9; entry++) {
-                    if (check_entry(sudoku, i, j, entry, level)) {
-                        sudoku[i][j] = entry;
+                int array[9] = {1, 2, 3, 4, 5, 6, 7, 8, 9}; 
+                int count = 0; 
 
-                        // recurse with new sudoku -> move to next entry
-                        bool ret;
-                        if (j == 8) {
-                            ret = solve_recursively(sudoku, i+1, 0, level);
-                        }
-                        else {
-                            ret = solve_recursively(sudoku, i, j+1, level);
-                        }
+                while (count < 9) {
+                    int rand_num = (rand() % 9) + 1; 
+                    if (array[rand_num - 1] != 0 ) {
+                        if (check_entry(sudoku, i, j, rand_num, level)) {
+                            sudoku[i][j] = rand_num;
 
-                        if (ret) {              // found a solution that works
-                            return true;
+                            // recurse with new sudoku -> move to next entry
+                            bool ret;
+                            if (j == 8) {
+                                ret = solve_recursively(sudoku, i+1, 0, level);
+                            }
+                            else {
+                                ret = solve_recursively(sudoku, i, j+1, level);
+                            }
+
+                            if (ret) {              // found a solution that works
+                                return true;
+                            }
+                            else {                  // solution didn't work
+                                sudoku[i][j]=0;
+                            }
                         }
-                        else {                  // solution didn't work
-                            sudoku[i][j]=0;
-                        }
+                        array[rand_num - 1] = 0; 
+                        count ++; 
                     }
                 }
                 // Some entry did not work, so this is unsolvable
@@ -134,6 +142,7 @@ static int solutions_recurse(int sudoku[9][9], int row, int column, int num_solu
 
 /**************** Extra credit functions ****************/
 bool solve_samurai(int samurai[5][9][9]){
+    printf("Solve:\n");
     for(int puzzle = 0; puzzle < 5; puzzle++){
         if(!solve(samurai[puzzle], 1)){
             return false;

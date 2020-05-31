@@ -47,14 +47,14 @@ void print_samurai(FILE *fp_out, int sudoku[5][9][9]) {
 
     // Print the next 3 lines. Only middle sudoku printed
     for (int r = 9; r < 12; r++) {
-        for (int j = 0; j < 6; j++) {
+        for (int j = 0; j < 5; j++) {
             fprintf(fp_out, "  ");
         }
         // Print the middle sudoku
         for (int j = 0; j < 9; j++) {
             fprintf(fp_out, "%d ", sudoku[2][r-6][j]);
         }
-        for (int j = 0; j < 6; j++) {
+        for (int j = 0; j < 5; j++) {
             fprintf(fp_out, "  ");
         }
         fprintf(fp_out, "\n");
@@ -128,7 +128,7 @@ bool check_box(int sudoku[9][9], int diag, int row, int column, int entry, int l
     }
 
     for (int i = 0; i < 3; i++) {
-        for (int j = 0; j<3; j++) {
+        for (int j = 0; j < 3; j++) {
             // if the entry is already in the 3x3 box 
             if (sudoku[diag+i][diag+j] == entry) {
                 return false;
@@ -151,24 +151,6 @@ bool check_box(int sudoku[9][9], int diag, int row, int column, int entry, int l
     return true; 
 }
 
-/***********  check_box_samurai()  ************/
-/******  See common.h for details  ******/
-bool check_box_samurai(int sudoku[9][9], int diag, int row, int column, int entry, int level) {
-    // check if that box is not already filled
-    if (sudoku[row][column] != 0) {
-        return false; 
-    }
-
-    for (int i = 0; i < 3; i++) {
-        for (int j = 0; j<3; j++) {
-            // if the entry is already in the 3x3 box 
-            if (sudoku[diag+i][diag+j] == entry) {
-                return false;
-            }
-        } 
-    }
-    return true; 
-}
 
 /***********  parse_sudoku()  ***********/
 /******  See common.h for details  ******/
