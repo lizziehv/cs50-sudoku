@@ -47,14 +47,14 @@ void print_samurai(FILE *fp_out, int sudoku[5][9][9]) {
 
     // Print the next 3 lines. Only middle sudoku printed
     for (int r = 9; r < 12; r++) {
-        for (int j = 0; j < 3; j++) {
+        for (int j = 0; j < 6; j++) {
             fprintf(fp_out, "  ");
         }
         // Print the middle sudoku
         for (int j = 0; j < 9; j++) {
             fprintf(fp_out, "%d ", sudoku[2][r-6][j]);
         }
-        for (int j = 0; j < 3; j++) {
+        for (int j = 0; j < 6; j++) {
             fprintf(fp_out, "  ");
         }
         fprintf(fp_out, "\n");
