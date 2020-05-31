@@ -234,6 +234,7 @@ bool check_box_samurai(int sudoku[9][9], int diag, int row, int column, int entr
             }
         } 
     }
+    return true; 
 }
 
 /***********  parse_sudoku()  ***********/
