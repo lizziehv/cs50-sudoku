@@ -29,12 +29,13 @@ bool sudoku_build(int sudoku[9][9], int level);
 
 /* @param sudoku - populated grid 
  * @param num_removed - number of entries to remove from grid
+ * @param level - the level that the sudoku will be in
  * 
  * Takes a completed sudoku and makes a puzzle by removing num_removed numbers
  * It deletes random numbers and makes sure that the sudoku has a unique solution
  * 
  * @return - nothing
  */
-void create_puzzle(int sudoku[9][9], int num_removed);
+void create_puzzle(int sudoku[9][9], int num_removed, int level);
 
 #endif

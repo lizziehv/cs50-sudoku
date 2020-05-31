@@ -14,13 +14,13 @@
 #include "common.h"
 
 /****************** Local functions ******************/
-static bool check_valid(int sudoku[9][9]);
+static bool check_valid(int sudoku[9][9], int level);
 
 /****************** Global functions ******************/
 
 /***********  print_sudoku()  ***********/
 /******  See common.h for details  ******/
-void print_sudoku(FILE *fp_out, int sudoku[9][9]) {  
+void print_sudoku(FILE *fp_out, int sudoku[9][9], int level) {  
     // for every row
     for (int i = 0; i < 9; i++) {
         // for every column
@@ -166,7 +166,7 @@ bool parse_sudoku(FILE* file, int sudoku[9][9], int level) {
  * @return true if sudoku is valid (can have 0 entries)
  *         false otherwise
  */
-static bool check_valid(int sudoku[9][9], int level){
+static bool check_valid(int sudoku[9][9], int level) {
     if (sudoku == NULL)
         return false;
 

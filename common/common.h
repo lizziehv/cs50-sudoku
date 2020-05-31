@@ -17,10 +17,11 @@
 /* 
  * @param sudoku - an array of arrays (9*9 matrix)
  * @param fp_out - a file to write the output in 
+ * @param level - the level that the sudoku will be in 
  * 
  * Prints out the sudoku in a 9 by 9 grid format
  */
-void print_sudoku(FILE *fp_out, int sudoku[9][9]);
+void print_sudoku(FILE *fp_out, int sudoku[9][9], int level);
 
 /* 
  * @param sudoku - an array of arrays (9*9 matrix)
@@ -63,6 +64,6 @@ bool check_box(int sudoku[9][9], int diag, int row, int column, int entry, int l
  * @return false - on any argument or format errors
  *         true - otherwise
  */ 
-bool parse_sudoku(FILE* fp, int sudoku[9][9], int level));
+bool parse_sudoku(FILE* fp, int sudoku[9][9], int level);
 
 #endif
