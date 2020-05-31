@@ -18,6 +18,11 @@ A *sudoku* is a well known logic puzzle where numbers between 1 and 9 are placed
 - Only once in every column
 - Only once in every 3x3 squared region
 
+#### Extra credit
+There are several functions that will not be explained in this README file since they do not belong with the original assingment. These are extra credit functions and are all explained in [README](extra-credit/README.md).
+
+This involve: graphics, levels, and even different sudoku types
+
 ### Usage
 `sudoku.c` simply contains only a main function but it utilizes functions from `common.c`, `create.c` and `solve,c` as helpers. These are explained below and you can see [common.h](./common/common.h), [create.h](./create/create.h), and [solve.h][./solve/solve.h] for definitions of functions and paramters. This program works with the user through command lines:
 
@@ -29,6 +34,8 @@ A *sudoku* is a well known logic puzzle where numbers between 1 and 9 are placed
 # takes in a grid from stdin or through piping
 # solves the sudoku
 ./sudoku solve
+
+# OTHER COMMAND LINES ARE AVAILABLE, this are explained in the extra-credit file
 ```
 
 #### Functionalities
@@ -59,7 +66,7 @@ This command line, calls the program `create.c` which will:
 This is done with two main functions:
 ```c
 // Builds a sudoku using random numbers
-bool sudoku_build(int sudoku[9][9]);
+void sudoku_build(int sudoku[9][9]);
 
 // Takes the sudoku and makes a puzzle by removing 40 numbers
 // It deletes random numbers and makes sure that the sudoku has a unique solution
@@ -188,8 +195,7 @@ All errors are logged into standard error.
 ### Exit Status (for querier)
 0: Success, no errors <br/>
 1: Wrong arguments/parameters given <br/>
-2: Error - building the sudoku <br/>
-3: Error - sudoku given has incorrect format  <br/>
+2: Error - sudoku given has incorrect format  <br/>
 
 ### Implementation
 

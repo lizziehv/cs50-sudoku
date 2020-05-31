@@ -54,26 +54,15 @@ int main(int argc, char *argv[]) {
             int sudoku[9][9];
 
             // We are creating sudoku here
-            if (sudoku_build(sudoku, level)) {
-                
-                create_puzzle(sudoku, 40, level);
-                print_sudoku(stdout, sudoku);
-            }
-            else {
-                fprintf(stderr, "Error: Problem filling in sudoku.\n"); 
-                return 2; 
-            }
+            sudoku_build(sudoku, level);
+            create_puzzle(sudoku, 40, level);
+            print_sudoku(stdout, sudoku);
         }
         else {
             int sudoku[5][9][9];
-            if (samurai_build(sudoku)) {
-                create_puzzle_samurai(sudoku, 40); 
-                print_samurai(stdout, sudoku);
-            }
-            else {
-                fprintf(stderr, "Error: Problem filling in sudoku.\n"); 
-                return 2; 
-            }
+            samurai_build(sudoku);
+            create_puzzle_samurai(sudoku, 40); 
+            print_samurai(stdout, sudoku);
         }
     }
 
@@ -93,7 +82,7 @@ int main(int argc, char *argv[]) {
             }
             else {
                 fprintf(stderr, "Error: Sudoku given has incorrect format.\n"); 
-                return 3; 
+                return 2; 
             }
         }
         else {
@@ -109,7 +98,7 @@ int main(int argc, char *argv[]) {
             }
             else {
                 fprintf(stderr, "Error: Sudoku given has incorrect format.\n"); 
-                return 3; 
+                return 2; 
             }
         }
     }

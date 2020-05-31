@@ -20,10 +20,9 @@
  * Given an empty sudoku, builds a sudoku using random numbers
  * (unique numbers in every row, column, and box)
  * 
- * @return - true if sudoku has been correctly create
- * @return - false if there was an error encountered
+ * @return - nothing
  */
-bool sudoku_build(int sudoku[9][9], int level);
+void sudoku_build(int sudoku[9][9], int level);
 
 
 /* @param sudoku - populated grid 
@@ -43,10 +42,9 @@ void create_puzzle(int sudoku[9][9], int num_removed, int level);
  * Given an empty samurai sudoku, builds a sudoku using random numbers
  * (unique numbers in every row, column, box, an overlapping middle sudoku)
  * 
- * @return - true if sudoku has been correctly create
- * @return - false if there was an error encountered
+ * @return - nothing
  */
-bool samurai_build(int sudoku[5][9][9]); 
+void samurai_build(int sudoku[5][9][9]); 
 
 /* @param sudoku - populated grids
  * @param num_removed - number of entries to remove from each of the grids

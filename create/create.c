@@ -22,7 +22,7 @@ static bool check_multiple_samurai(int delete_i, int delete_j, int delete_puzzle
 
 /************  sudoku_build()  ************/
 /*******  See create.h for details  *******/
-bool sudoku_build(int sudoku[9][9], int level) {
+ void sudoku_build(int sudoku[9][9], int level) {
     srand (time(NULL));
     int random_num; 
 
@@ -31,32 +31,49 @@ bool sudoku_build(int sudoku[9][9], int level) {
             sudoku[i][j] = 0;
         } 
     } 
- 
+    
+    if (level == 2) {
+        // the diagonal line boxes is independent, fill it first
+        for (int i = 0; i < 9; i++) {       // rows
+            do { 
+                
+                random_num = (rand() % 9) + 1; //from (1-9)
+            } 
+            // while you can't add that value in, change the number
+            while (!check_entry(sudoku, i, i, random_num, level));
+
+            // add the value to the grid
+            sudoku[i][i] = random_num;
+        }
+    }
+    
     // the diagonal 3x3 boxes are independent of each other, fill them first
     for (int diag = 0; diag < 9; diag += 3) {
     
         for (int i = 0; i < 3; i++) {       // rows
             for (int j = 0; j < 3; j++) {   // columns 
-                do { 
-                    
-                    random_num = (rand() % 9) + 1; //from (1-9)
-                } 
-                // while you can't add that value in, change the number
-                while (!check_box(sudoku, diag, diag + i, diag + j, random_num, level));
+                if (sudoku[diag + i][diag + j] == 0) {
+                    do { 
+                        
+                        random_num = (rand() % 9) + 1; //from (1-9)
+                    } 
+                    // while you can't add that value in, change the number
+                    while (!check_box(sudoku, diag, diag + i, diag + j, random_num, level));
 
-                // add the value to the grid
-                sudoku[diag + i][diag + j] = random_num;
+                    // add the value to the grid
+                    sudoku[diag + i][diag + j] = random_num;
+                }
             } 
         } 
     }
 
     /* fill the rest, starting at row 0 and column 3
      * since the diagonal has already been filled 
+     * if it can't be filled, restart the process
      */
     if (!solve(sudoku, level)) {
-        return false;
+        sudoku_build(sudoku, level);
     }
-    return true;
 }
 
 
@@ -102,14 +119,12 @@ void create_puzzle(int sudoku[9][9], int num_removed, int level){
 
 /************  samurai_build()  ************/
 /*******  See create.h for details  *******/
-bool samurai_build(int sudoku[5][9][9]) {
+void samurai_build(int sudoku[5][9][9]) {
     srand (time(NULL));
     int random_num; 
 
     // build the middle array normally
-    if (!sudoku_build(sudoku[2], 1)) {
-        return false; 
-    }
+    sudoku_build(sudoku[2], 1);
 
      for (int i = 0; i < 9; i++) {       // rows
         for (int j = 0; j < 9; j++) {   // columns 
@@ -200,11 +215,11 @@ bool samurai_build(int sudoku[5][9][9]) {
 
     /* fill the rest, starting at row 0 and column 3
      * since the diagonal has already been filled 
+     * if it can't be filled, restart the process
      */
     if (!solve_samurai(sudoku)) {
-        return false;
+        samurai_build(sudoku);
     }
-    return true;
 }
 
 /***********  create_puzzle_samurai()  ************/
