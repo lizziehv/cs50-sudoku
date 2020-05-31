@@ -15,9 +15,9 @@ The program is dependent on two libraries, which are `SDL2` and `SDL2_ttf` and c
 #### For MacOS
 Run the following commands from your terminal.
 ```
-$ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
-$ brew install sdl2`
-$ brew install sdl2_ttf`
+$ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+$ brew install sdl2
+$ brew install sdl2_ttf
 ```
 
 #### For other servers
