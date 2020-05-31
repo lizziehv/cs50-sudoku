@@ -18,7 +18,7 @@ static bool check_valid(int sudoku[9][9], int level);
 
 /****************** Local functions (extra credit) ******************/
 static void samurai_print_two(FILE *fp_out, int sudoku[5][9][9], bool top);
-static void samurai_print_two(FILE *fp_out, int sudoku[5][9][9], bool top);
+static void samurai_print_three(FILE *fp_out, int sudoku[5][9][9], bool top);
 
 /****************** Global functions ******************/
 
