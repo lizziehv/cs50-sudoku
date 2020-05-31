@@ -14,7 +14,7 @@
 #include "common.h"
 
 /****************** Local functions ******************/
-bool check_valid(int sudoku[9][9]);
+static bool check_valid(int sudoku[9][9], int level);
 
 /****************** Global functions ******************/
 
@@ -32,9 +32,16 @@ void print_sudoku(FILE *fp_out, int sudoku[9][9]) {
     }
 }
 
+/***********  print_samurai()  ***********/
+/******  See common.h for details  ******/
+void print_samurai(FILE *fp_out, int sudoku[5][9][9]) {  
+    return false;
+}
+
+
 /***********  check_entry()  ************/
 /******  See common.h for details  ******/
-bool check_entry(int sudoku[9][9], int row, int column, int entry) {
+bool check_entry(int sudoku[9][9], int row, int column, int entry, int level) {
     // Loop through the rows to check column
     for (int r = 0; r < 9; r++) {
         if (sudoku[r][column] == entry && r != row) {
@@ -59,12 +66,39 @@ bool check_entry(int sudoku[9][9], int row, int column, int entry) {
             }
         }
     }
+
+    // diagonal sudoku
+    if (level == 2) {
+        // the negative sloped diagonal
+        if (row == column) {
+            for (int i = 0; i < 9; i++) {
+                // check if it's in the entry
+                if (i != row && sudoku[i][i] == entry) {
+                    return false;
+                }
+            }
+        }
+        // the positive sloped diagonal
+        if (8-row == column) {
+            for (int i = 0; i < 9; i++) {
+                // check if it's in the entry
+                if (8-i != row && column != i && sudoku[8-i][i] == entry) {
+                    return false;
+                }
+            }
+        }
+    }
     return true;
 }
 
 /***********  check_box()  ************/
 /******  See common.h for details  ******/
-bool check_box(int sudoku[9][9], int diag, int row, int column, int entry) {
+bool check_box(int sudoku[9][9], int diag, int row, int column, int entry, int level) {
+    // check if that box is not already filled
+    if (sudoku[row][column] != 0) {
+        return false; 
+    }
+
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j<3; j++) {
             // if the entry is already in the 3x3 box 
@@ -73,13 +107,25 @@ bool check_box(int sudoku[9][9], int diag, int row, int column, int entry) {
             }
         } 
     }
+    // diagonal sudoku
+    if (level == 2) {
+        // the negative sloped diagonal
+        if (row == column) {
+            for (int i = 0; i < 9; i++) {
+                // check if it's in the entry
+                if (i != row && sudoku[i][i] == entry) {
+                    return false;
+                }
+            }
+        }
+    }
     // if it was not in the box
     return true; 
 }
 
 /***********  parse_sudoku()  ***********/
 /******  See common.h for details  ******/
-bool parse_sudoku(FILE* file, int sudoku[9][9]) {
+bool parse_sudoku(FILE* file, int sudoku[9][9], int level) {
     // Some checks
     if (file == NULL) {
         return false;
@@ -115,12 +161,19 @@ bool parse_sudoku(FILE* file, int sudoku[9][9]) {
         }
     }
 
-    if (!check_valid(sudoku)) {
+    if (!check_valid(sudoku, level)) {
         return false;
     }
 
     return true; 
 }
+
+/***********  parse_samurai()  ***********/
+/******  See common.h for details  ******/
+bool parse_samurai(FILE* file, int sudoku[5][9][9]) {
+    return true; 
+}
+
 
 /****************** Local functions ******************/
 
@@ -132,14 +185,14 @@ bool parse_sudoku(FILE* file, int sudoku[9][9]) {
  * @return true if sudoku is valid (can have 0 entries)
  *         false otherwise
  */
-bool check_valid(int sudoku[9][9]){
+static bool check_valid(int sudoku[9][9], int level) {
     if (sudoku == NULL)
         return false;
 
     for (int i = 0; i<9; i++) {
         for (int j = 0; j<9; j++) {
             int entry = sudoku[i][j];
-            if (entry != 0 && !check_entry(sudoku, i, j, entry)) {
+            if (entry != 0 && !check_entry(sudoku, i, j, entry, level)) {
                 return false;
             }
         }

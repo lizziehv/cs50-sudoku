@@ -18,41 +18,97 @@
 int main(int argc, char *argv[]) {
     
     // if the wrong number of parameters is given
-    if (argc != 2) {
+    if (argc > 3 || argc < 2) {
         fprintf(stderr, "Error: Incorrect number of parameters given.\n");
         return 1; 
     }
 
-    // start the sudoku grod
-    int sudoku[9][9];
+    int level;
+
+    if (argc == 2) {
+        // If difficulty not explicitly mentioned, we want an easy level sudoku
+        level = 1;
+    }
+    else if (argc==3) {
+        if (strcmp(argv[2], "easy")==0) {
+            // Level 1 is easy
+            level = 1;
+        }
+        else if (strcmp(argv[2], "medium")==0) {
+            // Level 3 is medium
+            level = 2;
+        }
+        else if (strcmp(argv[2], "hard")==0) {
+            // Level 3 is hard
+            level = 3;
+        }
+        else {
+            fprintf(stderr, "Error: Incorrect level given.\n");
+            return 1;
+        }
+    }
 
     // check what the parameters given are
     if (strcmp(argv[1], "create") == 0 ) {
-        if (sudoku_build(sudoku)) {
-            create_puzzle(sudoku, 40);
-            print_sudoku(stdout, sudoku);
+        if (level < 3) {
+            int sudoku[9][9];
+
+            // We are creating sudoku here
+            if (sudoku_build(sudoku, level)) {
+                create_puzzle(sudoku, 40, level);
+                print_sudoku(stdout, sudoku);
+            }
+            else {
+                fprintf(stderr, "Error: Problem filling in sudoku.\n"); 
+                return 2; 
+            }
         }
         else {
-            fprintf(stderr, "Error: Problem filling in sudoku.\n"); 
-            return 2; 
+            int sudoku[5][9][9];
+            if (samurai_build(sudoku, level)) {
+                print_samurai(stdout, sudoku);
+            }
+            else {
+                fprintf(stderr, "Error: Problem filling in sudoku.\n"); 
+                return 2; 
+            }
         }
     }
 
     else if (strcmp(argv[1], "solve") == 0 ) {
         // Parse Sudoku
-        if (parse_sudoku(stdin, sudoku)) {
+        if (level < 3) {
+            int sudoku[9][9];
+            if (parse_sudoku(stdin, sudoku, level)) {
 
-            if (!solve(sudoku)) {
-                printf("Sudoku given has no solution.\n");
+                if (!solve(sudoku, level)) {
+                    printf("Sudoku given has no solution.\n");
+                }
+                else {
+                    printf("Solution:\n");
+                    print_sudoku(stdout, sudoku);
+                }
             }
             else {
-                printf("Solution:\n");
-                print_sudoku(stdout, sudoku);
+                fprintf(stderr, "Error: Sudoku given has incorrect format.\n"); 
+                return 3; 
             }
         }
         else {
-            fprintf(stderr, "Error: Sudoku given has incorrect format.\n"); 
-            return 3; 
+            int sudoku[5][9][9];
+            if (parse_samurai(stdin, sudoku)) {
+                if (!solve_samurai(sudoku, level)) {
+                    printf("Sudoku given has no solution.\n");
+                }
+                else {
+                    printf("Solution:\n");
+                    print_samurai(stdout, sudoku); 
+                }
+            }
+            else {
+                fprintf(stderr, "Error: Sudoku given has incorrect format.\n"); 
+                return 3; 
+            }
         }
     }
     else {

@@ -22,7 +22,7 @@
 
 /************  sudoku_build()  ************/
 /*******  See create.h for details  *******/
-bool sudoku_build(int sudoku[9][9]) {
+bool sudoku_build(int sudoku[9][9], int level) {
     srand (time(NULL));
     int random_num; 
 
@@ -42,7 +42,7 @@ bool sudoku_build(int sudoku[9][9]) {
                     random_num = (rand() % 9) + 1; //from (1-9)
                 } 
                 // while you can't add that value in, change the number
-                while (!check_box(sudoku, diag, diag + i, diag + j, random_num));
+                while (!check_box(sudoku, diag, diag + i, diag + j, random_num, level));
 
                 // add the value to the grid
                 sudoku[diag + i][diag + j] = random_num;
@@ -53,7 +53,7 @@ bool sudoku_build(int sudoku[9][9]) {
     /* fill the rest, starting at row 0 and column 3
      * since the diagonal has already been filled 
      */
-    if (!solve(sudoku)) {
+    if (!solve(sudoku, level)) {
         return false;
     }
     return true;
@@ -62,7 +62,7 @@ bool sudoku_build(int sudoku[9][9]) {
 
 /***********  create_puzzle()  ************/
 /*******  See create.h for details  *******/
-void create_puzzle(int sudoku[9][9], int num_removed){
+void create_puzzle(int sudoku[9][9], int num_removed, int level){
     srand (time(NULL));
 
     // delete 40 numbers
@@ -87,7 +87,7 @@ void create_puzzle(int sudoku[9][9], int num_removed){
              */
             sudoku[delete_i][delete_j] = 0;
 
-            isUnique = sudoku_solutions(sudoku) == 1;
+            isUnique = (sudoku_solutions(sudoku, level) == 1);
 
             if(!isUnique){
                 sudoku[delete_i][delete_j] = deleted_value;

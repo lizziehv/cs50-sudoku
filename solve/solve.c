@@ -13,22 +13,22 @@
 
 /**************** Local functions ****************/
 /************ (Not visible outside) **************/
-static bool solve_recursively(int sudoku[9][9], int row, int column);
-static int solutions_recurse(int sudoku[9][9], int row, int column, int num_solutions);
+static bool solve_recursively(int sudoku[9][9], int row, int column, int level);
+static int solutions_recurse(int sudoku[9][9], int row, int column, int num_solutions, int level);
 
 
 /**************** Global functions ****************/
 
 /**************  solve()  **************/
 /******  See solve.h for details  ******/
-bool solve(int sudoku[9][9]) {    
-    return solve_recursively(sudoku, 0, 0);
+bool solve(int sudoku[9][9], int level) {    
+    return solve_recursively(sudoku, 0, 0, level);
 }
 
 /********  sudoku_solutions()  *********/
 /******  See solve.h for details  ******/
-int sudoku_solutions(int sudoku[9][9]){
-    return solutions_recurse(sudoku, 0, 0, 0);
+int sudoku_solutions(int sudoku[9][9], int level){
+    return solutions_recurse(sudoku, 0, 0, 0, level);
 }
 
 /**************** Local functions ****************/
@@ -43,7 +43,7 @@ int sudoku_solutions(int sudoku[9][9]){
  * @return - true if sudoku has been correctly solved
  * @return - false if no solution found
  */
-static bool solve_recursively(int sudoku[9][9], int row, int column){
+static bool solve_recursively(int sudoku[9][9], int row, int column, int level){
     // check if all entries have been visited
     if (row == 9 && column == 0) {
         return true;
@@ -58,16 +58,16 @@ static bool solve_recursively(int sudoku[9][9], int row, int column){
 
                 // Try every valid number for this entry
                 for (int entry=1; entry<=9; entry++) {
-                    if (check_entry(sudoku, i, j, entry)) {
+                    if (check_entry(sudoku, i, j, entry, level)) {
                         sudoku[i][j] = entry;
 
                         // recurse with new sudoku -> move to next entry
                         bool ret;
                         if (j == 8) {
-                            ret = solve_recursively(sudoku, i+1, 0);
+                            ret = solve_recursively(sudoku, i+1, 0, level);
                         }
                         else {
-                            ret = solve_recursively(sudoku, i, j+1);
+                            ret = solve_recursively(sudoku, i, j+1, level);
                         }
 
                         if (ret) {              // found a solution that works
@@ -95,7 +95,7 @@ static bool solve_recursively(int sudoku[9][9], int row, int column){
  * 
  * @return - number of solutions
  */
-static int solutions_recurse(int sudoku[9][9], int row, int column, int num_solutions){
+static int solutions_recurse(int sudoku[9][9], int row, int column, int num_solutions, int level){
     // check if all entries have been visited
     if (row == 9 && column == 0) {
         return num_solutions+1;
@@ -110,15 +110,15 @@ static int solutions_recurse(int sudoku[9][9], int row, int column, int num_solu
 
                 // Try every valid number for this entry
                 for (int entry=1; entry<=9; entry++) {
-                    if (check_entry(sudoku, i, j, entry)) {
+                    if (check_entry(sudoku, i, j, entry, level)) {
                         sudoku[i][j] = entry;
 
                         // recurse with new sudoku -> move to next entry
                         if (j == 8) {
-                            num_solutions = solutions_recurse(sudoku, i+1, 0, num_solutions);
+                            num_solutions = solutions_recurse(sudoku, i+1, 0, num_solutions, level);
                         }
                         else {
-                            num_solutions = solutions_recurse(sudoku, i, j+1, num_solutions);
+                            num_solutions = solutions_recurse(sudoku, i, j+1, num_solutions, level);
                         }
 
                         sudoku[i][j]=0;

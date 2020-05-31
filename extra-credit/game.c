@@ -27,6 +27,7 @@ int SUDOKU_X = WIDTH;
 int SUDOKU_Y = HEIGHT;
 int SQUARE_SIZE = 40;
 int BOARD_BORDER = 3;
+int sudoku[9][9];
 
 /* For text rendering */
 TTF_Font* font;
@@ -55,8 +56,8 @@ int main (int argc, char **argv){
 
   /* Start and draw a sudoku */
   
-  if (sudoku_build(sudoku)) {
-    create_puzzle(sudoku, 40);
+  if (sudoku_build(sudoku, 1)) {
+    create_puzzle(sudoku, 40, 1);
   }
   else {
     fprintf(stderr, "Error: Problem filling in sudoku.\n"); 
