@@ -135,7 +135,7 @@ static int solutions_recurse(int sudoku[9][9], int row, int column, int num_solu
 /**************** Extra credit functions ****************/
 bool solve_samurai(int samurai[5][9][9]){
     for(int puzzle = 0; puzzle < 5; puzzle++){
-        if(!solve(samurai[puzzle])){
+        if(!solve(samurai[puzzle], 1)){
             return false;
         }
     }

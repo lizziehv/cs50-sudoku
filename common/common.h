@@ -60,6 +60,10 @@ bool check_entry(int sudoku[9][9], int row, int column, int entry, int level);
  */
 bool check_box(int sudoku[9][9], int diag, int row, int column, int entry, int level); 
 
+/***********  check_box_samurai()  ************/
+/******  See common.h for details  ******/
+bool check_box_samurai(int sudoku[9][9], int diag, int row, int column, int entry, int level); 
+
 /******  parse_sudoku()  ******/
 /* 
  * @param file - File from which to read sudoku puzzle

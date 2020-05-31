@@ -65,7 +65,8 @@ int main(int argc, char *argv[]) {
         }
         else {
             int sudoku[5][9][9];
-            if (samurai_build(sudoku, level)) {
+            if (samurai_build(sudoku)) {
+                create_puzzle_samurai(sudoku, 40); 
                 print_samurai(stdout, sudoku);
             }
             else {
@@ -97,7 +98,7 @@ int main(int argc, char *argv[]) {
         else {
             int sudoku[5][9][9];
             if (parse_samurai(stdin, sudoku)) {
-                if (!solve_samurai(sudoku, level)) {
+                if (!solve_samurai(sudoku)) {
                     printf("Sudoku given has no solution.\n");
                 }
                 else {

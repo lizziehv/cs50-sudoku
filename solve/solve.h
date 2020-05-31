@@ -50,5 +50,5 @@ int sudoku_solutions(int sudoku[9][9], int level);
  * @return - true if the samurai has a solution
  *           false otherwise
  */
-bool solve_samurai(int samurai[5][9][9])
+bool solve_samurai(int samurai[5][9][9]);
 #endif
