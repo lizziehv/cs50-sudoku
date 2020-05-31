@@ -66,11 +66,13 @@ This command line, calls the program `create.c` which will:
 This is done with two main functions:
 ```c
 // Builds a sudoku using random numbers
-void sudoku_build(int sudoku[9][9]);
+// where for the original, the level is 1
+void sudoku_build(int sudoku[9][9], int level);
 
 // Takes the sudoku and makes a puzzle by removing 40 numbers
 // It deletes random numbers and makes sure that the sudoku has a unique solution
-void create_puzzle(int sudoku[9][9]);
+// where for the original, the level is 1
+void create_puzzle(int sudoku[9][9], int level);
 ```
 
 ##### Output:
@@ -84,20 +86,19 @@ The documents `solve.h` and `solve.c` are called by `sudoku.c` when the followin
 ```
 This command line, calls the program `solve()` in `solve.c` which will:
 ```
-1. Take a parsed sudoku matrix and an initially empty solution matrix
-2. Copy all entries from sudoku onto solution
-3. Call a recursive sudoku solver on solution to complete the grid, where current square is set to the first one
-4. If all squares have been visited 
-    5. Return false
-6. Else for every square that has not been visited starting from current square
-    7. For every number in range [1, 9]
-        8. If the number is a valid entry at current square
-            9. Call recursive sudoke solver, where current square is set to the next square after current
-            10. If it returns true
-                11. return true (found a solution that works)
-            12. Else 
-                13. Set current entry to empty again
-    14. Since no number could complete the sudoku, return false.
+1. Take a parsed sudoku matrix and 
+2. Call a recursive sudoku solver on solution to complete the grid, where current square is set to the first one
+3. If all squares have been visited 
+    4. Return false
+5. Else for every square that has not been visited starting from current square
+    6. For every number in range [1, 9]
+        7. If the number is a valid entry at current square
+            8. Call recursive sudoke solver, where current square is set to the next square after current
+            9. If it returns true
+                10. return true (found a solution that works)
+            11. Else 
+                12. Set current entry to empty again
+    13. Since no number could complete the sudoku, return false.
 ```
 
 This is done with two main functions:
@@ -105,13 +106,9 @@ This is done with two main functions:
 /* 
  * Given a sudoku puzzle, copy solution onto solution sudoku, initially with empty   
  * entries, following conventions 
+ * where for the original, the level is 1
  */
-bool solve(int sudoku[9][9], int solution[9][9]);
-
-/* 
- * Given any sudoku, complete its 0 entries following sudoku conventions
- */
-bool solve_recursively(int sudoku[9][9], int row, int column);
+bool solve(int sudoku[9][9], int solution[9][9], int level);
 ```
 
 ##### Standard Input 
@@ -149,19 +146,22 @@ void print_sudoku(int sudoku[9][9]);
 
 // Checks if the entry can be put into the given row and column without making it invalid
 // It would be invalid if the row or column or the 3 by 3 square box contains the entry
-bool check_entry(int sudoku[9][9], int row, int column, int entry);
+// where for the original, the level is 1
+bool check_entry(int sudoku[9][9], int row, int column, int entry, int level);
 
 // Checks if the entry can be put into a given 3 by 3 square box 
-bool check_box(int sudoku[9][9], int diag, int row, int column, int entry); 
+// where for the original, the level is 1
+bool check_box(int sudoku[9][9], int diag, int row, int column, int entry, int level); 
 
 // Read a sudoku from a file and add the entries to sudoku matrix
-bool parse_sudoku(FILE* fp, int sudoku[9][9]);
+// where for the original, the level is 1
+bool parse_sudoku(FILE* fp, int sudoku[9][9], int level);
 ```
 
 These are used by both `create.c` and `solve.c` to perform all sudoku functions.
 
 ### Fuzzgenerator
-This function is automatically run by the `make test` in `testing.sh`. However, we thought it would be important to define how it works 
+Only works on the original sudoku puzzle. This function is automatically run by the `make test` in `testing.sh`. However, we thought it would be important to define how it works 
 
 After making an executable, this function can be run by moving into the testing directory and using the following command line:
 
