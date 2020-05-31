@@ -12,6 +12,7 @@
 #include "../common/common.h"
 #include "../solve/solve.h"
 #include "../create/create.h"
+#include "button.h"
 
 /* Sets constants */
 #define WIDTH 800
@@ -37,6 +38,7 @@ SDL_Color backgroundColor = { 255, 255, 255, 255 }; // white
 
 /*********** Local functions ***********/
 int game_init();
+void start_screen();
 void setup_game();
 void handle_events();
 void draw_sudoku();
@@ -51,24 +53,11 @@ int main (int argc, char **argv){
   if(game_init() != 0)
     return 1;
 
-  /* Game setup */
-  setup_game();
-
-  /* Start and draw a sudoku */
-  
-  if (sudoku_build(sudoku, 1)) {
-    create_puzzle(sudoku, 40, 1);
-  }
-  else {
-    fprintf(stderr, "Error: Problem filling in sudoku.\n"); 
-    return 2; 
-  }
-
-  draw_sudoku(sudoku);
+  /* Begin start screen */
+  start_screen();
 
   while(!quit){
     handle_events();
-    
   }  
   
   game_clean();
@@ -113,15 +102,18 @@ int game_init(){
 void handle_events(){
   /* Keep presenting until window is closed */
   SDL_Event e;
-  if(SDL_PollEvent(&e)){
+  while(SDL_PollEvent(&e)){
     if (e.type == SDL_QUIT){
         quit = true;
     }
-    if (e.type == SDL_KEYDOWN){
-        solve(sudoku);
-        draw_sudoku(sudoku);
-    }
   }
+}
+
+void start_screen(){
+  /* Clear background */
+  SDL_SetRenderDrawColor(renderer, 217, 197, 199, 255);
+  SDL_RenderClear(renderer);
+
 }
 
 void setup_game(){

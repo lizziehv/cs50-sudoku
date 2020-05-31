@@ -3,8 +3,10 @@
 #include <stdbool.h>
 #include <stdio.h>
 
+#include "button.h"
+
 /**************** structures ****************/
-typedef struct {
+typedef struct button {
     SDL_Rect draw_rect;    // dimensions of button
     struct {
         Uint8 r, g, b, a;
@@ -13,21 +15,7 @@ typedef struct {
     bool pressed;
 } button_t;
 
-/************** button_new() ***************/
-button_t *button_new(int key, int score){
-    // allocate space for node
-    button_t *pair = (button_t *)count_malloc(sizeof(button_t));
-
-    if(pair!=NULL){
-        // set key 
-        pair->key = key;
-        pair->score = score;
-    }
-    
-    return pair;
-}
-
-static void button_process_event(button_t *btn, const SDL_Event *ev) {
+void button_process_event(button_t *btn, const SDL_Event *ev) {
     // react on mouse click within button rectangle by setting 'pressed'
     if(ev->type == SDL_MOUSEBUTTONDOWN) {
         if(ev->button.button == SDL_BUTTON_LEFT &&
