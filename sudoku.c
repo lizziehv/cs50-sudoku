@@ -23,13 +23,9 @@ int main(int argc, char *argv[]) {
         return 1; 
     }
 
-    int level;
+    int level = 1; // keeps track of level (easy, medium, hard)
 
-    if (argc == 2) {
-        // If difficulty not explicitly mentioned, we want an easy level sudoku
-        level = 1;
-    }
-    else if (argc==3) {
+    if (argc==3) {
         if (strcmp(argv[2], "easy")==0) {
             // Level 1 is easy
             level = 1;
