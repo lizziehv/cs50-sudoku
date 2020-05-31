@@ -57,6 +57,7 @@ void print_samurai(FILE *fp_out, int sudoku[5][9][9]) {
         for (int j = 0; j < 3; j++) {
             fprintf(fp_out, "  ");
         }
+        fprintf(fp_out, "\n");
     }
 
     // Print the next 3 lines. All 3 sudokus printed
@@ -264,6 +265,7 @@ static void samurai_print_two(FILE *fp_out, int sudoku[5][9][9], bool top){
         for (int j = 0; j < 8; j++) {
             fprintf(fp_out, "%d ", sudoku[second][r][j]);
         }
+        fprintf(fp_out, "\n");
     }
 }
 
@@ -286,5 +288,6 @@ static void samurai_print_three(FILE *fp_out, int sudoku[5][9][9], bool top){
         for (int j = 0; j < 8; j++) {
             fprintf(fp_out, "%d ", sudoku[second][r][j]);
         }
+        fprintf(fp_out, "\n");
     }
 }
