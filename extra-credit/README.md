@@ -51,7 +51,7 @@ This is the original sudoku level. It can be run with both of the following comm
 This is explained more in depth in [README](../README.md).
 
 ##### Medium Level Description
-<img src="extra-credit/medium.png" alt="medium level"/>
+<img src="assets/medium.png" alt="hard level" width="40%" />
 
 Just like with the original, the documents `create.h` and `create.c` are called by `sudoku.c` when the following command line is asked to execute:
 ``` bash
@@ -70,9 +70,22 @@ void sudoku_build(int sudoku[9][9], int level);
 void create_puzzle(int sudoku[9][9], int level);
 ```
 
+##### Output
+This function outputs in the exact same format as the original sudoku, but the solution should have unique diagonal numbers
+```
+0 0 0 0 7 6 0 0 4
+4 0 0 3 2 8 0 0 9
+3 0 1 9 4 0 0 0 7
+1 0 0 8 0 7 0 4 0
+0 0 6 4 0 3 0 7 0
+5 4 7 2 1 0 0 8 0
+7 5 0 0 8 0 4 9 2
+0 0 2 7 0 0 0 3 0
+0 8 0 0 0 2 7 1 6
+```
 
 ##### Hard Level Description
-<img src="extra-credit/hard.png" alt="hard level"/>
+<img src="assets/hard.png" alt="hard level" width="40%" />
 
 ###### Create
 Just like with the original, the documents `create.h` and `create.c` are called by `sudoku.c` when the following command line is asked to execute:
