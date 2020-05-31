@@ -14,8 +14,7 @@
 #include <stdbool.h>
 
 /* 
- * @param sudoku - an array of arrays(rows), where empty entries
- *                 are set to 0
+ * @param sudoku - an array of arrays
  * @param level - the level that the sudoku will be in
  * 
  * Given an empty sudoku, builds a sudoku using random numbers
@@ -37,5 +36,27 @@ bool sudoku_build(int sudoku[9][9], int level);
  * @return - nothing
  */
 void create_puzzle(int sudoku[9][9], int num_removed, int level);
+
+/* 
+ * @param sudoku - an array of 2-d arrays
+ * 
+ * Given an empty samurai sudoku, builds a sudoku using random numbers
+ * (unique numbers in every row, column, box, an overlapping middle sudoku)
+ * 
+ * @return - true if sudoku has been correctly create
+ * @return - false if there was an error encountered
+ */
+bool samurai_build(int sudoku[5][9][9]); 
+
+/* @param sudoku - populated grids
+ * @param num_removed - number of entries to remove from each of the grids
+ * 
+ * Takes a completed sudoku and makes a puzzle by removing num_removed numbers
+ * It deletes random numbers and makes sure that the sudoku has a unique solution
+ * 
+ * @return - nothing
+ */
+void create_puzzle_samurai(int sudoku[5][9][9], int num_removed);
+
 
 #endif

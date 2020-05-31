@@ -66,6 +66,7 @@ int main(int argc, char *argv[]) {
         else {
             int sudoku[5][9][9];
             if (samurai_build(sudoku, level)) {
+                create_puzzle_samurai(sudoku, 40); 
                 print_samurai(stdout, sudoku);
             }
             else {
