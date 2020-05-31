@@ -91,6 +91,19 @@ echo
 echo "Multiple solutions"
 cat $dir/multi_sol.txt | ./sudoku solve 
 
+# Testing known solutions
+echo 
+echo "#####################################"
+echo "Testing for known solutions:"
+cat $dir/example1.txt | ./sudoku solve > $dir/example-output-1.txt
+echo "Comparing output to known solution..."
+diff $dir/example-sol-1.txt $dir/example-output-1.txt
+
+if [ $? -eq 0 ]; then
+    echo "Solution is correct."
+fi
+
+
 ### These tests for create should succeed ###
 ### These fuzztests for solve should succeed
 
@@ -113,16 +126,4 @@ if [ $? -eq 4 ] || [ $? -eq 5 ]
                 echo "ERROR: solver changes original grid"
         fi
     else echo "CORRECT: no sudoku has multiple solutions and solver doesn't change original grid"
-fi
-
-
-echo 
-echo "#####################################"
-echo "Testing for known solutions:"
-cat $dir/example1.txt | ./sudoku solve > $dir/example-output-1.txt
-echo "Comparing output to known solution..."
-diff $dir/example-sol-1.txt $dir/example-output-1.txt
-
-if [ $? -eq 0 ]; then
-    echo "Solution is correct."
 fi
