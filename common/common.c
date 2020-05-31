@@ -19,6 +19,8 @@ static bool check_valid(int sudoku[9][9], int level);
 /****************** Local functions (extra credit) ******************/
 static void samurai_print_two(FILE *fp_out, int sudoku[5][9][9], bool top);
 static void samurai_print_three(FILE *fp_out, int sudoku[5][9][9], bool top);
+static bool samurai_parse_two(FILE *file, int sudoku[5][9][9], bool top);
+static bool samurai_parse_three(FILE *file, int sudoku[5][9][9], bool top);
 
 /****************** Global functions ******************/
 
@@ -35,37 +37,6 @@ void print_sudoku(FILE *fp_out, int sudoku[9][9]) {
         fprintf(fp_out, "\n");
     }
 }
-
-/***********  print_samurai()  ***********/
-/******  See common.h for details  ******/
-void print_samurai(FILE *fp_out, int sudoku[5][9][9]) {
-    // Print the first 6 rows
-    samurai_print_two(fp_out, sudoku, true);
-
-    // Print the next 3 rows
-    samurai_print_three(fp_out, sudoku, true);
-
-    // Print the next 3 lines. Only middle sudoku printed
-    for (int r = 9; r < 12; r++) {
-        for (int j = 0; j < 5; j++) {
-            fprintf(fp_out, "  ");
-        }
-        // Print the middle sudoku
-        for (int j = 0; j < 9; j++) {
-            fprintf(fp_out, "%d ", sudoku[2][r-6][j]);
-        }
-        for (int j = 0; j < 5; j++) {
-            fprintf(fp_out, "  ");
-        }
-        fprintf(fp_out, "\n");
-    }
-
-    // Print the next 3 lines. All 3 sudokus printed
-    samurai_print_three(fp_out, sudoku, false);
-
-    samurai_print_two(fp_out, sudoku, false);
-}
-
 
 /***********  check_entry()  ************/
 /******  See common.h for details  ******/
@@ -197,10 +168,65 @@ bool parse_sudoku(FILE* file, int sudoku[9][9], int level) {
     return true; 
 }
 
+/**************  Global functions for extra credit  **************/
+
+/***********  print_samurai()  ***********/
+/******  See common.h for details  ******/
+void print_samurai(FILE *fp_out, int sudoku[5][9][9]) {
+    // Print the first 6 rows
+    samurai_print_two(fp_out, sudoku, true);
+
+    // Print the next 3 rows
+    samurai_print_three(fp_out, sudoku, true);
+
+    // Print the next 3 lines. Only middle sudoku printed
+    for (int r = 9; r < 12; r++) {
+        for (int j = 0; j < 5; j++) {
+            fprintf(fp_out, "  ");
+        }
+        // Print the middle sudoku
+        for (int j = 0; j < 9; j++) {
+            fprintf(fp_out, "%d ", sudoku[2][r-6][j]);
+        }
+        for (int j = 0; j < 5; j++) {
+            fprintf(fp_out, "  ");
+        }
+        fprintf(fp_out, "\n");
+    }
+
+    // Print the next 3 lines. All 3 sudokus printed
+    samurai_print_three(fp_out, sudoku, false);
+
+    samurai_print_two(fp_out, sudoku, false);
+}
+
 /***********  parse_samurai()  ***********/
 /******  See common.h for details  ******/
 bool parse_samurai(FILE* file, int sudoku[5][9][9]) {
-    return true; 
+    if(! samurai_parse_two(file, sudoku, true))
+        return false;
+    if(! samurai_parse_three(file, sudoku, true))   
+        return false;
+    
+    // parse middle rows
+    for(int i = 3; i < 6; i++){
+        for(int j = 0; j < 9; j++){
+            int entry;
+            int ret = fscanf(file, "%d", &entry);
+
+            if(ret != 1 || ! (entry <= 9 && entry >= 0))
+                return false;
+
+            sudoku[2][i][j] = entry;
+        }
+    }
+
+    if(! samurai_parse_two(file, sudoku, false))
+        return false;
+    if(! samurai_parse_three(file, sudoku, false))   
+        return false;
+    
+    return true;
 }
 
 
@@ -262,7 +288,7 @@ static void samurai_print_three(FILE *fp_out, int sudoku[5][9][9], bool top){
         for (int j = 0; j < 8; j++) {
             fprintf(fp_out, "%d ", sudoku[first][r][j]);
         }
-        // Print spaces betweent the first and second sudoku
+        // Print spaces between the first and second sudoku
         for (int j = 3; j < 6; j++) {
             fprintf(fp_out, "%d ", sudoku[2][6-2*first_row + r][j]);
         }
@@ -272,4 +298,57 @@ static void samurai_print_three(FILE *fp_out, int sudoku[5][9][9], bool top){
         }
         fprintf(fp_out, "\n");
     }
+}
+
+static bool samurai_parse_two(FILE *file, int sudoku[5][9][9], bool top){
+    int first = top ? 0 : 3;  // first samurai to parse
+    int second = top ? 1 : 4 ; // second samurai to parse
+    
+    int first_row = top ? 0 : 3;
+    for (int r = first_row; r < first_row + 6; r++) {
+        for(int puzzle = first; puzzle <= second; puzzle++){
+            // Parse line and enter into sudoku
+            for (int j = 0; j < 8; j++) {
+                int entry;
+                int ret = fscanf(file, "%d", &entry);
+
+                if(ret != 1 || ! (entry <= 9 && entry >= 0))
+                    return false;
+
+                sudoku[first][r][j] = entry;
+            }
+        }
+    }
+    return true;
+}
+
+static bool samurai_parse_three(FILE *file, int sudoku[5][9][9], bool top){
+    int first = top ? 0 : 3;  // first samurai to print
+    int second = top ? 1 : 4 ; // second samurai to print
+    
+    int first_row = top ? 6 : 0;
+
+    int puzzles[3] = {first, 2, second};
+
+    for (int r = first_row; r < first_row + 3; r++) {
+        for(int p = 0; p <= 2; p++){
+            // get puzzle number
+            int puzzle_i = puzzles[p];
+            
+            // calculate row it should be inserted into
+            int row = (puzzle_i == 2) ? 6-2*first_row + r : r;
+
+            // Parse line and enter into sudoku
+            for (int j = 0; j < 8; j++) {
+                int entry;
+                int ret = fscanf(file, "%d", &entry);
+
+                if(ret != 1 || ! (entry <= 9 && entry >= 0))
+                    return false;
+
+                sudoku[puzzle_i][row][j] = entry;
+            }
+        }
+    }
+    return true;
 }
