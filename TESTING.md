@@ -68,8 +68,9 @@ A more in depth description is found in
 	- With less than 40 missing numbers 
 	- With 40 missing numbers 
 	- With more than 40 missing numbers 
+	- Giving the solver specific sudokus (which we already know the answer off) and comparing the solution to the expected answer 
 
-4. Fuzzgenerator to test the solver on several random sudokus
+4. Fuzzgenerator to test the solver on several random sudokus (since it's random, we needed it to sleep for each solution to be different, causing it to take a little long)
     - Will generate any given number of sudokus and solve them 
 	- Before solving each sudoku, the fuzzgenerator will check if the sudoku created has a unique solution (making sure `create` works correctly)
 	- After solving each sudoku, the fuzz generatory will check if the solver changed any of the original values (making sure the solution was valid)
