@@ -40,4 +40,15 @@ bool solve(int sudoku[9][9], int level);
  */
 int sudoku_solutions(int sudoku[9][9], int level);
 
+/******************* For extra credit *******************/
+
+/*
+ * @param samurai - an array of sudokus (a samurai sudoku)
+ * 
+ * Complete a samurai, a set of 5 overlapping sudoku puzzles, each with a unique solution
+ * 
+ * @return - true if the samurai has a solution
+ *           false otherwise
+ */
+bool solve_samurai(int samurai[5][9][9])
 #endif
