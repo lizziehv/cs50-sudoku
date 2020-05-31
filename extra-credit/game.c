@@ -9,6 +9,9 @@
 #include <SDL2/SDL.h> /* macOS- and GNU/Linux-specific */
 #endif
 
+#include "../common/common.h"
+#include "../solve/solve.h"
+#include "../create/create.h"
 
 /* Sets constants */
 #define WIDTH 800
@@ -20,6 +23,8 @@ SDL_Renderer *renderer = NULL;
 bool quit = false;
 
 /* For sudoku rendering */
+int SUDOKU_X = WIDTH;
+int SUDOKU_Y = HEIGHT;
 int SQUARE_SIZE = 40;
 int BOARD_BORDER = 3;
 
@@ -31,6 +36,7 @@ SDL_Color backgroundColor = { 255, 255, 255, 255 }; // white
 
 /*********** Local functions ***********/
 int game_init();
+void setup_game();
 void handle_events();
 void draw_sudoku();
 void game_clean();
@@ -38,11 +44,23 @@ SDL_Texture* SurfaceToTexture( SDL_Surface* surf );
 
 int main (int argc, char **argv){
   /* Begin window and renderer */
-  if(game_init() != 0){
+  if(game_init() != 0)
     return 1;
+
+  /* Game setup */
+  setup_game();
+
+  /* Start and draw a sudoku */
+  int sudoku[9][9];
+  if (sudoku_build(sudoku)) {
+    create_puzzle(sudoku, 40);
+  }
+  else {
+    fprintf(stderr, "Error: Problem filling in sudoku.\n"); 
+    return 2; 
   }
 
-  draw_sudoku();
+  draw_sudoku(sudoku);
 
   while(!quit){
     handle_events();
@@ -101,25 +119,28 @@ void handle_events(){
   }
 }
 
-void draw_sudoku(){
+void setup_game(){
   /* Clear background */
-  SDL_SetRenderDrawColor(renderer, 247, 209, 173, 255);
+  SDL_SetRenderDrawColor(renderer, 217, 197, 199, 255);
   SDL_RenderClear(renderer);
 
+  
+}
+
+void draw_sudoku(int sudoku[9][9]){
   /* Draw background Sudoku board */
   SDL_SetRenderDrawColor(renderer, 110, 107, 105, 255);
 
   SDL_Rect board;
   board.w = (SQUARE_SIZE + BOARD_BORDER)*9 + BOARD_BORDER;
   board.h = (SQUARE_SIZE + BOARD_BORDER)*9 + BOARD_BORDER;
-  board.x = WIDTH/2 - board.w/2;
-  board.y = HEIGHT/2 - board.w/2;
+  board.x = SUDOKU_X/2 - board.w/2;
+  board.y = SUDOKU_Y/2 - board.w/2;
   
   SDL_RenderFillRect(renderer, &board);
 
   /* Draw each square with entries from a sudoku */
-  SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-
+  
   SDL_Rect r;
   r.w = SQUARE_SIZE;
   r.h = SQUARE_SIZE;
@@ -127,25 +148,36 @@ void draw_sudoku(){
   for(int i = 0; i <= 8; i++){
     r.x = board.x + (BOARD_BORDER + SQUARE_SIZE)*i + BOARD_BORDER;
     for(int j = 0; j <= 8; j++){
+      /* Draw square */
+      SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
       r.y = board.y + (BOARD_BORDER + SQUARE_SIZE)*j + BOARD_BORDER;
       SDL_RenderFillRect(renderer, &r);
 
-      char number[2];
-      sprintf(number, "%d", i);
+      /* Draw border */
+      SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+      SDL_RenderDrawRect(renderer, &r);
 
-      SDL_Surface* solid = TTF_RenderText_Solid( font, number, textColor );
-      SDL_Texture* solidTexture = SurfaceToTexture( solid );
+      /* Print number */
+      int number = sudoku[i][j];
+      if(number != 0){
+        char string[2];
+        sprintf(string, "%d", number);
 
-      SDL_Rect solidRect;
+        SDL_Surface* solid = TTF_RenderText_Solid( font, string, textColor );
+        SDL_Texture* solidTexture = SurfaceToTexture( solid );
 
-      SDL_QueryTexture( solidTexture, NULL, NULL, &solidRect.w, &solidRect.h );
-	    solidRect.x = r.x + (SQUARE_SIZE - solidRect.w)/2;
-	    solidRect.y = r.y + (SQUARE_SIZE - solidRect.h)/2;
-      
-      SDL_RenderCopy(renderer, solidTexture, NULL, &solidRect);
+        /* Set rectangle for text */
+        SDL_Rect solidRect;
+
+        SDL_QueryTexture( solidTexture, NULL, NULL, &solidRect.w, &solidRect.h );
+	      solidRect.x = r.x + (SQUARE_SIZE - solidRect.w)/2;
+	      solidRect.y = r.y + (SQUARE_SIZE - solidRect.h)/2;
+
+        SDL_RenderCopy(renderer, solidTexture, NULL, &solidRect);
+      }  
     }
   }
-
+  /* Rerender */
   SDL_RenderPresent(renderer);
 }
 
