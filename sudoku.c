@@ -18,29 +18,31 @@
 int main(int argc, char *argv[]) {
     
     // if the wrong number of parameters is given
-    if (argc != 2 && argc != 3) {
+    if (argc > 3 || argc < 2) {
         fprintf(stderr, "Error: Incorrect number of parameters given.\n");
         return 1; 
     }
+
     int level;
-    if (argc==2){
+
+    if (argc == 2) {
         // If difficulty not explicitly mentioned, we want an easy level sudoku
         level = 1;
     }
-    else if (argc==3){
-        if (strcmp(argv[2], "easy")==0){
+    else if (argc==3) {
+        if (strcmp(argv[2], "easy")==0) {
             // Level 1 is easy
             level = 1;
         }
-        else if (strcmp(argv[2], "medium")==0){
+        else if (strcmp(argv[2], "medium")==0) {
             // Level 3 is medium
             level = 2;
         }
-        else if (strcmp(argv[2], "hard")==0){
+        else if (strcmp(argv[2], "hard")==0) {
             // Level 3 is hard
             level = 3;
         }
-        else{
+        else {
             fprintf(stderr, "Error: Incorrect level given.\n");
             return 1;
         }
