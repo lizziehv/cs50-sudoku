@@ -1,5 +1,5 @@
 # CS50 Final Project
-## Sudoke Puzzle Creator and Solver
+## Sudoku Puzzle Creator and Solver
 This is the repository for the final project for Computer Science 50-- a sudoku puzzle creator and solver.
 
 ### Contributors (Github username)
