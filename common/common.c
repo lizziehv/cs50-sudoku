@@ -262,7 +262,7 @@ static void samurai_print_two(FILE *fp_out, int sudoku[5][9][9], bool top){
     int first_row = top ? 0 : 3;
     for (int r = first_row; r < first_row + 6; r++) {
         // Print the row of the first sudoku
-        for (int j = 0; j < 8; j++) {
+        for (int j = 0; j < 9; j++) {
             fprintf(fp_out, "%d ", sudoku[first][r][j]);
         }
         // Print spaces betweent the first and second sudoku
@@ -270,7 +270,7 @@ static void samurai_print_two(FILE *fp_out, int sudoku[5][9][9], bool top){
             fprintf(fp_out, "  ");
         }
         // Print the row of the second sudoku
-        for (int j = 0; j < 8; j++) {
+        for (int j = 0; j < 9; j++) {
             fprintf(fp_out, "%d ", sudoku[second][r][j]);
         }
         fprintf(fp_out, "\n");
@@ -285,7 +285,7 @@ static void samurai_print_three(FILE *fp_out, int sudoku[5][9][9], bool top){
 
     for (int r = first_row; r < first_row + 3; r++) {
         // Print the row of the first sudoku
-        for (int j = 0; j < 8; j++) {
+        for (int j = 0; j < 9; j++) {
             fprintf(fp_out, "%d ", sudoku[first][r][j]);
         }
         // Print spaces between the first and second sudoku
@@ -293,7 +293,7 @@ static void samurai_print_three(FILE *fp_out, int sudoku[5][9][9], bool top){
             fprintf(fp_out, "%d ", sudoku[2][6-2*first_row + r][j]);
         }
         // Print the row of the second sudoku
-        for (int j = 0; j < 8; j++) {
+        for (int j = 0; j < 9; j++) {
             fprintf(fp_out, "%d ", sudoku[second][r][j]);
         }
         fprintf(fp_out, "\n");
@@ -308,7 +308,7 @@ static bool samurai_parse_two(FILE *file, int sudoku[5][9][9], bool top){
     for (int r = first_row; r < first_row + 6; r++) {
         for(int puzzle = first; puzzle <= second; puzzle++){
             // Parse line and enter into sudoku
-            for (int j = 0; j < 8; j++) {
+            for (int j = 0; j < 9; j++) {
                 int entry;
                 int ret = fscanf(file, "%d", &entry);
 
@@ -339,7 +339,7 @@ static bool samurai_parse_three(FILE *file, int sudoku[5][9][9], bool top){
             int row = (puzzle_i == 2) ? 6-2*first_row + r : r;
 
             // Parse line and enter into sudoku
-            for (int j = 0; j < 8; j++) {
+            for (int j = 0; j < 9; j++) {
                 int entry;
                 int ret = fscanf(file, "%d", &entry);
 
