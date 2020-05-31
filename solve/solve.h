@@ -13,6 +13,7 @@
 
 /* 
  * @param sudoku - an array of arrays(rows), where empty entries are set to 0
+ * @param level - the level that the sudoku will be in
  * 
  * Given a sudoku with empty entries, complete Sudoku puzzle, following conventions 
  * (unique numbers in every row, column, and box)
@@ -23,10 +24,11 @@
  * @return - true if sudoku has been correctly solved
  * @return - false if no solution found
  */
-bool solve(int sudoku[9][9]);
+bool solve(int sudoku[9][9], int level);
 
 /* 
  * @param sudoku - an array of arrays(rows), where empty entries are set to 0
+ * @param level - the level that the sudoku will be in
  * 
  * Given a sudoku with empty entries, find the number of solutions without 
  * completing sudoku puzzle
@@ -36,6 +38,6 @@ bool solve(int sudoku[9][9]);
  * 
  * @return - number of solutions for given sudoku
  */
-int sudoku_solutions(int sudoku[9][9]);
+int sudoku_solutions(int sudoku[9][9], int level);
 
 #endif

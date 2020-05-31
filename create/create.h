@@ -16,6 +16,7 @@
 /* 
  * @param sudoku - an array of arrays(rows), where empty entries
  *                 are set to 0
+ * @param level - the level that the sudoku will be in
  * 
  * Given an empty sudoku, builds a sudoku using random numbers
  * (unique numbers in every row, column, and box)
@@ -23,7 +24,7 @@
  * @return - true if sudoku has been correctly create
  * @return - false if there was an error encountered
  */
-bool sudoku_build(int sudoku[9][9]);
+bool sudoku_build(int sudoku[9][9], int level);
 
 
 /* @param sudoku - populated grid 
