@@ -111,11 +111,22 @@ bool samurai_build(int sudoku[5][9][9]) {
         return false; 
     }
 
-    // fill in with zeroes, except the overlap
+     for (int i = 0; i < 9; i++) {       // rows
+        for (int j = 0; j < 9; j++) {   // columns 
+            sudoku[0][i][j] = 0;
+            sudoku[1][i][j] = 0;
+            sudoku[3][i][j] = 0;
+            sudoku[4][i][j] = 0;
+        }
+    }
+
+    // Change the overlap
     for (int i = 0; i < 9; i++) {       // rows
         for (int j = 0; j < 9; j++) {   // columns 
             sudoku[0][i][j] = 0;
             sudoku[1][i][j] = 0;
+            sudoku[3][i][j] = 0;
+            sudoku[4][i][j] = 0;
 
             // if it overlaps with the middle one
             // for the two top sudokus
@@ -128,7 +139,7 @@ bool samurai_build(int sudoku[5][9][9]) {
                 }
             }
             // for the two buttom sudokus
-            if (j > 3) {
+            if (j < 3) {
                 if (i > 5) {
                     sudoku[3][i][j] = sudoku[2][i][j];
                 }
@@ -140,44 +151,50 @@ bool samurai_build(int sudoku[5][9][9]) {
     } 
  
     // the diagonal 3x3 boxes are independent of each other, fill them first
-    // two top sudokus
-    for (int puzzle = 0; puzzle < 2; puzzle ++) {
+    // two two negative sloped sudokus
+    for (int puzzle = 0; puzzle < 5; puzzle+=4) {
         for (int diag = 0; diag < 9; diag += 3) {
-        
-            for (int i = 0; i < 3; i++) {       // rows
-                for (int j = 0; j < 3; j++) {   // columns 
-                    do { 
-                        
-                        random_num = (rand() % 9) + 1; //from (1-9)
-                    } 
-                    // while you can't add that value in, change the number
-                    // since it's not different from the original sudoku give it a level 1
-                    while (!check_box(sudoku[puzzle], diag, diag + i, diag + j, random_num, 1));
+            // check to see if it's not the diagonal square that is already filled
+            if ((puzzle == 0 && diag < 6) || (puzzle == 4 && diag > 3)) {
+                for (int i = 0; i < 3; i++) {       // rows
+                    for (int j = 0; j < 3; j++) {   // columns 
+                        do { 
+                            
+                            random_num = (rand() % 9) + 1; //from (1-9)
+                        } 
+                        // while you can't add that value in, change the number
+                        // since it's not different from the original sudoku give it a level 1
+                        while (!check_box(sudoku[puzzle], diag, diag + i, diag + j, random_num, 1));
 
-                    // add the value to the grid
-                    sudoku[puzzle][diag + i][diag + j] = random_num;
+                        // add the value to the grid
+                        sudoku[puzzle][diag + i][diag + j] = random_num;
+                    } 
                 } 
-            } 
+            }
         }
-    }
-    // two bottom sudokus
-    for (int puzzle = 3; puzzle < 5; puzzle ++) {
-        for (int diag = 6; diag >= 0; diag -= 3) {
         
-            for (int i = 0; i < 3; i++) {       // rows
-                for (int j = 0; j < 3; j++) {   // columns 
-                    do { 
-                        
-                        random_num = (rand() % 9) + 1; //from (1-9)
-                    } 
-                    // while you can't add that value in, change the number
-                    // since it's not different from the original sudoku give it a level 1
-                    while (!check_box(sudoku[puzzle], diag, diag + i, diag + j, random_num, 1));
+    }
 
-                    // add the value to the grid
-                    sudoku[puzzle][diag + i][diag - 6 + j] = random_num;
+    // two two positive sloped sudokus
+    for (int puzzle = 1; puzzle < 4; puzzle+=2) {
+        for (int diag = 6; diag >= 0; diag -= 3) {
+            // check to see if it's not the diagonal square that is already filled
+            if ((puzzle == 0 && diag < 6) || (puzzle == 4 && diag > 3)) {
+                for (int i = 0; i < 3; i++) {       // rows
+                    for (int j = 0; j < 3; j++) {   // columns 
+                        do { 
+                            
+                            random_num = (rand() % 9) + 1; //from (1-9)
+                        } 
+                        // while you can't add that value in, change the number
+                        // since it's not different from the original sudoku give it a level 1
+                        while (!check_box(sudoku[puzzle], diag, diag + i, diag - 6 + j, random_num, 1));
+
+                        // add the value to the grid
+                        sudoku[puzzle][diag + i][diag -6 + j] = random_num;
+                    } 
                 } 
-            } 
+            }
         }
     }
 
