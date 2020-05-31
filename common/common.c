@@ -21,6 +21,7 @@ static void samurai_print_two(FILE *fp_out, int sudoku[5][9][9], bool top);
 static void samurai_print_three(FILE *fp_out, int sudoku[5][9][9], bool top);
 static bool samurai_parse_two(FILE *file, int sudoku[5][9][9], bool top);
 static bool samurai_parse_three(FILE *file, int sudoku[5][9][9], bool top);
+static bool samurai_scan_assign(FILE *file, int sudoku[5][9][9], int puzzle, int i, int j);
 
 /****************** Global functions ******************/
 
@@ -363,7 +364,7 @@ static bool samurai_parse_three(FILE *file, int sudoku[5][9][9], bool top){
     return true;
 }
 
-static bool samurai_scan_assign(FILE *file, int sudoku[5][9][9], puzzle, i, j){
+static bool samurai_scan_assign(FILE *file, int sudoku[5][9][9], int puzzle, int i, int j){
     int entry;
     int ret = fscanf(file, "%d", &entry);
 
