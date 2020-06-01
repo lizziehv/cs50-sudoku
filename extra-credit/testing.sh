@@ -14,7 +14,6 @@ echo "Testing incorrect parameters"
 
 # Testing with too many parameters 
 ../sudoku create bla bla 
-../sudoku solve easy
 
 #Testing with correct number, but incorrect parameter
 ../sudoku create bla 
@@ -28,27 +27,27 @@ echo "Testing solve on invalid puzzles (should fail)"
 #Testing solver with grid with too few rows
 echo
 echo "Too few rows"
-cat $dir/few_rows.txt | ../sudoku solve 
+cat $dir/few_rows.txt | ../sudoku solve hard
 
 #Testing solver with grid with too few col
 echo
 echo "Too few columns"
-cat $dir/few_col.txt | ../sudoku solve 
+cat $dir/few_col.txt | ../sudoku solve hard
 
 #Test the solver with a grid with non-unique horizontal rows
 echo
 echo "Non-unique horizontal rows"
-cat $dir/horizontal.txt | ../sudoku solve
+cat $dir/horizontal.txt | ../sudoku solve hard
 
 #Test the solver with a grid with non-unique vertical rows
 echo
 echo "Non-unique vertical rows"
-cat $dir/vertical.txt | ../sudoku solve
+cat $dir/vertical.txt | ../sudoku solve hard
 
 #Test the solver with a grid with non-unique subsections 
 echo
 echo "Non-unique subsections (3x3 grids)"
-cat $dir/section.txt | ../sudoku solve
+cat $dir/section.txt | ../sudoku solve hard
 
 echo
 echo "#####################################"
@@ -57,18 +56,18 @@ echo "Testing solve on valid puzzles (should pass)"
 #Test the solver with an empty grid
 echo 
 echo "Empty grid"
-cat $dir/empty_grid.txt | ../sudoku solve
+cat $dir/empty_grid.txt | ../sudoku solve hard
 
 #Test the solver with a full grid
 echo 
 echo "Full grid"
-cat $dir/full_grid.txt | ../sudoku solve
+cat $dir/full_grid.txt | ../sudoku solve hard
 
 # Testing known solutions
 echo 
 echo "#####################################"
 echo "Testing for known solutions:"
-cat $dir/example1.txt | ../sudoku solve > $dir/example-output-1.txt
+cat $dir/example1.txt | ../sudoku solve hard > $dir/example-output-1.txt
 echo "Comparing output to known solution..."
 diff $dir/example-sol-1.txt $dir/example-output-1.txt
 

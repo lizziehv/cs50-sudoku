@@ -80,7 +80,6 @@ int main(int argc, char *argv[]) {
         else {
             int sudoku[5][9][9];
             if (parse_samurai(stdin, sudoku)) {
-                print_samurai(stdout, sudoku);
                 
                 if (!solve_samurai(sudoku)) {
                     printf("Sudoku given has no solution.\n");
