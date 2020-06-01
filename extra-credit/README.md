@@ -82,6 +82,8 @@ void sudoku_build(int sudoku[9][9], int level);
 void create_puzzle(int sudoku[9][9], int level);
 ```
 
+This will add an extra if statement that makes sure that the diagonals are unique thorughout the creation process.
+
 ##### Output
 This function outputs in the exact same format as the original sudoku, but the solution should have unique diagonal numbers
 ```
@@ -95,6 +97,8 @@ This function outputs in the exact same format as the original sudoku, but the s
 0 0 2 7 0 0 0 3 0
 0 8 0 0 0 2 7 1 6
 ```
+
+When solved, since the sudoku should have a unique siolution, there won't be any different process than how the normal sudoku is originally solved. We still added a command line input for consistency but the process would remain the same.
 
 ##### Hard Level Description
 <img src="assets/hard.png" alt="hard level" width="40%" />
@@ -119,7 +123,6 @@ This command line, calls the program `create.c` which will:
         9. Else, put back the original number
 10. Print the final puzzle to stdout
 11. Exit with zero status
-
 
 This puzzle done with two main functions:
 ```c
@@ -168,13 +171,13 @@ For example:
 ###### Solve
 Just like with the original, the sudoku is solved when the following command line is asked to execute:
 ``` bash
-./sudoku solve
+./sudoku solve hard
 ```
 
 This command line, calls the program `solve()` in `solve.c` which will:
 ```
 1. Take a parsed samurai sudoku matrix
-2. Then it will loop through every sudoku and solve each of them (since they have a unqiue solution, the middle overlap shouldn't be an issue)
+2. Then it will loop through every sudoku and solve each of them individually (since they have a unqiue solution, the middle overlap shouldn't be an issue)
 ```
 
 This is done with two main functions:
