@@ -64,7 +64,7 @@ int main(int argc, char *argv[]) {
         if (level != 3) {
             int sudoku[9][9];
             if (parse_sudoku(stdin, sudoku, level)) {
-                if (!solve(sudoku, level)) {
+                if (!efficient_solver(sudoku, level)) {
                     printf("Sudoku given has no solution.\n");
                 }
                 else {

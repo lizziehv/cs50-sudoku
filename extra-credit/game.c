@@ -24,8 +24,8 @@ SDL_Renderer *renderer = NULL;
 bool quit = false;
 
 /* For sudoku rendering */
-int SUDOKU_X = WIDTH;
-int SUDOKU_Y = HEIGHT;
+int SUDOKU_X = 40;
+int SUDOKU_Y = 40;
 int SQUARE_SIZE = 40;
 int BOARD_BORDER = 3;
 int sudoku[9][9];
@@ -33,8 +33,12 @@ int sudoku[9][9];
 /* For text rendering */
 TTF_Font* font;
 SDL_Color textColor = { 0, 0, 0, 255 }; // black
-SDL_Color backgroundColor = { 255, 255, 255, 255 }; // white
 
+/* Mouse position */
+int mouse_x = -1;
+int mouse_y = -1;
+int clicked_row = -1;
+int clicked_column = -1;
 
 /*********** Local functions ***********/
 int game_init();
@@ -44,7 +48,8 @@ void handle_events();
 void draw_sudoku();
 void game_clean();
 SDL_Texture* SurfaceToTexture( SDL_Surface* surf );
-
+bool mouse_in_area(int x, int y, int w,int h);
+void which_square(int x, int y, int w);
 
 int sudoku[9][9];
 
@@ -55,6 +60,10 @@ int main (int argc, char **argv){
 
   /* Begin start screen */
   start_screen();
+
+  sudoku_build(sudoku, 1);
+  create_puzzle(sudoku, 40, 1);
+  draw_sudoku(sudoku);
 
   while(!quit){
     handle_events();
@@ -106,6 +115,18 @@ void handle_events(){
     if (e.type == SDL_QUIT){
         quit = true;
     }
+    if (e.type == SDL_MOUSEBUTTONDOWN){
+      //Get mouse position
+      SDL_GetMouseState( &mouse_x, &mouse_y );
+      
+      if(mouse_in_area(SUDOKU_X, SUDOKU_Y, 
+          (SQUARE_SIZE + BOARD_BORDER)*9 + BOARD_BORDER, 
+          (SQUARE_SIZE + BOARD_BORDER)*9 + BOARD_BORDER)){
+
+          which_square(SUDOKU_X, SUDOKU_Y, (SQUARE_SIZE + BOARD_BORDER)*9 + BOARD_BORDER);
+          draw_sudoku(sudoku);
+      }
+    }
   }
 }
 
@@ -124,13 +145,14 @@ void setup_game(){
 
 void draw_sudoku(int sudoku[9][9]){
   /* Draw background Sudoku board */
+  setup_game();
   SDL_SetRenderDrawColor(renderer, 110, 107, 105, 255);
 
   SDL_Rect board;
   board.w = (SQUARE_SIZE + BOARD_BORDER)*9 + BOARD_BORDER;
   board.h = (SQUARE_SIZE + BOARD_BORDER)*9 + BOARD_BORDER;
-  board.x = SUDOKU_X/2 - board.w/2;
-  board.y = SUDOKU_Y/2 - board.w/2;
+  board.x = SUDOKU_X;
+  board.y = SUDOKU_Y;
   
   SDL_RenderFillRect(renderer, &board);
 
@@ -141,16 +163,19 @@ void draw_sudoku(int sudoku[9][9]){
   r.h = SQUARE_SIZE;
 
   for(int i = 0; i <= 8; i++){
-    r.x = board.x + (BOARD_BORDER + SQUARE_SIZE)*i + BOARD_BORDER;
+    r.y = SUDOKU_X + (BOARD_BORDER + SQUARE_SIZE)*i + BOARD_BORDER;
     for(int j = 0; j <= 8; j++){
       /* Draw square */
       SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-      r.y = board.y + (BOARD_BORDER + SQUARE_SIZE)*j + BOARD_BORDER;
+      r.x = SUDOKU_Y + (BOARD_BORDER + SQUARE_SIZE)*j + BOARD_BORDER;
       SDL_RenderFillRect(renderer, &r);
 
-      /* Draw border */
-      SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-      SDL_RenderDrawRect(renderer, &r);
+      /* Draw red border on last clicked */
+      if(i == clicked_row && j == clicked_column){
+        SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+        SDL_RenderDrawRect(renderer, &r);
+      }
+      
 
       /* Print number */
       int number = sudoku[i][j];
@@ -195,4 +220,16 @@ SDL_Texture* SurfaceToTexture( SDL_Surface* surf ){
 	SDL_FreeSurface( surf );
 
 	return text;
+}
+
+
+bool mouse_in_area(int x, int y, int w, int h){
+  return (mouse_x <= x+w && mouse_x >= x && mouse_y >= y && mouse_y <= y+ h );
+}
+
+void which_square(int x, int y, int w){
+  int square_size = w/9;
+  
+  clicked_row = (int)((mouse_y - y)/square_size); 
+  clicked_column = (int)((mouse_x - x)/square_size);
 }
