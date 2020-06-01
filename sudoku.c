@@ -66,23 +66,12 @@ int main(int argc, char *argv[]) {
             int sudoku[9][9];
             if (parse_sudoku(stdin, sudoku, level)) {           // parse sudoku
                 if (!efficient_solver(sudoku, level)) {
-                    printf("Sudoku given has no solution.\n");
+                    fprintf(stdout, "Sudoku given has no solution.\n");
                 }
                 else {
-                    printf("Solution:\n");
+                    fprintf(stdout, "Solution:\n");
+                    print_sudoku(stdout, sudoku);
                 }
-                clock_t toc = clock();
-                printf("Elapsed efficient: %f seconds\n", (double)(toc - tic) / CLOCKS_PER_SEC);
-
-                clock_t ticky = clock();
-                if (!solve(other, level)) {
-                    printf("Sudoku given has no solution.\n");
-                }
-                else {
-                    printf("Solution:\n");
-                }
-                clock_t tocky = clock();
-                printf("Elapsed solve: %f seconds\n", (double)(tocky - ticky) / CLOCKS_PER_SEC);
             }
             else {
                 fprintf(stderr, "Error: Sudoku given has incorrect format.\n"); 
@@ -95,16 +84,13 @@ int main(int argc, char *argv[]) {
             int sudoku[5][9][9];
             if (parse_samurai(stdin, sudoku)) {
                 
-                clock_t tic = clock();
                 if (!solve_samurai(sudoku)) {
-                    printf("Sudoku given has no solution.\n");
+                    fprintf(stdout, "Sudoku given has no solution.\n");
                 }
                 else {
-                    printf("Solution:\n");
+                    fprintf(stdout, "Solution:\n");
                     print_samurai(stdout, sudoku); 
                 }
-                clock_t toc = clock();
-                printf("Elapsed: %f seconds\n", (double)(toc - tic) / CLOCKS_PER_SEC);
             }
             else {
                 fprintf(stderr, "Error: Sudoku given has incorrect format.\n"); 

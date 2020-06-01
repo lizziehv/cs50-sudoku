@@ -26,9 +26,8 @@ static void remove_constraint(int constraints[9][9][9], int entry, int row, int 
 /********  efficient_solver()  *********/
 /******  See solve.h for details  ******/
 bool efficient_solver(int sudoku[9][9], int level){
-    int constraints[9][9][9];     // keeps track of constraints for each number
+    int constraints[9][9][9];
     
-    // fill in 3d matrix with 0s
     for(int number = 0; number < 9; number++){
         for(int row = 0; row < 9; row++){
             for(int column = 0; column < 9; column++){
@@ -46,7 +45,6 @@ bool efficient_solver(int sudoku[9][9], int level){
         }
     }
     
-    // call recursive solver
     return efficient_solver_helper(sudoku, constraints, 0, 0, level);
 } 
 
@@ -79,7 +77,7 @@ int sudoku_solutions(int sudoku[9][9], int level){
  */
 static bool efficient_solver_helper(int sudoku[9][9], int constraints[9][9][9], int row, int column, int level){
     // check if all entries have been visited
-    if (no_possibilities(possibilities)) {
+    if (row == 9 && column == 0) {
         return true;
     }
     for (int i=row; i<9; i++) {
@@ -114,15 +112,12 @@ static bool efficient_solver_helper(int sudoku[9][9], int constraints[9][9][9], 
                         }
                     }
                 }
-                if (current <= min) {
-                    min = current; 
-                    *min_row = i; 
-                    *min_col = j; 
-                }
-                current = 0; 
+                // no number worked
+                return false;
             }
         }
-    }  
+    }
+    return true;
 }
 
 /* 
@@ -137,12 +132,12 @@ static bool efficient_solver_helper(int sudoku[9][9], int constraints[9][9][9], 
 static void add_constraint(int constraints[9][9][9], int entry, int row, int column, int level){
     // add constraints to row
     for(int j = 0; j < 9; j++){
-        possibilities[row][j][entry-1] = 0;
+        constraints[entry][row][j] += 1;
     }
 
     // remove constraint from column
     for(int i = 0; i < 9; i++){
-        possibilities[i][column][entry-1] = 0;
+        constraints[entry][i][column] += 1;
     }
 
     // remove constraints from box
@@ -150,7 +145,7 @@ static void add_constraint(int constraints[9][9][9], int entry, int row, int col
     int cbox = column/3;
     for (int i = rbox*3; i < (rbox*3)+3; i++) {
         for (int j = cbox*3; j < (cbox*3)+3; j++) {
-            possibilities[i][j][entry-1] = 0;
+            constraints[entry][i][j] += 1;
         }
     }
 
@@ -159,12 +154,12 @@ static void add_constraint(int constraints[9][9][9], int entry, int row, int col
         // add constraints to diagonal
         if(row == column){
             for(int i = 0; i < 9;i++){
-                constraints[entry][i][i]+=1;
+                constraints[entry][i][i] += 1;
             }
         }
         else if(row == 8 - column){
             for(int i = 0; i < 9;i++){
-                constraints[entry][i][8-i]+=1;
+                constraints[entry][i][8-i] += 1;
             }
         }
     }
@@ -182,12 +177,12 @@ static void add_constraint(int constraints[9][9][9], int entry, int row, int col
 static void remove_constraint(int constraints[9][9][9], int entry, int row, int column, int level){
     // remove constraints from row
     for(int j = 0; j < 9; j++){
-        possibilities[row][j][entry-1] = 1;
+        constraints[entry][row][j] -= 1;
     }
 
     // remove constraint from column
     for(int i = 0; i < 9; i++){
-        possibilities[i][column][entry-1] = 1;
+        constraints[entry][i][column] -= 1;
     }
 
     // remove constraints from box
@@ -195,7 +190,7 @@ static void remove_constraint(int constraints[9][9][9], int entry, int row, int 
     int cbox = column/3;
     for (int i = rbox*3; i < (rbox*3)+3; i++) {
         for (int j = cbox*3; j < (cbox*3)+3; j++) {
-            possibilities[i][j][entry-1] = 1;
+            constraints[entry][i][j] -= 1;
         }
     }
     // for diagonal matrix
