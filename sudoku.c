@@ -26,10 +26,10 @@ int main(int argc, char *argv[]) {
     int level = 1; // keeps track of level (easy, medium, hard)
     char *levels[3] = {"easy", "medium", "hard"};
 
-    if (argc==3) {
+    if (argc == 3) {
         bool correct = false;
         for(int i = 1; i <= 3; i++){
-            if(strcmp(argv[2], levels[i - 1])==0){
+            if(strcmp(argv[2], levels[i - 1]) == 0){
                 level = i;
                 correct = true;
                 break;
@@ -61,8 +61,6 @@ int main(int argc, char *argv[]) {
 
     else if (strcmp(argv[1], "solve") == 0 ) {
         // Parse Sudoku
-        int level = 3;
-
         if (level != 3) {
             int sudoku[9][9];
             if (parse_sudoku(stdin, sudoku, level)) {
