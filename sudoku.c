@@ -66,10 +66,11 @@ int main(int argc, char *argv[]) {
             int sudoku[9][9];
             if (parse_sudoku(stdin, sudoku, level)) {           // parse sudoku
                 if (!efficient_solver(sudoku, level)) {
-                    printf("Sudoku given has no solution.\n");
+                    fprintf(stdout, "Sudoku given has no solution.\n");
                 }
                 else {
-                    printf("Solution:\n");
+                    fprintf(stdout, "Solution:\n");
+                    print_sudoku(stdout, sudoku);
                 }
             }
             else {
@@ -84,10 +85,10 @@ int main(int argc, char *argv[]) {
             if (parse_samurai(stdin, sudoku)) {
                 
                 if (!solve_samurai(sudoku)) {
-                    printf("Sudoku given has no solution.\n");
+                    fprintf(stdout, "Sudoku given has no solution.\n");
                 }
                 else {
-                    printf("Solution:\n");
+                    fprintf(stdout, "Solution:\n");
                     print_samurai(stdout, sudoku); 
                 }
             }
