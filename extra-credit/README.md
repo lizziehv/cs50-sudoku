@@ -19,27 +19,39 @@ As an extra credit, we didn't simply want to focus on graphics, instead we wante
 ##### Usage
 To expland upon`sudoku.c`, the extra-credit program works with the user through command lines:
 
+For a normal sudoku:
 ``` bash
 # creates a 9x9 grid with a unique solution 
 # outputs the grid into the stdout
 ./sudoku create
 ./sudoku create easy
 
+## can be solved in two ways
+./sudoku solve
+./sudoku solve easy 
+```
+
+For a medium sudoku:
+``` bash
 # creates a 9x9 grid with a unique solution 
 # outputs the grid into the stdout
 # This is a diagonal sudoku (meaning the diagonal lines "X" are also unique just like the horizontal and vertical)
 ./sudoku create medium
 
+# can be solved both ways
+./sudoku solve
+./sudoku solve medium
+```
+
+For a hard sudoku:
+``` bash
 # creates a 9x9 grid with a unique solution 
 # outputs the grid into the stdout
 # This is a samurai sudoku (which means that there will be 5 overlapping sudokus)
 ./sudoku create hard
 
-# takes in a grid from stdin or through piping
-# solves the sudoku
-./sudoku solve
-
-# OTHER COMMAND LINES ARE AVAILABLE, this are explained in the extra-credit file
+# if a hard sudoku is given but sudoku solve hard is not called then the solve will give incorrect format
+./sudoku solve hard
 ```
 
 ##### Easy Level Description
