@@ -187,9 +187,7 @@ void samurai_build(int sudoku[5][9][9]) {
                 } 
             }
         }
-        
     }
-
     // two two positive sloped sudokus
     for (int puzzle = 1; puzzle < 4; puzzle+=2) {
         for (int diag = 6; diag >= 0; diag -= 3) {
@@ -240,7 +238,6 @@ void create_puzzle_samurai(int sudoku[5][9][9], int num_removed){
                 do {
                     delete_i = rand() % 9;
                     delete_j = rand() % 9;
-                    delete_puzzle = rand() % 5;
                 } while (sudoku[delete_puzzle][delete_i][delete_j] == 0);
 
                 // store the value that will be deleted
@@ -262,7 +259,6 @@ void create_puzzle_samurai(int sudoku[5][9][9], int num_removed){
                 else{
                     isUnique = true;
                 }
-
             } while (!isUnique);
         }
     }
