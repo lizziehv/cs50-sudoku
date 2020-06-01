@@ -22,6 +22,7 @@ static void samurai_print_three(FILE *fp_out, int sudoku[5][9][9], bool top);
 static bool samurai_parse_two(FILE *file, int sudoku[5][9][9], bool top);
 static bool samurai_parse_three(FILE *file, int sudoku[5][9][9], bool top);
 static bool samurai_scan_assign(FILE *file, int sudoku[5][9][9], int puzzle, int i, int j);
+static bool samurai_scan_assign_twice(FILE *file, int sudoku[5][9][9], int puzzle1, int i, int j, int puzzle2, int k, int l);
 
 /****************** Global functions ******************/
 
@@ -169,6 +170,26 @@ bool parse_sudoku(FILE* file, int sudoku[9][9], int level) {
     return true; 
 }
 
+/**************** lines_in_file ****************/
+int lines_in_file(FILE *fp){
+  if (fp == NULL)
+    return 0;
+
+  rewind(fp);
+
+  int nlines = 0;
+  char c = '\0';
+  while ( (c = fgetc(fp)) != EOF) {
+    if (c == '\n') {
+      nlines++;
+    }
+  }
+
+  rewind(fp);
+  
+  return nlines;
+}
+
 /**************  Global functions for extra credit  **************/
 
 /***********  print_samurai()  ***********/
@@ -212,19 +233,15 @@ bool parse_samurai(FILE* file, int sudoku[5][9][9]) {
     // parse middle rows
     for(int i = 3; i < 6; i++){
         for(int j = 0; j < 9; j++){
-            int entry;
-            int ret = fscanf(file, "%d", &entry);
-
-            if(ret != 1 || ! (entry <= 9 && entry >= 0))
+            if(!samurai_scan_assign(file, sudoku, 2, i, j))
                 return false;
-
-            sudoku[2][i][j] = entry;
         }
     }
 
-    if(! samurai_parse_two(file, sudoku, false))
+    if(! samurai_parse_three(file, sudoku, false))
         return false;
-    if(! samurai_parse_three(file, sudoku, false))   
+
+    if(! samurai_parse_two(file, sudoku, false))   
         return false;
     
     return true;
@@ -293,6 +310,7 @@ static void samurai_print_three(FILE *fp_out, int sudoku[5][9][9], bool top){
         for (int j = 3; j < 6; j++) {
             fprintf(fp_out, "%d ", sudoku[2][6-2*first_row + r][j]);
         }
+        
         // Print the row of the second sudoku
         for (int j = 0; j < 9; j++) {
             fprintf(fp_out, "%d ", sudoku[second][r][j]);
@@ -335,9 +353,7 @@ static bool samurai_parse_three(FILE *file, int sudoku[5][9][9], bool top){
 
         // intersection
         for(int c = 6; c < 9; c++){
-            if(!samurai_scan_assign(file, sudoku, first, r, c))
-                return false;
-            if(!samurai_scan_assign(file, sudoku, 2, 6-2*first_row + r, c-6))
+            if(!samurai_scan_assign_twice(file, sudoku, first, r, c, 2, 6-2*first_row + r, c-6))
                 return false;
         }
 
@@ -349,9 +365,7 @@ static bool samurai_parse_three(FILE *file, int sudoku[5][9][9], bool top){
 
         //intersection
         for(int c = 6; c < 9; c++){
-            if(!samurai_scan_assign(file, sudoku, second, r, c - 6))
-                return false;
-            if(!samurai_scan_assign(file, sudoku, 2, 6-2*first_row + r, c))
+            if(!samurai_scan_assign_twice(file, sudoku, second, r, c - 6, 2, 6-2*first_row + r, c))
                 return false;
         }
 
@@ -370,7 +384,19 @@ static bool samurai_scan_assign(FILE *file, int sudoku[5][9][9], int puzzle, int
 
     if(ret != 1 || ! (entry <= 9 && entry >= 0))
         return false;
-
+    
     sudoku[puzzle][i][j] = entry;
+    return true;
+}
+
+static bool samurai_scan_assign_twice(FILE *file, int sudoku[5][9][9], int puzzle1, int i, int j, int puzzle2, int k, int l){
+    int entry;
+    int ret = fscanf(file, "%d", &entry);
+
+    if(ret != 1 || ! (entry <= 9 && entry >= 0))
+        return false;
+    
+    sudoku[puzzle1][i][j] = entry;
+    sudoku[puzzle2][k][l] = entry;
     return true;
 }
