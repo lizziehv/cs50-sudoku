@@ -87,6 +87,8 @@ This function outputs in the exact same format as the original sudoku, but the s
 ##### Hard Level Description
 <img src="assets/hard.png" alt="hard level" width="40%" />
 
+This level is tested in [testing.sh](testing.sh) separately, to not distrupt the original sudoku. It tests all of the same things tested by the orignal sudoku, except for the fuzzgenerator. It can be run by cd into this directory and calling `make test`. 
+
 ###### Create
 Just like with the original, the documents `create.h` and `create.c` are called by `sudoku.c` when the following command line is asked to execute:
 ``` bash
