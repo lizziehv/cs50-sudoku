@@ -13,7 +13,7 @@ echo "#####################################"
 echo "Testing incorrect parameters"
 
 # Testing with too many parameters 
-./sudoku solve create 
+./sudoku solve create hello  
 
 # Testing with too few parameters
 ./sudoku
@@ -125,5 +125,5 @@ if [ $? -eq 4 ] || [ $? -eq 5 ]
             then
                 echo "ERROR: solver changes original grid"
         fi
-    else echo "CORRECT: no sudoku has multiple solutions and solver doesn't change original grid"
+else echo "CORRECT: no sudoku has multiple solutions and solver doesn't change original grid"
 fi

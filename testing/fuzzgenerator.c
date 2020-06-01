@@ -62,12 +62,11 @@ int main(const int argc, char *argv[]) {
         int sudoku[9][9];
         srandom(5);
 
-        // dont' print anything if there was a proble building the sudoku
-        if (sudoku_build(sudoku, level)) {
-            create_puzzle(sudoku, 40, level);
-            print_sudoku(puzzles, sudoku);
-            fprintf(puzzles, "\n");  
-        }
+        sudoku_build(sudoku, level);
+        create_puzzle(sudoku, 40, level);
+        print_sudoku(puzzles, sudoku);
+        fprintf(puzzles, "\n");  
+        
         sleep(1); 
     }
 
@@ -94,13 +93,19 @@ int main(const int argc, char *argv[]) {
       int sudoku[9][9]; // will not be changed by solver
 
       // parse them into the structure (need both to check if any item in the grid is changed)
-      if (parse_sudoku(puzzles, solution, level) && parse_sudoku(puzzles, sudoku, level)) {
+      if (parse_sudoku(puzzles, sudoku, level)) {
+
+        for (int i = 0; i < 9; i++) {
+          for (int j = 0; j < 9; j++) {
+            solution[i][j] = sudoku[i][j];
+          }
+        }
         
         // if it has a unique solution
         if (sudoku_solutions(solution, level) == 1) { 
           
           // solve it
-          if (!solve(solution, level)) {
+          if (!efficient_solver(solution, level)) {
               fprintf(solutions, "Sudoku given has no solution.\n");
           }
           else if (check_solver(sudoku, solution)) {
