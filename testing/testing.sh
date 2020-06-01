@@ -1,4 +1,4 @@
-# Testing script for querier.c
+# Testing script for sudoku.c
 # Author: Maria Paula Mora, Lizzie Hernandez, Ethan Trepka, and Kshitij Jain 
 # Date: May 20, 2020
 #

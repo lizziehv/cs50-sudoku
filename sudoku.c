@@ -26,21 +26,27 @@ int main(int argc, char *argv[]) {
     int level = 1; // keeps track of level (easy, medium, hard)
 
     if (argc==3) {
-        if (strcmp(argv[2], "easy")==0) {
-            // Level 1 is easy
-            level = 1;
-        }
-        else if (strcmp(argv[2], "medium")==0) {
-            // Level 3 is medium
-            level = 2;
-        }
-        else if (strcmp(argv[2], "hard")==0) {
-            // Level 3 is hard
-            level = 3;
+        if (strcmp(argv[1], "create") != 0 ) {
+            fprintf(stderr, "Error: Incorrect command line given.\n");
+            return 1; 
         }
         else {
-            fprintf(stderr, "Error: Incorrect level given.\n");
-            return 1;
+            if (strcmp(argv[2], "easy")==0) {
+                // Level 1 is easy
+                level = 1;
+            }
+            else if (strcmp(argv[2], "medium")==0) {
+                // Level 3 is medium
+                level = 2;
+            }
+            else if (strcmp(argv[2], "hard")==0) {
+                // Level 3 is hard
+                level = 3;
+            }
+            else {
+                fprintf(stderr, "Error: Incorrect level given.\n");
+                return 1;
+            }
         }
     }
 

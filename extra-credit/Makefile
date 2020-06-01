@@ -10,6 +10,7 @@ COMMON_DIR = ../common/
 PROG = game
 OBJS = $(COMMON_DIR)common.o $(CREATE_DIR)create.o $(SOLVE_DIR)solve.o button.o game.o
 
+SCRIPT = testing.sh
 FLAGS = -lSDL2 -lSDL2_ttf
 CFLAGS = -Wall -pedantic -std=c11 -ggdb $(FLAGS)
 CC = gcc
@@ -31,9 +32,13 @@ button.o: button.h
 all:
 	$(MAKE) $(PROG)
 
+test: $(SCRIPT)
+	bash $(SCRIPT)
+	
 clean:
 	rm -f $(PROG)
 	rm -f core
 	rm -f *~ *.o
 	rm -f stocks
 	rm -rf *.dSYM
+	rm -f testdir/example-output-1.txt
