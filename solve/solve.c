@@ -141,9 +141,41 @@ static int solutions_recurse(int sudoku[9][9], int row, int column, int num_solu
 }
 
 /**************** Extra credit functions ****************/
-bool solve_samurai(int samurai[5][9][9]){
+bool solve_samurai(int sudoku[5][9][9]){
+
+    // Solve middle sudoku first
+    if(!solve(sudoku[2], 1)){
+        return false;
+    }
+
+    // Solve intersections
+    for (int i = 0; i < 9; i++) {       // rows
+        for (int j = 0; j < 9; j++) {   // columns 
+            // if it overlaps with the middle one
+            // for the two top sudokus
+            if (j < 3) {
+                if (i > 5) {
+                    sudoku[3][i-6][6+j] = sudoku[2][i][j];
+                }
+                if (i < 3) {
+                    sudoku[0][6+i][6+j] = sudoku[2][i][j];
+                }
+            }
+            // for the two buttom sudokus
+            if (j > 5) {
+                if (i > 5) {
+                    sudoku[4][i-6][j-6] = sudoku[2][i][j];
+
+                }
+                if (i < 3) {
+                    sudoku[1][6+i][j-6] = sudoku[2][i][j];
+                }
+            }
+        } 
+    } 
+
     for(int puzzle = 0; puzzle < 5; puzzle++){
-        if(!solve(samurai[puzzle], 1)){
+        if(puzzle != 2 && !solve(sudoku[puzzle], 1)){
             return false;
         }
     }
