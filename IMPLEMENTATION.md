@@ -118,6 +118,27 @@ The recursive solver runs as follows:
             - Since every number was tried and none worked, return false (backtrace steps)
     - Return true
 
+The more efficient version of the solver runs as follows:
+- Initialize a 3D array `constraints[number][row][column]` with all 0s, showing constraints for every number
+- Add row, column, and box constraints for all non empty squares
+- Begin recursing
+- If the solver is being called on entry (9, 0)
+    - Since this entry is not existent, all squares have been visited so return true
+- Otherwise
+    - For all squares starting at the current square and moving to the right and bottom rows
+        - If the entry is empty ( if it is 0)
+            - for every number in range [1, 9]
+                - If there is no constraint for this entry on the constraints array
+                    - Insert entry and add row, column, and box constraints to new sudoku
+                    - Call recursive solver on the entry that comes after it
+                    - if the recursive solver returns true
+                        - return true (found a solution that works)
+                    - else
+                        - reset current entry to empty
+                        - reset constraints
+            - Since every number was tried and none worked, return false (backtrace steps)
+    - Return true
+
 
 #### Sudoku creator
 - Fill the entire grid given with zeroes (to avoid any confusion)
