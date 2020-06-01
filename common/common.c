@@ -243,6 +243,12 @@ bool parse_samurai(FILE* file, int sudoku[5][9][9]) {
 
     if(! samurai_parse_two(file, sudoku, false))   
         return false;
+
+    // check if each of the sudokus is right
+    for(int i = 0; i < 4; i++){
+        if(!check_valid(sudoku[i], 1))
+            return false;
+    }
     
     return true;
 }
@@ -310,7 +316,7 @@ static void samurai_print_three(FILE *fp_out, int sudoku[5][9][9], bool top){
         for (int j = 3; j < 6; j++) {
             fprintf(fp_out, "%d ", sudoku[2][6-2*first_row + r][j]);
         }
-        
+
         // Print the row of the second sudoku
         for (int j = 0; j < 9; j++) {
             fprintf(fp_out, "%d ", sudoku[second][r][j]);
