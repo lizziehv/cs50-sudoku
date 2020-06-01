@@ -85,4 +85,13 @@ bool parse_sudoku(FILE* fp, int sudoku[9][9], int level);
  */ 
 bool parse_samurai(FILE* fp, int sudoku[5][9][9]);
 
+/******  lines_in_file()  ******/
+/* @param fp - file
+ * 
+ * Reads the number of new line characters 
+ *
+ * @return - number of lines in file
+ */
+int lines_in_file(FILE *fp);
+
 #endif

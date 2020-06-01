@@ -24,29 +24,20 @@ int main(int argc, char *argv[]) {
     }
 
     int level = 1; // keeps track of level (easy, medium, hard)
+    char *levels[3] = {"easy", "medium", "hard"};
 
-    if (argc==3) {
-        if (strcmp(argv[1], "create") != 0 ) {
-            fprintf(stderr, "Error: Incorrect command line given.\n");
-            return 1; 
+    if (argc == 3) {
+        bool correct = false;
+        for(int i = 1; i <= 3; i++){
+            if(strcmp(argv[2], levels[i - 1]) == 0){
+                level = i;
+                correct = true;
+                break;
+            }
         }
-        else {
-            if (strcmp(argv[2], "easy")==0) {
-                // Level 1 is easy
-                level = 1;
-            }
-            else if (strcmp(argv[2], "medium")==0) {
-                // Level 3 is medium
-                level = 2;
-            }
-            else if (strcmp(argv[2], "hard")==0) {
-                // Level 3 is hard
-                level = 3;
-            }
-            else {
-                fprintf(stderr, "Error: Incorrect level given.\n");
-                return 1;
-            }
+        if(!correct){
+            fprintf(stderr, "Error: Incorrect level given.\n");
+            return 1;
         }
     }
 
@@ -63,17 +54,16 @@ int main(int argc, char *argv[]) {
         else {
             int sudoku[5][9][9];
             samurai_build(sudoku);
-            create_puzzle_samurai(sudoku, 40); 
+            create_puzzle_samurai(sudoku, 40);
             print_samurai(stdout, sudoku);
         }
     }
 
     else if (strcmp(argv[1], "solve") == 0 ) {
         // Parse Sudoku
-        if (level < 3) {
+        if (level != 3) {
             int sudoku[9][9];
             if (parse_sudoku(stdin, sudoku, level)) {
-
                 if (!solve(sudoku, level)) {
                     printf("Sudoku given has no solution.\n");
                 }
@@ -90,6 +80,8 @@ int main(int argc, char *argv[]) {
         else {
             int sudoku[5][9][9];
             if (parse_samurai(stdin, sudoku)) {
+                print_samurai(stdout, sudoku);
+                
                 if (!solve_samurai(sudoku)) {
                     printf("Sudoku given has no solution.\n");
                 }
