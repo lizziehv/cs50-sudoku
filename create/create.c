@@ -266,7 +266,7 @@ void create_puzzle_samurai(int sudoku[5][9][9], int num_removed){
 
 // check to see if the value we are deleting is not causing multiple solutions
 static bool check_multiple_samurai(int delete_i, int delete_j, int delete_puzzle, int sudoku[5][9][9]) {
-    bool isUnique = true; 
+    bool isUnique; 
 
     // check if the middle is not causing multiple solutions
     if (delete_j > 5 && delete_i > 5) {
@@ -301,6 +301,10 @@ static bool check_multiple_samurai(int delete_i, int delete_j, int delete_puzzle
             isUnique = (sudoku_solutions(sudoku[0], 1) == 1 && sudoku_solutions(sudoku[2], 1) == 1);
         }
     }
+    else {
+        isUnique = (sudoku_solutions(sudoku[delete_puzzle], 1) == 1);
+    }
+    
     // return if deleting this value would cause multiple solutions on any of the functions
     return isUnique; 
 }
