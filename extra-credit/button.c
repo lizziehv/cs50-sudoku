@@ -15,7 +15,8 @@ typedef struct button{
     bool pressed;
 } button_t;
 
-static void button_process_event(button_t *btn, const SDL_Event *ev) {
+
+void button_process_event(button_t *btn, const SDL_Event *ev) {
     // react on mouse click within button rectangle by setting 'pressed'
     if(ev->type == SDL_MOUSEBUTTONDOWN) {
         if(ev->button.button == SDL_BUTTON_LEFT &&

@@ -160,6 +160,7 @@ void samurai_build(int sudoku[5][9][9]) {
             }
         } 
     } 
+
  
     // the diagonal 3x3 boxes are independent of each other, fill them first
     // two two negative sloped sudokus

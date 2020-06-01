@@ -30,6 +30,21 @@ bool solve(int sudoku[9][9], int level);
  * @param sudoku - an array of arrays(rows), where empty entries are set to 0
  * @param level - the level that the sudoku will be in
  * 
+ * Given a sudoku with empty entries, complete Sudoku puzzle efficiently, following conventions 
+ * (unique numbers in every row, column, and box)
+ * 
+ * Assumes that it is a valid sudoku (every number between 0 and 9)
+ * 9*9 matrix with 9 boxes of 3*3
+ * 
+ * @return - true if sudoku has been correctly solved
+ * @return - false if no solution found
+ */
+bool efficient_solver(int sudoku[9][9], int level);
+
+/* 
+ * @param sudoku - an array of arrays(rows), where empty entries are set to 0
+ * @param level - the level that the sudoku will be in
+ * 
  * Given a sudoku with empty entries, find the number of solutions without 
  * completing sudoku puzzle
  * 
