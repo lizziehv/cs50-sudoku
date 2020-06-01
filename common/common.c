@@ -17,6 +17,7 @@
 static bool check_valid(int sudoku[9][9], int level);
 
 /****************** Local functions (extra credit) ******************/
+// used for samurai sudoku (extra credit)
 static void samurai_print_two(FILE *fp_out, int sudoku[5][9][9], bool top);
 static void samurai_print_three(FILE *fp_out, int sudoku[5][9][9], bool top);
 static bool samurai_parse_two(FILE *file, int sudoku[5][9][9], bool top);
@@ -246,10 +247,10 @@ bool parse_samurai(FILE* file, int sudoku[5][9][9]) {
 
     // check if each of the sudokus is right
     for(int i = 0; i < 4; i++){
-        if(!check_valid(sudoku[i], 1))
+        if (!check_valid(sudoku[i], 1)) {
             return false;
+        }
     }
-    
     return true;
 }
 
