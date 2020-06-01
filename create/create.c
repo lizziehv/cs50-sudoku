@@ -138,28 +138,24 @@ void samurai_build(int sudoku[5][9][9]) {
     // Change the overlap
     for (int i = 0; i < 9; i++) {       // rows
         for (int j = 0; j < 9; j++) {   // columns 
-            sudoku[0][i][j] = 0;
-            sudoku[1][i][j] = 0;
-            sudoku[3][i][j] = 0;
-            sudoku[4][i][j] = 0;
-
             // if it overlaps with the middle one
             // for the two top sudokus
-            if (j > 5) {
+            if (j < 3) {
                 if (i > 5) {
-                    sudoku[0][i][j] = sudoku[2][i][j];
+                    sudoku[3][i-6][6+j] = sudoku[2][i][j];
                 }
                 if (i < 3) {
-                    sudoku[1][i][j] = sudoku[2][i][j];
+                    sudoku[0][6+i][6+j] = sudoku[2][i][j];
                 }
             }
             // for the two buttom sudokus
-            if (j < 3) {
+            if (j > 5) {
                 if (i > 5) {
-                    sudoku[3][i][j] = sudoku[2][i][j];
+                    sudoku[4][i-6][j-6] = sudoku[2][i][j];
+
                 }
                 if (i < 3) {
-                    sudoku[4][i][j] = sudoku[2][i][j];
+                    sudoku[1][6+i][j-6] = sudoku[2][i][j];
                 }
             }
         } 
