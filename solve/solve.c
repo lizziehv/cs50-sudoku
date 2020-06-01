@@ -15,9 +15,13 @@
 /************ (Not visible outside) **************/
 static bool solve_recursively(int sudoku[9][9], int row, int column, int level);
 static int solutions_recurse(int sudoku[9][9], int row, int column, int num_solutions, int level);
+
+// for efficient solver
 static bool efficient_solver_helper(int sudoku[9][9], int constraints[9][9][9], int row, int column, int level);
-static void add_constraint(int constraints[9][9][9], int entry, int row, int column);
-static void remove_constraint(int constraints[9][9][9], int entry, int row, int column);
+void find_smallest_location (int possibilities[9][9][9], int *min_row, int *min_col);
+bool no_possibilities(int possibilities[9][9][9]); 
+static void edit_posibilities(int sudoku[9][9], int possibilities[9][9][9], int entry, int row, int column); 
+static void add_possibilities(int possibilities[9][9][9], int entry, int row, int column); 
 
 /**************** Global functions ****************/
 
@@ -97,103 +101,112 @@ static bool solve_recursively(int sudoku[9][9], int row, int column, int level){
 }
 
 bool efficient_solver(int sudoku[9][9], int level){
-    int constraints[9][9][9];
+    int possibilities[9][9][9];
     
-    for(int number = 0; number < 9; number++){
-        for(int row = 0; row < 9; row++){
-            for(int column = 0; column < 9; column++){
-                constraints[number][row][column] = 0;
-            }
-        }
-    }
-
-    // Add constraints for filled in squares
+    
     for(int row = 0; row < 9; row++){
         for(int column = 0; column < 9; column++){
-            int entry = sudoku[row][column];
-            if(entry != 0)
-                add_constraint(constraints, entry - 1, row, column);
-        }
-    }
-
-    return efficient_solver_helper(sudoku, constraints, 0, 0, level);
-} 
-
-static bool efficient_solver_helper(int sudoku[9][9], int constraints[9][9][9], int row, int column, int level){
-    // check if all entries have been visited
-    if (row == 9 && column == 0) {
-        return true;
-    }
-    for (int i=row; i<9; i++) {
-        int j = (i == row) ? column : 0;
-        
-        for ( ; j<9; j++) {
-            int entry = sudoku[i][j];
-            // if it is empty
-            if( entry == 0){
-                for(int number = 0; number < 9; number++){
-                    // only test number if there are no constraints
-                    if(constraints[number][i][j] == 0 && check_entry(sudoku, i, j, number + 1, level)){
-                        // insert
-                        sudoku[i][j] = number + 1;
-
-                        // add constraints with new inserted number
-                        add_constraint(constraints, number, i, j);
-
-                        // recurse with new sudoku -> move to next entry
-                        bool ret;
-                        if (j == 8) 
-                            ret = efficient_solver_helper(sudoku, constraints, i+1, 0, level);
-                        else
-                            ret = efficient_solver_helper(sudoku, constraints, i, j+1, level);
-                        
-                        if(ret){        // found a solution that works
-                            return true;
-                        }
-                        else{           // number did not work
-                            sudoku[i][j] = 0;
-                            remove_constraint(constraints, number, i, j);
-                        }
+            for(int number = 0; number < 9; number++) {
+                if (sudoku[row][column] == 0) {
+                    if (check_entry(sudoku, row, column, number + 1, level)) {
+                        possibilities[row][column][number] = 1;
+                    }
+                    else {
+                        possibilities[row][column][number] = 0;
                     }
                 }
-                // no number worked
-                return false;
+                else {
+                    possibilities[row][column][number] = 0;
+                }
             }
         }
     }
-    return true;
+
+    return efficient_solver_helper(sudoku, possibilities, 0, 0, level);
 } 
 
-static void add_constraint(int constraints[9][9][9], int entry, int row, int column){
-    // add constraints to row
-    for(int j = 0; j < 9; j++){
-        constraints[entry][row][j] += 1;
+static bool efficient_solver_helper(int sudoku[9][9], int possibilities[9][9][9], int min_row, int min_col, int level){
+    // check if all entries have been visited
+    if (no_possibilities(possibilities)) {
+        return true;
     }
+    
+    find_smallest_location(possibilities, &min_row, &min_col);
 
-    // add constraint to column
-    for(int i = 0; i < 9; i++){
-        constraints[entry][i][column] += 1;
-    }
-
-    // add constraints to box
-    int rbox = row/3;
-    int cbox = column/3;
-    for (int i = rbox*3; i < (rbox*3)+3; i++) {
-        for (int j = cbox*3; j < (cbox*3)+3; j++) {
-            constraints[entry][i][j] += 1;
+    for (int num = 0; num < 9; num++) {
+        if (possibilities[min_row][min_col][num] == 1) {
+            sudoku[min_row][min_col] = num + 1;
+            edit_posibilities(sudoku, possibilities, num, min_row, min_col);
+            
+            bool ret;
+            if (min_col == 8) 
+                ret = efficient_solver_helper(sudoku, possibilities, min_row+1, 0, level);
+            else
+                ret = efficient_solver_helper(sudoku, possibilities, min_row, min_col+1, level);
+            
+            if(ret){        // found a solution that works
+                return true;
+            }
+            else{           // number did not work
+                sudoku[min_row][min_col] = 0;
+                add_possibilities(possibilities, num, min_row, min_col);
+            }
         }
     }
+    // no number worked
+    return false;
+  
+} 
+
+
+void find_smallest_location (int possibilities[9][9][9], int *min_row, int *min_col) {
+    int min = 0;  
+    int current = 0; 
+    for (int i = 0; i < 9; i++) {
+        for (int j = 0; j < 9; j++) {
+            if (i == *min_row && j == *min_col) {
+                break;
+            }
+            else {
+                for (int num = 0; num < 9; num++) {
+                    if (possibilities[i][j][num] == 1) {
+                        current ++; 
+                    }
+                }
+                if (current <= min) {
+                    min = current; 
+                    *min_row = i; 
+                    *min_col = j; 
+                }
+                current = 0; 
+            }
+        }
+    }  
 }
 
-static void remove_constraint(int constraints[9][9][9], int entry, int row, int column){
+bool no_possibilities(int possibilities[9][9][9]) {
+    for (int i = 0; i < 9; i++) {
+        for (int j = 0; j < 9; j++) {
+            for (int num = 0; num < 9; num++) {
+                if (possibilities[i][j][num] == 1) {
+                    return false; 
+                }
+            }
+        }
+    }  
+    return true; 
+}
+
+
+static void edit_posibilities(int sudoku[9][9], int possibilities[9][9][9], int entry, int row, int column){
     // remove constraints from row
     for(int j = 0; j < 9; j++){
-        constraints[entry][row][j] -= 1;
+        possibilities[row][j][entry-1] = 0;
     }
 
     // remove constraint from column
     for(int i = 0; i < 9; i++){
-        constraints[entry][i][column] -= 1;
+        possibilities[i][column][entry-1] = 0;
     }
 
     // remove constraints from box
@@ -201,9 +214,31 @@ static void remove_constraint(int constraints[9][9][9], int entry, int row, int 
     int cbox = column/3;
     for (int i = rbox*3; i < (rbox*3)+3; i++) {
         for (int j = cbox*3; j < (cbox*3)+3; j++) {
-            constraints[entry][i][j] -= 1;
+            possibilities[i][j][entry-1] = 0;
         }
     }
+}
+
+static void add_possibilities(int possibilities[9][9][9], int entry, int row, int column){
+     // remove constraints from row
+    for(int j = 0; j < 9; j++){
+        possibilities[row][j][entry-1] = 1;
+    }
+
+    // remove constraint from column
+    for(int i = 0; i < 9; i++){
+        possibilities[i][column][entry-1] = 1;
+    }
+
+    // remove constraints from box
+    int rbox = row/3;
+    int cbox = column/3;
+    for (int i = rbox*3; i < (rbox*3)+3; i++) {
+        for (int j = cbox*3; j < (cbox*3)+3; j++) {
+            possibilities[i][j][entry-1] = 1;
+        }
+    }
+
 }
 
 /* 
