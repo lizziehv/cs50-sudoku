@@ -171,7 +171,7 @@ void draw_sudoku(int sudoku[9][9]){
       SDL_RenderFillRect(renderer, &r);
 
       /* Draw red border on last clicked */
-      if(i == clicked_row && j == clicked_column){
+      if(i == clicked_row && j == clicked_column && sudoku[i][j] != 0){
         SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
         SDL_RenderDrawRect(renderer, &r);
       }

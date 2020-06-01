@@ -115,7 +115,7 @@ bool efficient_solver(int sudoku[9][9], int level){
                 add_constraint(constraints, entry - 1, row, column);
         }
     }
-
+    
     return efficient_solver_helper(sudoku, constraints, 0, 0, level);
 } 
 
@@ -133,7 +133,7 @@ static bool efficient_solver_helper(int sudoku[9][9], int constraints[9][9][9], 
             if( entry == 0){
                 for(int number = 0; number < 9; number++){
                     // only test number if there are no constraints
-                    if(constraints[number][i][j] == 0 && check_entry(sudoku, i, j, number + 1, level)){
+                    if(constraints[number][i][j] == 0){
                         // insert
                         sudoku[i][j] = number + 1;
 
