@@ -189,6 +189,9 @@ Exit values:
 - 4 Sudoku created by `create()` does not have a unique solution
 - 5 Solver changes an item from the original grid
 
+### Extra credit 
+The extra-credit is tested separately to not confuse the original testing. The samurai sudokus (or the hard level) is tested with the same descriptions as the original sudoku, except for the fuzzgenerator. For more imformation, see [testing](extra-credit/testing.sh).
+
 ### Output
 All errors are logged into standard error.
 
