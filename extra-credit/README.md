@@ -6,6 +6,9 @@
 * Ethan Trepka (et22)
 * Kshitij Jain (jkshitij77)
 
+<img src="assets/img.png" alt="graphics" width="50%" />
+
+
 ## Sudoku Puzzle Creator/Solver Overview
 Our extra credit has two parts, the first is creating other sudoku puzzles. For this we created several levels and types, like a diagonal sudoku and a samurai sudoku and then we updated our code to solve these puzzles. 
 
