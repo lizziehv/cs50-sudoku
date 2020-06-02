@@ -238,6 +238,7 @@ bool parse_samurai(FILE* fp, int sudoku[5][9][9]);
 ```
 
 ### Setup Graphics
+Only works in mac terminal, not in linux server 
 
 #### Prerequisites
 - [Homebrew]() - package manager for macOS
@@ -262,7 +263,7 @@ $ brew install sdl2_ttf
 For installation on Windows and Linux servers visit [this webpage](http://headerphile.blogspot.com/2014/04/setting-up-sdl2.html) to install `SDL2` and [this webpage](http://headerphile.blogspot.com/2014/07/sdl2-part-10-text-rendering.html) to install `SDL2_TTF`.
 
 ### Compiling and running
-To compile run `make` from the project directory.<br />
+To compile run `make` from the project directory (you might get a warning since it's not on linux, just ignore it and run the game) <br />
 To run the program, run `./game` from the command line.<br />
 To clean up run `make clean` from the project directory.<br />
 
