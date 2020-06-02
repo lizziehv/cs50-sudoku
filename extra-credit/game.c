@@ -12,7 +12,6 @@
 #include "../common/common.h"
 #include "../solve/solve.h"
 #include "../create/create.h"
-#include "button.h"
 
 /* Sets constants */
 #define WIDTH 900
@@ -209,52 +208,38 @@ void handle_events(){
     }
     // handle keyboard events
     if(e.type == SDL_KEYDOWN){
-      if((screen== 1 || screen == 2) && original_sudoku[clicked_row][clicked_column] == 0){
-        if( e.key.keysym.sym == SDLK_1 )
-          sudoku[clicked_row][clicked_column] = 1;
-        else if(e.key.keysym.sym == SDLK_2)
-          sudoku[clicked_row][clicked_column] = 2;
-        else if(e.key.keysym.sym == SDLK_3)
-          sudoku[clicked_row][clicked_column] = 3;
-        else if(e.key.keysym.sym == SDLK_4)
-          sudoku[clicked_row][clicked_column] = 4;
-        else if(e.key.keysym.sym == SDLK_5)
-          sudoku[clicked_row][clicked_column] = 5;
-        else if(e.key.keysym.sym == SDLK_6)
-          sudoku[clicked_row][clicked_column] = 6;
-        else if(e.key.keysym.sym == SDLK_7)
-          sudoku[clicked_row][clicked_column] = 7;
-        else if(e.key.keysym.sym == SDLK_8)
-          sudoku[clicked_row][clicked_column] = 8;
-        else if(e.key.keysym.sym == SDLK_9)
-          sudoku[clicked_row][clicked_column] = 9;
-      }
-      else if(screen==3){
-        int number = 0;
-        if( e.key.keysym.sym == SDLK_1 )
+      int number = 0;
+        if( e.key.keysym.sym == SDLK_1 ){
           number = 1;
-        else if(e.key.keysym.sym == SDLK_2)
+        } else if(e.key.keysym.sym == SDLK_2) {
           number = 2;
-        else if(e.key.keysym.sym == SDLK_3)
+        } else if(e.key.keysym.sym == SDLK_3){
           number = 3;
-        else if(e.key.keysym.sym == SDLK_4)
+        } else if(e.key.keysym.sym == SDLK_4){
           number = 4;
-        else if(e.key.keysym.sym == SDLK_5)
+        } else if(e.key.keysym.sym == SDLK_5){
           number = 5;
-        else if(e.key.keysym.sym == SDLK_6)
+        } else if(e.key.keysym.sym == SDLK_6){
           number = 6;
-        else if(e.key.keysym.sym == SDLK_7)
+        } else if(e.key.keysym.sym == SDLK_7){
           number = 7;
-        else if(e.key.keysym.sym == SDLK_8)
+        } else if(e.key.keysym.sym == SDLK_8){
           number = 8;
-        else if(e.key.keysym.sym == SDLK_9)
+        } else if(e.key.keysym.sym == SDLK_9){
           number = 9;
-        
-        samurai[clicked_sudoku][clicked_row][clicked_column] = number;
-        if(clicked_intersection_r >= 0){
-          samurai[2][clicked_intersection_r][clicked_intersection_c] = number;
         }
-      }
+
+        // assign to sudoku
+        if((screen== 1 || screen == 2) && original_sudoku[clicked_row][clicked_column] == 0){
+            sudoku[clicked_row][clicked_column] = number;
+        }
+        // assign to samurai
+        else if(screen==3){
+          samurai[clicked_sudoku][clicked_row][clicked_column] = number;
+          if(clicked_intersection_r >= 0){
+            samurai[2][clicked_intersection_r][clicked_intersection_c] = number;
+          }
+        }
 
       render_screen();
     }
