@@ -78,6 +78,23 @@ void create_puzzle(int sudoku[9][9], int level);
 ##### Output:
 - It will print a randomized sudoku with 40 empty spaces that need to be solved
     - Every time it is called, there will be a unique, random sudoku
+    - The grid is represented as 9 lines of text
+    - Each line contains 9 integers that range from 0 to 9, separated by a whitespace
+    - 0 represents a missing number in the grid
+
+For example:
+
+``` bash
+0 0 9 1 4 0 8 0 2
+8 0 0 0 5 9 0 0 0
+6 4 2 0 0 0 0 9 0
+0 8 0 9 7 0 4 1 0
+9 6 0 0 8 1 2 5 0
+0 7 0 6 0 0 3 8 9
+0 3 0 0 1 0 9 0 8
+5 0 4 8 0 0 1 0 0
+0 0 8 3 6 2 0 0 5
+```
 
 #### 'Sudoku Solve' description
 The documents `solve.h` and `solve.c` are called by `sudoku.c` when the following command line is asked to execute:
@@ -136,6 +153,20 @@ After you have finished writting the puzzle and want to solve it, use Control + 
 ##### Output:
 - If the stdin is empty or an incorrect puzzle is given, it will print "Error: Sudoku given has incorrect format."
 - Otherwise, it will print the solved sudoku into stdout
+
+For example:
+``` bash
+Solution:
+2 5 7 9 3 6 1 4 8
+1 9 3 2 8 4 7 6 5
+6 4 8 7 5 1 9 2 3
+3 6 1 5 7 9 2 8 4
+4 8 9 6 2 3 5 7 1
+7 2 5 4 1 8 6 3 9
+5 1 2 8 4 7 3 9 6
+8 3 6 1 9 2 4 5 7
+9 7 4 3 6 5 8 1 2
+```
 
 #### Common description
 The documents `common.h` and `common.c` define the following helper functions
