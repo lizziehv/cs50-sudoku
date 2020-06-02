@@ -53,6 +53,7 @@ int clicked_intersection_c = -1;
 int game_init();
 void render_screen();
 void render_start();
+void game_eval();
 void begin_puzzles();
 void handle_events();
 void render_sudoku(int sudoku[9][9], int original_sudoku[9][9], int board_x, int board_y, int border, int square_size, int level, int sudoku_number);
@@ -64,6 +65,7 @@ bool mouse_in_area(int x, int y, int w,int h);
 void which_square(int x, int y, int w);
 
 int screen = 0;
+int status = 0;
 int original_sudoku[9][9];
 int sudoku[9][9];
 
@@ -182,6 +184,7 @@ void handle_events(){
       // handle button actions
       if(mouse_in_area(SUDOKU_X - 150, (HEIGHT)/7, 60, 60)){
         screen = 0; // navigate to home screen
+        status = 0;
 
         // reset presets
         mouse_x = -1;
@@ -196,15 +199,18 @@ void handle_events(){
         // give up button has been chosen (show recursive solver)
         if(screen != 3){
           solve(original_sudoku, screen);
+        } else{
+          solve_samurai(original_samurai);
         }
-        else{
-          if(solve_samurai(original_samurai)){
-            print_samurai(stdout, original_samurai); 
-          }
-        }
+        status = -1;
+      }
+      else if(mouse_in_area(SUDOKU_X - 150, 2*(HEIGHT)/5 + 200, 110, 60)){
+        // done button has been chosen
+        game_eval();
       }
       // rerender
       render_screen();
+      
     }
     // handle keyboard events
     if(e.type == SDL_KEYDOWN){
@@ -318,26 +324,29 @@ void render_options(){
   solidRect.y = (HEIGHT)/7;
 
   SDL_RenderCopy(renderer, text, NULL, &solidRect);
-  SDL_SetRenderDrawColor(renderer, 135, 94, 189, 255);
-  char* options[3] = {"Give up", "Hint", "Done!"};
-  SDL_Rect button;
-  button.h = 60;
-  button.w = 110;
-  button.y = 2*(HEIGHT)/5;
-  button.x = SUDOKU_X - 150;
 
-  for(int i=0; i < 3; i++){
-    SDL_RenderFillRect(renderer, &button);
+  if(status == 0){
+    SDL_SetRenderDrawColor(renderer, 135, 94, 189, 255);
+    char* options[3] = {"Give up", "Hint", "Done!"};
+    SDL_Rect button;
+    button.h = 60;
+    button.w = 110;
+    button.y = 2*(HEIGHT)/5;
+    button.x = SUDOKU_X - 150;
 
-    /* Text */
-    text = to_texture(font_text, options[i], titleColor);
+    for(int i=0; i < 3; i++){
+      SDL_RenderFillRect(renderer, &button);
 
-    SDL_QueryTexture(text, NULL, NULL, &solidRect.w, &solidRect.h);
-    solidRect.x = button.x + (button.w - solidRect.w)/2;
-    solidRect.y = button.y + (button.h - solidRect.h)/2;
+      /* Text */
+      text = to_texture(font_text, options[i], titleColor);
 
-    SDL_RenderCopy(renderer, text, NULL, &solidRect);
-    button.y += 100;
+      SDL_QueryTexture(text, NULL, NULL, &solidRect.w, &solidRect.h);
+      solidRect.x = button.x + (button.w - solidRect.w)/2;
+      solidRect.y = button.y + (button.h - solidRect.h)/2;
+
+      SDL_RenderCopy(renderer, text, NULL, &solidRect);
+      button.y += 100;
+    }
   }
 }
 
@@ -408,6 +417,24 @@ void render_sudoku(int sudoku[9][9], int original_sudoku[9][9], int board_x, int
         SDL_RenderCopy(renderer, solidTexture, NULL, &solidRect);
       }  
     }
+  }
+  // render status (incorrect or correct)
+  if(status != 0 && status != -1){
+    SDL_Texture* text;
+    if(status == 1){
+      text = to_texture(font_title, "CORRECT", titleColor);
+    }
+    else{
+      text = to_texture(font_title, "INCORRECT", titleColor);
+    }
+    SDL_Rect solidRect;
+
+    SDL_QueryTexture( text, NULL, NULL, &solidRect.w, &solidRect.h );
+    solidRect.x = SUDOKU_X - 15;
+    solidRect.y = (HEIGHT)/3;
+
+    SDL_RenderCopy(renderer, text, NULL, &solidRect);
+
   }
 }
 
@@ -508,4 +535,29 @@ void which_square(int x, int y, int w){
   
   clicked_row = (int)((mouse_y - y)/square_size); 
   clicked_column = (int)((mouse_x - x)/square_size);
+}
+
+void game_eval(){
+  if(screen != 3){
+    solve(original_sudoku, screen);
+    for(int i = 0; i < 9; i++){
+      for(int j = 0; j < 9; j++){
+        if(sudoku[i][j] != original_sudoku[i][j]){
+          status = 2;
+          return;
+        }
+      }
+    }
+  } else{
+    solve_samurai(original_samurai);
+    for(int n = 0; n < 5; n++){
+      for(int i = 0; i < 9; i++){
+        for(int j = 0; j < 9; j++){
+          status = 2;
+          return;
+        }
+      }
+    }
+  }
+  status = 1;
 }
