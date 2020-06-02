@@ -8,7 +8,7 @@ CREATE_DIR = ../create/
 COMMON_DIR = ../common/
 
 PROG = game
-OBJS = $(COMMON_DIR)common.o $(CREATE_DIR)create.o $(SOLVE_DIR)solve.o button.o game.o
+OBJS = $(COMMON_DIR)common.o $(CREATE_DIR)create.o $(SOLVE_DIR)solve.o game.o
 
 SCRIPT = testing.sh
 FLAGS = -lSDL2 -lSDL2_ttf
@@ -24,7 +24,6 @@ $(PROG): $(OBJS)
 common.o: $(COMMON_DIR)common.h 
 solve.o: $(SOLVE_DIR)solve.h
 create.o: $(CREATE_DIR)create.h 
-button.o: button.h
 
 
 .PHONY:  clean test all test
