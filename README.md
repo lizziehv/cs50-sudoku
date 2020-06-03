@@ -8,6 +8,9 @@ This is the repository for the final project for Computer Science 50-- a sudoku 
 * Lizzie Hernandez (lizziehv)
 * Maria Paula Mora (mpmora00)
 
+### Final Video 
+https://drive.google.com/file/d/1WL7K_2MHqExW_gd8VInaS9QMjAj8pFGk/view?usp=sharing
+
 ### Compiling
 To build, run `make`.
 To clean up, run `make clean`.
