@@ -2,7 +2,7 @@
 ## Sudoku Puzzle Creator and Solver
 This is the repository for the final project for Computer Science 50-- a sudoku puzzle creator and solver.
 
-<img src="assets/img.png" alt="graphics" width="25%" />
+<img src="extra-credit/assets/img.png" alt="graphics" width="25%" />
 
 ### Contributors (Github username)
 * Ethan Trepka (et22)
